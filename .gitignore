@@ -25,6 +25,9 @@ constitution.md
 risk_config.json
 trade_memory.json
 
+# Deprecated / Test Scripts with Hardcoded Secrets
+tools/_deprecated/
+
 # Sensitive Tool Output
 tools/sniper_shots_log.json
 tools/system_health.json
