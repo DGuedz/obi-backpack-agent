@@ -33,6 +33,7 @@
   "exclude": [
     "node_modules",
     "backend_core/**",
+    "backpack-arkham-agent/**",
     "_LEGACY_V1_ARCHIVE/**",
     "_legacy_docs/**",
     "_LIXO_TOXICO/**"
