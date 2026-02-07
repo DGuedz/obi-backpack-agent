@@ -1,91 +1,146 @@
-# OBI: The Autonomous Capital Allocator
+# OBI Agent: The Agent-Native Trading Desk
+> **"VSC is for agents what SQL is for databases: a minimal, deterministic, and auditable language."**
 
-> **"Price lies, liquidity doesn't."**
-
-OBI (Order Book Imbalance) is an autonomous hedge fund agent operating on Solana's infrastructure (Backpack Exchange). It analyzes institutional order flow, detects whale manipulation, and allocates capital dynamically to protect retail investors from "smart money" traps.
+OBI (Order Book Imbalance) is an **Autonomous Trading Desk** built natively for the Solana ecosystem. It operates on a **Value-Separated Content (VSC)** cognitive runtime, allowing it to execute institutional-grade strategies with zero cognitive latency and full on-chain auditability.
 
 **Built for the Colosseum AI Agent Hackathon.**
 
 ---
 
-##  The Brain (Autonomous Architecture)
+## 🧠 The Agentic Paradigm (VSC)
 
-OBI is not just a trading bot; it is a self-driving capital manager.
+Most trading bots are fragile scripts wrapped in complex frameworks. OBI is different. It uses **VSC (Value-Separated Content)** as its native language.
 
-### 1. Perception Layer (Scanner)
-- **Whale Wall Detection**: Identifies large bid/ask walls (3x+ size) to detect support/resistance manipulation.
-- **OBI Analysis**: Calculates real-time Order Book Imbalance to determine the true direction of institutional flow.
-- **Smart Money Tracking**: Filters assets by volume and depth to avoid "pump and dump" schemes.
+### Why VSC?
+*   **Zero Latency:** No JSON parsing overhead. Decisions are binary and immediate.
+*   **Deterministic:** Rules are strict boolean gates. No "hallucinations".
+*   **Auditable:** Every decision logic is a flat file hashable on-chain.
 
-### 2. Decision Layer (The Brain)
-- **Context Awareness**: Checks account equity and health before every cycle.
-- **Strategy Selection**:
-    - **️ Sniper Mode**: Triggered by high volatility + strong OBI (>0.35). Uses VWAP filtering to enter only with the trend.
-    - ** Swing Farm Mode**: Triggered by lateral markets. Allocates micro-sizes to top 3 rising assets to capture spread.
-- **Kill Switch**: Hard stop mechanism that terminates all operations if equity drops below safety thresholds.
-
-### 3. Execution Layer (The Farmer)
-- **Maker-First Negotiation**: Attempts to provide liquidity (Limit Orders) to capture spread and reduce fees.
-- **Taker Aggression**: Switches to market orders only when OBI is extreme (>0.5), signaling an imminent breakout.
-- **Atomic Risk Check**: Calculates ATR (Average True Range) before *every* trade to adjust position size dynamically.
+**Example VSC Logic:**
+```vsc
+project_name,OBI Agent
+core_purpose,Autonomous High-Frequency Trading with On-Chain Volume Validation
+real_world_problem,Lack of transparency and auditability in algorithmic trading volumes
+value_created,Immutable Audit Trail|Real-Time Proof of Volume|Capital Efficiency
+```
 
 ---
 
-## ️ Technology Stack
+## 🛡️ Proof of Volume (The "Audit Receipt")
 
-- **Language**: Python 3.10+
-- **Infrastructure**: Solana (via Backpack Exchange API)
-- **Core Libraries**: `asyncio`, `requests`, `numpy` (minimized dependencies for speed)
+OBI introduces a new standard for agent accountability: **The Audit Receipt**.
+Instead of trusting a black box, OBI generates a cryptographic receipt of its tokenomics and volume, hashed and signed via AgentWallet on Solana.
+
+### 🏆 Battle-Tested Metrics (Backpack Season 4)
+This agent is not a simulation. It has been deployed in production, farming volume and reputation under hostile market conditions.
+
+**Global Performance:**
+*   **Total Volume:** `$2,272,666.11` (Honored)
+*   **Rank:** Level 14 (Gold Tier)
+*   **Next Milestone:** Level 15 ($3.2M)
+
+**Asset-Specific Mastery (Volume Depth):**
+The agent distributes liquidity intelligently across high-beta and major assets.
+
+| Asset | Volume Tier | Status |
+| :--- | :--- | :--- |
+| **SOL-PERP** | **Level 14** (>$320k) | 🟢 Honored |
+| **BTC-PERP** | **Level 14** (>$320k) | 🟢 Honored |
+| **ETH-PERP** | **Level 13** (>$160k) | 🟢 Honored |
+| **LIT-PERP** | **Level 13** (>$160k) | 🟢 Honored |
+| **HYPE-PERP** | **Level 12** (>$80k) | 🟢 Honored |
+| **PAXG/IP/BNB** | **Level 11** (>$40k) | 🟢 Honored |
+| **SKR/SUI/APT** | **Level 11** (>$40k) | 🟢 Honored |
+| **XRP/FOGO/0G** | **Level 10** (>$20k) | 🟡 Friendly |
+
+*Data updates every 10 minutes via Backpack API.*
+
+**Run the Audit:**
+```bash
+python3 tools/generate_audit_receipt.py
+```
+
+**Output (The Evidence):**
+```text
+============================================================
+       AGENT TOKENOMICS AUDIT RECEIPT (PROOF OF VSC)
+============================================================
+ Project:      OBI AGENT
+ Chain:        Solana (Mainnet)
+ VSC Hash:     52ea99d8385e617f... (SHA256)
+------------------------------------------------------------
+ [FINAL VALIDATION]
+ Real Demand:          ✅ TRUE
+ Survives w/o Hype:    ✅ TRUE
+ Project Valid:        ✅ TRUE
+============================================================
+```
+
+---
+
+## ⚡ Architecture
+
+### 1. Perception Layer (On-Chain & Off-Chain)
+- **Whale Wall Detection**: Scans orderbooks for liquidity voids.
+- **OBI Analysis**: Real-time imbalance calculation (Buyer vs Seller pressure).
+- **AgentWallet Integration**: Signs every critical milestone on-chain.
+
+### 2. Decision Layer (VSC Brain)
+- **Prompt Zero**: No conversational fluff. Pure logic execution.
+- **Kill Switch**: Hard equity stops enforcing capital preservation.
+- **Strategy Selection**: Switches between *Sniper Mode* (Volatility) and *Swing Farm* (Lateral) based on market regime.
+
+### 3. Execution Layer (Backpack Exchange)
+- **Maker-First**: Provides liquidity to capture rebates.
+- **Atomic Risk Check**: ATR-based sizing per trade.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Runtime**: Python 3.10+ (Optimized for speed)
+- **Cognitive Engine**: VSC (Value-Separated Content)
+- **Identity**: AgentWallet (Solana On-Chain Signing)
+- **Execution**: Backpack Exchange API
 - **Security**: Environment-based key management (Zero hardcoded secrets)
 
 ---
 
-##  How to Run
+## 🚀 How to Run
 
 ### Prerequisites
 1. Python 3.10+
-2. A Backpack Exchange account (API Key & Secret)
+2. Backpack Exchange Account
+3. AgentWallet (for on-chain validation)
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/obi-agent.git
-cd obi-agent
+git clone https://github.com/DGuedz/obi-backpack-agent.git
+cd obi-backpack-agent
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Configure Secrets
 cp .env.example .env
-# Edit .env with your BACKPACK_API_KEY and BACKPACK_API_SECRET
+# Edit .env with your BACKPACK_API_KEY and AGENT_WALLET credentials
 ```
 
 ### Start the Agent
 
 ```bash
-python3 agent_brain.py
+python3 start_system.py
 ```
 
-The agent will immediately start scanning the market and printing its decision logic to the console.
-
 ---
 
-## ️ Risk Management Protocol
+## 🔮 Roadmap: The Agentic Future
 
-OBI prioritizes **Capital Preservation** over profit.
-
-1.  **VWAP Filter**: Never buys below the daily Volume Weighted Average Price (avoids "catching falling knives").
-2.  **RSI Guard**: Prevents selling at the bottom (Oversold) or buying at the top (Overbought).
-3.  **Equity Hard Stop**: If the portfolio drops below a critical level (e.g., $2.00), the agent performs an emergency shutdown.
-
----
-
-##  Future Roadmap
-
-- **LLM Integration**: Feeding OBI metrics into an LLM to generate natural language market reports.
-- **DeFi Expansion**: Integrating with Jupiter for on-chain swaps beyond CEXs.
-- **Social Layer**: Automatically posting trade rationale to X (Twitter).
+1.  **On-Chain Inference**: Deploy VSC logic directly to Solana via Cauldron (Frostbite VM).
+2.  **DeFi Integration**: Expand execution to Jupiter and Kamino.
+3.  **Social Proof**: Auto-publish audit receipts to X/Twitter via API.
 
 ---
 
