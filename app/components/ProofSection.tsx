@@ -91,9 +91,9 @@ export default function ProofSection() {
             PROOF OF VOLUME. <span className="text-emerald-500">REAL.</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto font-mono">
-            Métricas e logs fazem parte do pipeline de validação do agente.
+            On-chain proof social com métricas reais da Backpack.
             <br />
-            Backpack Season 4: 423.77M volume units, Day 70/70.
+            Logs e relatórios fazem parte do pipeline de validação do agente.
           </p>
         </div>
 

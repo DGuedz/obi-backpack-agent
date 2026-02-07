@@ -3,11 +3,13 @@ import Hero from "./components/Hero";
 import AirdropCalculator from "./components/AirdropCalculator";
 import ProofSection from "./components/ProofSection";
 import PricingSection from "./components/PricingSection";
+import ColosseumPositioning from "./components/ColosseumPositioning";
 
 export default function Home() {
   return (
     <main>
       <Hero />
+      <ColosseumPositioning />
       <AirdropCalculator />
       <ProofSection />
       <Suspense fallback={null}>

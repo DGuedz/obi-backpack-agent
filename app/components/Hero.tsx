@@ -61,23 +61,23 @@ export default function Hero() {
 
    const TRANSLATIONS = {
      pt: {
-       phrases: [
-         "SKIN IN THE GAME", 
-         "EXECUÇÃO SOBERANA", 
-         "PROTEÇÃO ATÔMICA", 
-        "OBI AGENT V4", 
-        "REPUTAÇÃO ON-CHAIN: BACKPACK S4" 
-       ],
+      phrases: [
+        "AUTONOMOUS", 
+        "SOLANA-NATIVE", 
+        "ON-CHAIN EXECUTION", 
+        "OBI AGENT", 
+        "BACKPACK S4" 
+      ],
        clickToShoot: "< CLIQUE PARA ATIRAR E DESBLOQUEAR ALPHA />"
      },
      en: {
-       phrases: [
-         "SKIN IN THE GAME", 
-         "SOVEREIGN EXECUTION", 
-         "ATOMIC PROTECTION", 
-        "OBI AGENT V4", 
-        "ON-CHAIN REPUTATION: BACKPACK S4" 
-       ],
+      phrases: [
+        "AUTONOMOUS", 
+        "SOLANA-NATIVE", 
+        "ON-CHAIN EXECUTION", 
+        "OBI AGENT", 
+        "BACKPACK S4" 
+      ],
        clickToShoot: "< CLICK TO SHOOT & UNLOCK ALPHA />"
      }
    };
@@ -294,7 +294,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              HACKATHON | BACKPACK SEASON 4
+              COLOSSEUM AGENT HACKATHON
             </motion.div>
 
             {/* LOGO HERO */}
@@ -314,9 +314,9 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg md:text-xl text-zinc-400 max-w-2xl mb-10 font-mono"
             >
-              OBI Agent — prova real de execução e reputação on-chain para a Backpack Season 4.
+              An autonomous Solana-native agent built for real on-chain execution.
               <br />
-              Métricas verificáveis, evidências e transparência operacional para jurados.
+              Built to validate, simulate and settle actions with operational clarity.
             </motion.p>
 
             {/* Buttons */}
@@ -335,7 +335,7 @@ export default function Hero() {
               <Link href="/manifesto">
                 <button className="px-8 py-3 bg-zinc-900 border border-zinc-800 text-zinc-300 font-mono rounded hover:bg-zinc-800 transition-colors flex items-center gap-2 cursor-pointer">
                   <Terminal className="w-4 h-4" />
-                  MANIFESTO
+                  READ SPECS
                 </button>
               </Link>
             </motion.div>
@@ -344,23 +344,23 @@ export default function Hero() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 text-left w-full max-w-5xl">
               <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
                 <Target className="w-8 h-8 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-bold font-mono mb-2">Problema</h3>
+                <h3 className="text-xl font-bold font-mono mb-2">AgentWallet Signing</h3>
                 <p className="text-zinc-400 text-sm">
-                  Falta prova verificável de contribuição em liquidez. Emoção humana impacta em perdas e há baixo farm em PEPR DEX.
+                  Secure signing flow designed for autonomous execution without manual key handling.
                 </p>
               </div>
               <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
-                <Cpu className="w-8 h-8 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-bold font-mono mb-2">Solução</h3>
+                <Terminal className="w-8 h-8 text-emerald-500 mb-4" />
+                <h3 className="text-xl font-bold font-mono mb-2">Heartbeat + Status</h3>
                 <p className="text-zinc-400 text-sm">
-                  Painel com métricas reais, provas e relatórios do OBI Agent para validação no hackathon.
+                  Continuous liveness signals and status endpoints for judges and operators.
                 </p>
               </div>
               <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
                 <Shield className="w-8 h-8 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-bold font-mono mb-2">Impacto</h3>
+                <h3 className="text-xl font-bold font-mono mb-2">On-chain Execution</h3>
                 <p className="text-zinc-400 text-sm">
-                  Confiança, transparência e auditabilidade com reputação on-chain para a Backpack Season 4.
+                  Executes real Solana transactions with pre-flight validation and on-chain settlement.
                 </p>
               </div>
             </div>
