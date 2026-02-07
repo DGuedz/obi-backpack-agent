@@ -1,0 +1,18 @@
+# === LOOP FARMER TARGETS ===
+# Format: SYMBOL,DIRECTION_BIAS
+# Atualizado em: 04/02/2026 (Market Crash Edition)
+
+# 1. High Beta / Volatilidade Extrema (Oportunidade de Repique ou Short Squeeze)
+SOL_USDC_PERP,NEUTRAL
+
+# 2. Volume Massivo (Liquidez para Scalp)
+HYPE_USDC_PERP,NEUTRAL
+
+# 3. Top Gainer (Momentum Play - Força Relativa)
+ZORA_USDC_PERP,LONG
+
+# 4. Top Loser (Trend Follow Short)
+LIT_USDC_PERP,SHORT
+
+# 5. Alta Liquidez / Resiliência
+SUI_USDC_PERP,NEUTRAL

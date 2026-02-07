@@ -1,0 +1,30 @@
+# System & Environment
+.env
+.env.local
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+*.log
+venv/
+
+# Sensitive Credentials (Just in case)
+gen-lang-client-*.json
+_admin_backup_keys.json
+*_keys.json
+wallet.json
+
+# Intellectual Property & Strategy Docs (PROTECTED)
+_legacy_docs/
+_LIXO_TOXICO/
+recovery_plan_100.md
+specifications.md
+implementation_plan.md
+constitution.md
+risk_config.json
+trade_memory.json
+
+# Sensitive Tool Output
+tools/sniper_shots_log.json
+tools/system_health.json
+tools/tracked_wallets.json

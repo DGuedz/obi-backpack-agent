@@ -1,0 +1,7 @@
+{
+  "name": "OBI Agent (Backpack Trading)",
+  "description": "Autonomous AI agent for HFT and volume farming on Backpack Exchange. Features a real-world audit trail validated on-chain (Proof of Volume) to demonstrate resilience under volatile conditions. Built with VSC (Value-Separated Content) tokenomics for sustainable utility.",
+  "repoLink": "https://github.com/DGuedz/obi-backpack-agent",
+  "solanaIntegration": "Publishes OBI Proof of Volume hashes and signatures to Solana via AgentWallet, creating a cryptographic audit trail that verifies live trading performance. Utilizes VSC-based token economy design.",
+  "tags": ["trading", "ai", "defi"]
+}

@@ -1,0 +1,315 @@
+Aqui está o protocolo zero solicitado. Ele foi elaborado a partir de fontes confiáveis sobre gestão de risco, análise de mercado e verificação de algoritmos, e incorpora os princípios de ultra‑pensamento e desenvolvimento orientado a especificação. Este protocolo serve como lista de verificação obrigatória antes de qualquer entrada em operações, ajudando a melhorar a disciplina e minimizar erros.
+
+Protocolo Zero para Otimização de Lucro em Operações (Entradas)
+
+Este protocolo zero serve como uma lista de verificação (checklist) obrigatória antes de qualquer entrada no mercado. Ele foi desenvolvido a partir de práticas recomendadas de gestão de risco, análise de mercado e verificação de algoritmos, com base em fontes confiáveis. O objetivo é garantir que as operações sejam planejadas, obedecendo critérios técnicos e emocionais, e que erros de código ou de execução sejam identificados antes que causem perdas.
+
+Aviso: este material tem finalidade educativa e não constitui aconselhamento financeiro. Resultados passados não garantem resultados futuros. Consulte sempre profissionais autorizados antes de investir.
+
+1. Análise do Mercado
+
+Verifique eventos macroeconômicos e notícias de alto impacto – use um calendário econômico para identificar anúncios de bancos centrais, relatórios de emprego ou balanços corporativos que possam gerar volatilidade. Se um evento de alto impacto está próximo, decida se ficará fora do mercado ou se ajustará a estratégia.
+
+Avalie o sentimento do mercado – determine se o mercado está em modo “tolerante ao risco” ou “aversão ao risco”. Isso influenciará moedas, commodities e ações.
+
+Analise tendências técnicas – marque níveis-chave de suporte e resistência e confirme a direção com indicadores técnicos (médias móveis, linhas de tendência, RSI, MACD, Bandas de Bollinger etc.). Só opere a favor de uma tendência clara; evite mercados laterais ou sem direção.
+
+2. Critérios de Entrada e Saída
+
+Defina critérios objetivos de entrada – padrões de candlesticks específicos, cruzamento de médias, rompimento de canais ou outras regras da sua estratégia. Apenas entre se todas as condições forem atendidas.
+
+Planeje a saída antes de entrar – estabeleça níveis de stop-loss e take-profit baseados em suportes/resistências ou volatilidade. Não ajuste o stop para “stop mental”; mantenha um nível concreto que seja acionável.
+
+Dimensione a posição – respeite a regra dos 2 %: não arrisque mais de 2 % do capital em cada operação. Calcule o valor em risco com base no stop-loss.
+
+Exija uma relação risco‑retorno mínima – muitos traders patrocinados buscam uma relação de pelo menos 1:3 (arriscar $1 para ganhar $3). Ajuste sua meta conforme o perfil de risco e o ativo negociado.
+
+3. Protocolos de Gestão de Riscos e Controles Pré‑Trade
+
+Limites de volume e valor por ordem – estabeleça limites máximos de quantidade de contratos ou ações e de valor por ordem. Isso evita erros de digitação (“fat finger”) ou algoritmos que enviem ordens grandes demais.
+
+Faixas de preço (price collars) – defina um intervalo permitido para o preço de execução; ordens fora do intervalo são rejeitadas.
+
+Controle de execução (throttling) – limite o número de ordens ou modificações que podem ser enviadas em determinado período para impedir que um algoritmo defeituoso inunde o mercado.
+
+Botão de “kill switch” e circuit breakers – tenha um mecanismo para cancelar rapidamente todas as posições ou pausar o robô em caso de comportamento inesperado.
+
+Cumprimento de limites de margem e alavancagem – verifique o saldo, a margem livre e a alavancagem permitida na conta. A falta de fundos ou excesso de alavancagem é um erro grave; prefira testar estratégias com um depósito pequeno antes de operar com capital real.
+
+4. Verificação do Código/Algoritmo (Ultra‑Think & Spec‑Driven)
+
+Revisão do código com base em especificações (spec‑driven development) – mantenha uma especificação para cada estratégia (condições de entrada/saída, parâmetros, limites). Revise o código para garantir que ele implementa exatamente o que está na especificação. Atualize a spec sempre que a estratégia for modificada.
+
+Utilize testador de estratégias e depuração – execute backtests em diferentes instrumentos, timeframes e condições de mercado para identificar erros de lógica ou de algoritmo. O testador de estratégias do MetaTrader, por exemplo, mostra erros no diário de execução; ative o modo “Apenas erros” para localizá‑los rapidamente.
+
+Verifique erros comuns de código – antes de enviar ordens, certifique‑se de que o robô não apresenta:
+
+Insuficiência de fundos (verifique margem e saldo antes de OrderSend).
+
+Volume ou lote fora dos limites permitidos.
+
+Quantidade excessiva de ordens pendentes ou lotes por símbolo.
+
+Tentativas de modificar ordens em zonas de congelamento ou com parâmetros inválidos.
+
+Erros de divisão por zero, acesso além dos limites de arrays e uso indevido de indicadores personalizados.
+
+Simulação com capital reduzido – teste o algoritmo em conta demo ou com valor mínimo (ex.: US$1) para observar o comportamento e validar as rotinas de verificação de saldo.
+
+Logs e alertas – registre todas as decisões do robô em logs detalhados. Inclua mensagens de erro claras quando qualquer condição da spec não for satisfeita; isso facilita identificar a causa de entradas erradas e corrigi‑las.
+
+5. Verificação da Conta e Plataforma
+
+Conferir saldo e margens – confirme o saldo atual, as margens livres e o nível de alavancagem permitido. Ajuste o tamanho da posição para não ultrapassar os limites.
+
+Revisar limites e fases do programa – se estiver operando conta patrocinada ou em etapas de prova, garanta que não está ultrapassando os requisitos específicos (limites de loss/drawdown, metas de lucro etc.).
+
+Testar a plataforma e a conexão – verifique se a plataforma de trading está estável, sem atrasos ou erros de execução; reinicie se necessário.
+
+6. Preparação Mental e Emocional
+
+Autoavaliação de estresse e foco – antes de operar, faça uma checagem do seu estado emocional. Se estiver ansioso, eufórico ou distraído, evite operar.
+
+Lembretes e mantras – escreva frases curtas como “Siga o plano” ou “Sem trading de vingança” para reforçar a disciplina.
+
+Visualização – imagine‑se seguindo o checklist e executando as operações com calma e disciplina.
+
+Pausas programadas – inclua pequenas pausas para evitar fadiga mental e tomar decisões racionais.
+
+7. Checklist de Perguntas Essenciais (Modo Ultra‑Think)
+
+Siga estas perguntas binárias antes de qualquer entrada. Se alguma resposta for “não”, corrija a pendência antes de enviar a ordem:
+
+Há eventos macro ou microeconômicos que possam impactar minhas operações?
+
+O sentimento do mercado confirma a configuração que pretendo operar?
+
+Identifiquei níveis de suporte e resistência importantes e pontos de entrada?
+
+Estabeleci claramente onde posicionar stop‑loss e take‑profit?
+
+Estou arriscando uma quantia sensata (≤ 2 % do capital)?
+
+A relação risco‑retorno atende ao mínimo definido (por exemplo, 1:3)?
+
+Estou no estado mental e emocional adequado para operar hoje?
+
+A plataforma está funcionando normalmente e meu algoritmo foi testado sem erros?
+
+Estou em conformidade com as regras da conta patrocinada ou do meu plano de gestão de risco?
+
+8. Uso e Manutenção do Protocolo
+
+Imprima ou mantenha digitalmente o protocolo (Evernote/Notion/Sheets) para consultá‑lo antes de cada operação.
+
+Defina lembretes automáticos para revisar o calendário econômico e atualizar o checklist.
+
+Integre o protocolo à sua rotina – torne a checagem um hábito diário.
+
+Revise regularmente – ajuste o protocolo conforme a estratégia evolui ou quando identificar itens que você costuma ignorar.
+
+Registre desvios – anote em seu diário de trading quando não seguir o protocolo e analise os impactos.
+
+Recompense a disciplina – crie incentivos pessoais pela consistência.
+
+Conclusão
+
+O Protocolo Zero serve como um mecanismo de controle obrigatório antes de qualquer entrada no mercado. Ele combina análise fundamental e técnica, gestão de risco rigorosa, verificação do algoritmo e preparação psicológica, conforme recomendado por especialistas. Ao seguir este checklist em modo Ultra‑Think, você reduz drasticamente a probabilidade de erros (como ordens erradas, execuções indevidas ou falhas no robô) e aumenta sua disciplina e consistência. Lembre‑se de que o protocolo deve ser dinâmico: revise‑o sempre que o mercado ou sua estratégia mudarem.
+Perfeito. Abaixo está o **CONTEXTO DE IMPLEMENTAÇÃO** para injetar diretamente no **Agente TRAE**, no padrão **Ultra Think + Spec-Driven Dev**.
+Isso transforma o *Protocolo Zero* em **gate obrigatório de execução**.
+
+---
+
+## CONTEXTO GLOBAL — AGENTE TRAE
+
+### IDENTIDADE DO MÓDULO
+
+**Nome:** `PROTOCOLO_ZERO_GATE`
+**Tipo:** Pre-Trade Execution Guard
+**Modo:** Ultra Think (bloqueante)
+**Prioridade:** Máxima (nível 0)
+**Regra Absoluta:** *Nenhuma ordem pode ser enviada sem validação completa.*
+
+---
+
+## PRINCÍPIO FUNDAMENTAL (LEI ZERO)
+
+> **Se qualquer critério falhar → EXECUÇÃO PROIBIDA.**
+> Não existe exceção, override manual ou “confiança intuitiva”.
+
+---
+
+## FLUXO DE EXECUÇÃO (PIPELINE)
+
+```text
+INTENÇÃO_DE_ENTRADA
+        ↓
+PROTOCOLO_ZERO_GATE
+        ↓
+[VALIDAÇÃO COMPLETA]
+        ↓
+ ├─ PASS → EXEC_ORDER()
+ └─ FAIL → ABORT + LOG + FEEDBACK
+```
+
+---
+
+## CONTRATO DE INTERFACE (SPEC)
+
+### INPUT OBRIGATÓRIO
+
+```json
+{
+  "asset": "string",
+  "timeframe": "string",
+  "direction": "long | short",
+  "entry_price": "number",
+  "stop_loss": "number",
+  "take_profit": "number",
+  "risk_percent": "number",
+  "strategy_id": "string",
+  "market_context": {
+    "trend": "bull | bear | range",
+    "volatility": "low | medium | high",
+    "news_risk": "true | false"
+  }
+}
+```
+
+---
+
+### OUTPUT POSSÍVEL
+
+```json
+{
+  "status": "APPROVED | REJECTED",
+  "reason": "string",
+  "failed_checks": ["array"],
+  "confidence_score": "0-100"
+}
+```
+
+---
+
+## CHECKS OBRIGATÓRIOS (NÃO NEGOCIÁVEIS)
+
+### 1️⃣ CHECK DE INTEGRIDADE LÓGICA
+
+* SL ≠ Entry
+* TP ≠ Entry
+* SL do lado correto da posição
+* Risco matematicamente possível
+
+❌ Falha → `REJECTED: logical_inconsistency`
+
+---
+
+### 2️⃣ CHECK DE RISCO (HARD RULE)
+
+* `risk_percent <= 2%`
+* RR mínimo ≥ 1:2
+* Alavancagem compatível com SL
+
+❌ Falha → `REJECTED: risk_violation`
+
+---
+
+### 3️⃣ CHECK DE CONTEXTO DE MERCADO
+
+* Tendência alinhada com direção
+* Volatilidade aceitável para o setup
+* Sem evento macro iminente
+
+❌ Falha → `REJECTED: market_context_invalid`
+
+---
+
+### 4️⃣ CHECK DE SETUP (SPEC-DRIVEN)
+
+* Estratégia registrada (`strategy_id`)
+* Setup previamente validado
+* Condições objetivas atendidas (não subjetivas)
+
+❌ Falha → `REJECTED: setup_not_confirmed`
+
+---
+
+### 5️⃣ CHECK DE ERROS HISTÓRICOS
+
+O agente deve comparar com **erros passados**, como:
+
+* Entrada fora de tendência
+* SL curto demais
+* Overtrading
+* Reentrada emocional
+* Violação de RR
+
+❌ Falha → `REJECTED: repeated_historical_error`
+
+---
+
+### 6️⃣ CHECK DE ESTADO MENTAL (BINÁRIO)
+
+* Última operação foi loss? → cooldown
+* Sequência de trades excessiva? → bloqueio
+* Pressa detectada? → abort
+
+❌ Falha → `REJECTED: psychological_risk`
+
+---
+
+## SCORE FINAL (ULTRA THINK)
+
+```text
+confidence_score =
+  média ponderada de:
+  - contexto
+  - risco
+  - histórico
+  - qualidade do setup
+```
+
+🔒 **Regra:**
+`confidence_score < 80 → EXECUÇÃO PROIBIDA`
+
+---
+
+## LOGGING OBRIGATÓRIO
+
+Todo FAIL deve gerar:
+
+```json
+{
+  "timestamp": "ISO",
+  "asset": "string",
+  "reason": "string",
+  "failed_checks": [],
+  "prevented_loss_estimate": "number"
+}
+```
+
+Isso alimenta:
+
+* Aprendizado do agente
+* Estatísticas de erros evitados
+* Evolução do sistema
+
+---
+
+## FRASE-CHAVE PARA O AGENTE TRAE
+
+> **“Nenhuma ordem é uma boa ordem se não passou pelo Protocolo Zero.”**
+
+---
+
+## PRÓXIMO PASSO (SE QUISER)
+
+Posso entregar:
+
+1. **Versão em pseudo-código executável**
+2. **JSON Schema pronto para validação**
+3. **Integração com bot de trade / exchange**
+4. **Dashboard de bloqueios evitados**
+5. **Sistema de XP por disciplina (gamificado)**
+
+Diz qual você quer implementar primeiro.

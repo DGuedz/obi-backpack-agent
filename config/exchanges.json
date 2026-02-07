@@ -1,0 +1,32 @@
+{
+  "active_exchange": "backpack",
+  "exchanges": {
+    "backpack": {
+      "id": "backpack",
+      "name": "Backpack Exchange",
+      "enable_rate_limit": true,
+      "options": { "defaultType": "future" }
+    },
+    "binance": {
+      "id": "binance",
+      "name": "Binance International",
+      "enable_rate_limit": true,
+      "options": { "defaultType": "future" }
+    },
+    "bybit": {
+      "id": "bybit",
+      "name": "Bybit",
+      "enable_rate_limit": true,
+      "options": { "defaultType": "swap" }
+    },
+    "hyperliquid": {
+      "id": "hyperliquid",
+      "name": "Hyperliquid DEX",
+      "enable_rate_limit": true
+    }
+  },
+  "risk_parameters": {
+    "global_stop_loss_pct": 0.05,
+    "max_open_positions": 3
+  }
+}

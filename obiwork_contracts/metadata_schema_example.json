@@ -1,0 +1,32 @@
+{
+  "name": "OBIWORK ACCESS PASS #04",
+  "description": "Institutional-grade trading engineering access. Clone #04.",
+  "image": "https://obiwork.xyz/assets/nft/clone_04.png",
+  "external_url": "https://obiwork.xyz/pass/04",
+  "attributes": [
+    {
+      "trait_type": "Clone ID",
+      "value": "#04"
+    },
+    {
+      "trait_type": "Batch",
+      "value": "Batch 04"
+    },
+    {
+      "trait_type": "Weight",
+      "value": "1.5x"
+    },
+    {
+      "trait_type": "Paid Amount",
+      "value": "1997 USD"
+    },
+    {
+      "trait_type": "Access Level",
+      "value": "Workroom + Mentorship"
+    },
+    {
+      "trait_type": "Status",
+      "value": "Active"
+    }
+  ]
+}

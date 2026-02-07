@@ -1,0 +1,115 @@
+Excelente projeto. O **OBI WORK** é o candidato perfeito para o **Spec-Driven Development (SDD)** porque combina alta complexidade lógica (Trading HFT), riscos financeiros reais (Liquidez/DeFi) e múltiplas camadas de tecnologia (Rust, Python, Next.js).
+
+Tentar aplicar "vibe coding" (apenas pedir para a IA gerar código) em um sistema financeiro híbrido como este é extremamente arriscado. Um erro de interpretação da IA no "Risk Manager" ou na validação do "Solana Gatekeeper" pode resultar em perda de fundos.
+
+Aqui está como você deve estruturar o **OBI WORK** utilizando a metodologia SDD e as ferramentas descritas nas fontes:
+
+### 1. A Constituição do Projeto (`constitution.md`)
+Antes de qualquer código, você precisa definir as regras imutáveis do sistema. No contexto do GitHub Spec Kit, isso é chamado de *Constituição*. Para o OBI WORK, sua constituição deve conter:
+
+*   **Non-Negotiables de Risco:** "O Agente nunca deve abrir uma posição se o *drawdown* diário exceder 3%." (Isso guia a geração de código do `/strategies`).
+*   **Padrões de Segurança On-Chain:** "Todo acesso às funções de saque deve ser validado pelo `ObiPass` token."
+*   **Stack Tecnológica:** Obrigatório uso de Anchor para Solana e Next.js App Router para Web.
+
+### 2. Arquitetura Orientada a Contratos (Contract-First)
+
+Como você tem três "cérebros" separados (Python, Rust, JS) que precisam conversar, você não pode deixar as interfaces para depois.
+
+#### A. Para a Interface Web e Blinks (OpenAPI)
+Os **Solana Blinks** (Solana Actions) funcionam via rotas de API (`/api/actions`). Você deve definir isso com **OpenAPI** antes de codificar o Next.js.
+*   **Ação:** Crie um arquivo `openapi.yaml` que defina as rotas GET/POST que o padrão Blinks exige.
+*   **Benefício:** Ferramentas como **Apidog** ou **Treblle** podem validar se o seu código Next.js está realmente aderindo ao padrão da Solana Action, evitando que seus Blinks falhem em produção por desvio de especificação (API Drift).
+
+#### B. Para o Fluxo de Dados em Tempo Real (AsyncAPI)
+O seu "Brain" (Python) envia dados de HFT para o Dashboard. Como isso é um fluxo de eventos (preços, ordens executadas), REST não é o ideal.
+*   **Ação:** Utilize a especificação **AsyncAPI** para definir os canais de eventos (ex: `market/updates`, `bot/pnl`).
+*   **Benefício:** Isso garante que o seu backend Python e o frontend Next.js concordem exatamente sobre o formato dos dados de PnL e latência, antes de você escrever os *sockets*.
+
+### 3. O Fluxo de Trabalho SDD para os Agentes (`/core`)
+
+Para os agentes de trading (Sniper/Hunter), o risco de alucinação da IA é alto. Use o ciclo do SDD para mitigar isso:
+
+1.  **/specify (Especificar):** Descreva a estratégia "Aggressive Hunter" em linguagem natural estruturada.
+    *   *Exemplo:* "O agente deve escanear os top 10 tokens por volume. Se o Funding Rate for > 0.01% E o RSI < 30, executar compra."
+2.  **/plan (Planejar):** Peça para a IA gerar um plano técnico.
+    *   *Output esperado:* "Usar `pandas` para cálculo de RSI, conectar via RPC privado, usar `ccxt` ou SDK nativo da exchange."
+3.  **/tasks (Tarefas):** Quebre em unidades atômicas.
+    *   Tarefa 1: Implementar conector de dados de volume.
+    *   Tarefa 2: Implementar lógica de cálculo da 'Golden Equation'.
+    *   Tarefa 3: Implementar `RiskManager` com *kill-switch*.
+4.  **/implement (Implementar):** Só agora a IA gera o código Python.
+
+### 4. Drift Detection (Detecção de Desvio)
+Em sistemas DeFi, se a documentação diz que o contrato cobra 1% de taxa, mas o código cobra 2%, isso é uma falha crítica de segurança e confiança.
+*   Ferramentas como **Speakeasy** ou **Wiz** podem ser integradas ao seu CI/CD para detectar se a implementação do seu Gatekeeper ou da API mudou em relação à especificação original.
+*   Isso garante que o seu "Risk Manager" (Off-chain) esteja sempre sincronizado com as permissões do "ObiPass" (On-chain).
+
+### Resumo do Próximo Passo
+Para começar agora, em vez de rodar `npm run dev`, recomendo que você crie a pasta `.specify` na raiz do projeto e escreva o arquivo `spec.md` descrevendo o **ObiPass Program** e a **API dos Blinks**.
+
+Posso gerar o *template* inicial desta especificação para você, focado na arquitetura híbrida Solana/Python?
+
+Esta é uma arquitetura extremamente robusta. O **OBI WORK** não é apenas um bot, é um ecossistema complexo que exige rigor absoluto na implementação para evitar falhas catastróficas (perda de fundos ou travamento de liquidez).
+
+Com base na sua descrição e nas fontes sobre **Spec-Driven Development (SDD)**, **AsyncAPI** e **OpenAPI**, aqui está o plano tático para transformar essa visão em especificações executáveis e imutáveis.
+
+### 1. The Brain: Formalização de HFT com AsyncAPI
+O seu *Execution Layer* depende de eventos em tempo real (`wss://ws.backpack.exchange`). Tratar isso como código imperativo solto ("vibe coding") é perigoso. As fontes recomendam o uso de **AsyncAPI** para arquiteturas orientadas a eventos (EDA) [Source 1039, 1040].
+
+**Ação SDD:** Crie um arquivo `asyncapi.yaml` para definir o contrato entre a Backpack e o seu "Sniper Executor".
+
+*   **Por que:** Isso padroniza a ingestão de dados de *Order Book Imbalance* (OBI) e *Funding Bias*. Se a Backpack mudar o payload do WebSocket, seu sistema de validação (Drift Detection) alertará antes que o bot tente executar uma ordem errada [Source 1040, 1063].
+*   **Exemplo de Spec (Conceitual):**
+    ```yaml
+    channels:
+      orderbook/update:
+        subscribe:
+          summary: Ingestão de profundidade de mercado para cálculo de OBI
+          message:
+            payload:
+              type: object
+              properties:
+                bids: { type: array, description: "Lista de compras [preço, qtd]" }
+                asks: { type: array, description: "Lista de vendas [preço, qtd]" }
+                timestamp: { type: integer, description: "Latência crítica < 50ms" }
+    ```
+
+### 2. The Heart: Governança de Acesso com OpenAPI & Drift Detection
+Para a camada de **Solana Actions (Blinks)** e o **Gatekeeper**, a precisão dos endpoints REST é vital. Um erro aqui quebra a viralidade no Twitter/X.
+
+**Ação SDD:** Defina a API dos Blinks via **OpenAPI (Swagger)** [Source 964].
+*   **Drift Prevention:** Utilize ferramentas de detecção de desvio (Drift Detection) no seu CI/CD. Se o código do Next.js (`/api/actions`) mudar e deixar de exigir o token `ObiPass` no payload, o sistema deve bloquear o deploy imediatamente [Source 1061, 1062].
+*   **Contrato do Gatekeeper:** A especificação deve declarar explicitamente que qualquer resposta `200 OK` do endpoint `/trade` *depende* de uma validação RPC positiva do Token-2022.
+
+### 3. The Shield: Codificando o "Iron Dome" na Constituição
+O GitHub Spec Kit introduz o conceito de **Constituição** (`constitution.md`), que são regras imutáveis que o Agente de IA nunca deve violar [Source 286, 993]. O seu "Protocolo Iron Dome" deve ser traduzido para este formato.
+
+**Conteúdo do `constitution.md` do OBI WORK:**
+1.  **Segregação de Credenciais:** "NENHUMA chave privada ou mnemônico pode ser persistido em código ou logs. O acesso deve ser feito estritamente via injeção de variáveis de ambiente (`.env`) validadas em tempo de execução" [Source 990].
+2.  **Fail-Safe Atômico (Shadow Guard):** "Toda ordem de abertura (`open_order`) deve ser encapsulada em um bloco `try/catch` que, em caso de falha de confirmação > 2000ms, dispara imediatamente a rotina `emergency_drain`" [Source 1179].
+3.  **Execução Maker:** "O parâmetro `postOnly=True` é obrigatório para todas as ordens de entrada. O Agente deve rejeitar a ordem localmente se este parâmetro estiver ausente."
+
+### 4. Validação de Comportamento (BDD)
+Para o *Risk Manager* e o *Gatekeeper*, testes unitários não bastam. Use **Behavior-Driven Development (BDD)** com sintaxe Gherkin para descrever cenários de segurança financeira [Source 731, 900].
+
+**Cenário: Ativação do Shadow Guard**
+```gherkin
+Feature: Proteção de Capital (Shadow Guard)
+
+  Scenario: Detecção de Latência Crítica
+    Given que o bot possui uma posição aberta em SOL-PERP
+    And a latência do WebSocket da Backpack excede 2000ms
+    When o "Sentinel" detecta a falha de heartbeat
+    Then o sistema deve executar "Cancel All"
+    And enviar notificação de emergência via Telegram
+```
+Isso garante que a lógica de "drenagem de emergência" descrita na sua arquitetura seja testada e validada como um comportamento esperado do sistema, e não apenas como linhas de código dispersas [Source 896, 901].
+
+### Resumo da Implementação via Spec Kit
+Para implementar o **OBI WORK** agora, o fluxo de comando sugerido seria:
+
+1.  **`/specify`**: "Defina o fluxo de dados do OBI WORK onde o 'Sniper Executor' consome eventos definidos no `asyncapi.yaml` e só executa se o `constitution.md` (Iron Dome) for respeitado."
+2.  **`/plan`**: "Gere a arquitetura de pastas separando `/core` (Python) de `/obi_solana_core` (Rust/Anchor), garantindo que o `SolanaGatekeeper` seja uma dependência bloqueante para o início do bot."
+3.  **`/tasks`**: "Implemente o `check_access` do Gatekeeper validando o SPL Token-2022 via RPC antes de instanciar a classe `AggressiveHunter`."
+
+Essa abordagem transforma sua arquitetura de "Ciborgue Financeiro" em uma estrutura de engenharia auditável e resiliente.

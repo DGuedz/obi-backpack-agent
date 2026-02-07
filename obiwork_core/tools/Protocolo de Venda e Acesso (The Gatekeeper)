@@ -1,0 +1,13 @@
+Criei os três artefatos solicitados para o fluxo de venda e acesso do OBI Work. Eles já incorporam a jornada do usuário, a lógica do contrato inteligente e as medidas de segurança:
+
+1. **sales_flow_spec.md** – descreve a jornada completa do usuário, desde a conexão da carteira até a prova de posse e emissão do NFT. Inclui regras de verificação de saldo, execução atômica do pagamento e assinatura de posse.
+2. **OBIWorkLicense.sol** – contrato inteligente em Solidity com os preços das licenças, função `buyLicense` que cobra USDC e emite o NFT, mapeamento de tiers, opção de token soulbound e funções de verificação de acesso.
+3. **security_specs.md** – especifica a integração token‑gated no Discord, a verificação on‑chain na inicialização do bot Python (“phone home”), obfuscação e medidas anti‑tamper e diretrizes sobre transferibilidade dos tokens.
+
+Você pode baixar cada um dos arquivos nos links abaixo:
+
+* Blueprint de fluxo de vendas: {{file:file-P1Hr1sqNrigcX7SGLwnv5u}}
+* Contrato OBI Work License (Solidity): {{file:file-8qyr3KwMrh5aEMGGmP52VM}}
+* Especificações de segurança: {{file:file-C3UG9NTbiyHuU4KfkjupB1}}
+
+Qualquer ajuste adicional na arquitetura ou nos valores de tiers pode ser facilmente incorporado nesses documentos.

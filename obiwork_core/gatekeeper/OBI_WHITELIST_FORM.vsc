@@ -1,0 +1,25 @@
+# OBI WHITELIST APPLICATION FORM | VSC v1.0
+# "Compliance is the Gateway to Power."
+
+[META]
+TYPE|FORM_SPEC
+VERSION|1.0
+TARGET|USER_ONBOARDING
+STATUS|ACTIVE
+
+[FORM_STRUCTURE]
+# ID|QUESTION_TEXT|TYPE|VALIDATION_REGEX
+
+Q1|Nome Completo (Full Name)|STRING|^[a-zA-Z\s]{5,50}$
+Q2|CPF / National ID (KYC)|STRING|^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$
+Q3|Wallet Address (Solana/Backpack)|STRING|^[1-9A-HJ-NP-Za-km-z]{32,44}$
+Q4|Email Principal|STRING|^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
+Q5|Discord/Telegram Handle|STRING|^.{3,30}$
+Q6|Tempo de Mercado (Anos)|INT|^[0-9]{1,2}$
+Q7|Capital Inicial Disponível (USDC)|FLOAT|^[0-9]{3,7}$
+Q8|Perfil Técnico (Dev/Trader/Both)|OPTION|Dev|Trader|Both
+Q9|Código de Referência (Referral)|STRING|^[A-Z0-9]{6}$
+Q10|Aceita o Manifesto Black Mindz? (YES/NO)|BOOL|TRUE
+
+[END_OF_SPEC]
+HASH|FORM_INTEGRITY_PENDING

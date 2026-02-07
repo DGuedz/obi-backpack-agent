@@ -1,0 +1,49 @@
+project_name,OBI Agent
+core_purpose,Autonomous High-Frequency Trading with On-Chain Volume Validation
+real_world_problem,Lack of transparency and auditability in algorithmic trading volumes
+target_users,Institutional Traders|Market Makers|Auditors
+value_created,Immutable Audit Trail|Real-Time Proof of Volume|Capital Efficiency
+
+token_name,OBI Token
+token_symbol,OBI
+token_role,utility|access
+primary_use_case,Payment for On-Chain Validation Services
+secondary_use_case,Staking for VSC Brain & Advanced Strategy Access
+
+value_source,service|fee
+who_pays,Agent Operators|Data Consumers
+why_they_pay,For immutable proof of trading activity and volume certification
+value_flow_direction,circular
+
+max_supply,100000000
+initial_supply,10000000
+minting_allowed,false
+mint_condition,undefined
+burn_mechanism,true
+burn_condition,Percentage of validation fees burned quarterly
+
+allocation_team,15
+allocation_community,40
+allocation_treasury,25
+allocation_investors,20
+vesting_team,24
+vesting_investors,18
+
+reward_action,Liquidity Provision for Audited Pairs
+reward_frequency,Daily
+penalty_action,Slashing for Fraudulent Validation Attempts
+anti_sybil,true
+
+governance_enabled,true
+voting_power,token
+quorum_rule,4% of circulating supply
+proposal_scope,Fee Adjustment|Protocol Upgrades|New Trading Pairs
+
+risk_type,speculation
+risk_type,low_liquidity
+risk_type,centralization
+risk_mitigation,Long Vesting Schedules|Diversified Treasury|Incentivized LP
+
+token_has_real_demand,true
+token_survives_without_hype,true
+project_valid,true
