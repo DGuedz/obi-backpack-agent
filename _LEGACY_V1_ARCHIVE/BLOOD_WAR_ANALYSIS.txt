@@ -1,0 +1,27 @@
+# ANÁLISE DE CAMPO - OPERAÇÃO BLOOD WAR (PÓS-AÇÃO)
+# Data: 2025-01-18 (Segunda-feira)
+# Capital: $55.65 (Preservado)
+
+1. O QUE DEU CERTO:
+   - Setup Maker (Post Only): Funcionou em SOL e SUI. Gerou lucro líquido real.
+   - Disciplina de Capital: Não queimamos caixa em taxas desnecessárias.
+   - Stop Loss Curto: Protegeu o capital quando a ordem não entrou.
+
+2. O QUE FALHOU:
+   - Ativos "Pesados" (BTC/ETH): O capital de $55 é insuficiente para o tamanho mínimo de lote exigido nessas moedas na Backpack (Ex: 0.001 BTC = ~$95).
+   - Ativos "Ilíquidos" (APT): O spread zero no topo do book rejeita ordens Maker agressivas.
+
+3. O SETUP LUCRATIVO (PADRÃO REFINADO):
+   - Ativo: Focar EXCLUSIVAMENTE em SOL (Solana) e SUI (Sui).
+     -> Por que? Alta volatilidade, taxas baixas, tamanho de lote flexível (0.1 SOL = ~$14).
+   - Entrada: Limit Maker no topo do Book (Buffer 0.05%).
+   - Alvo: 0.5% de movimento (Scalp rápido).
+   - Stop: 0.4% (Risco/Retorno > 1:1).
+   - Gestão: Juros Compostos apenas em SOL/SUI até atingir $100.
+
+4. PLANO DE EXECUÇÃO IMEDIATA:
+   - Abandonar a "Sequência de 5 Ativos".
+   - Focar na "Sequência de Ouro": SOL -> SUI -> SOL -> SUI.
+   - Meta: Dobrar os $55 para $110 usando apenas o que funciona.
+
+ESTRATÉGIA DEFINIDA. PRONTO PARA REINICIAR EM SOL.

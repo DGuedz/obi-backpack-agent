@@ -1,0 +1,46 @@
+# BLACK MINDZ ENGINEERING MANIFESTO | VSC PROTOCOL v1.0
+# "Intenção é Código. Especificação é Lei. VSC é Velocidade."
+
+[META]
+TYPE|ENGINEERING_SPEC
+VERSION|1.0
+AUTHOR|BLACK_MINDZ_ARCHITECT
+DATE|2026-01-29
+STATUS|ACTIVE
+
+[1_PHILOSOPHY]
+CORE_PRINCIPLE|SPEC_DRIVEN_DEVOPS|A especificação técnica precede a execução. O código é apenas um detalhe de implementação da Spec.
+LANGUAGE|VSC|Value Separated Comparison. Maximiza densidade de informação e minimiza tokens.
+ARCH|AGENTIC|Microsserviços autônomos governados por Contratos de Integridade (Hash).
+
+[2_PROTOCOL_VSC]
+FORMAT|KEY|VALUE1|VALUE2|STATUS
+EXAMPLE|SOL|145.2|0.8|BULLISH
+BENEFIT|SPEED|Processamento 70% mais rápido que JSON.
+BENEFIT|CONTEXT|Arquiteturas inteiras cabem em um único prompt.
+
+[3_ORIGIN_PROMPT_TEMPLATE]
+# Copie e cole este bloco para iniciar novos projetos Agênticos
+PROMPT_START
+"Aja como um **Arquiteto de Sistemas Spec-Driven**. Vamos iniciar o projeto **[NOME DO PROJETO]**.
+**Diretrizes Mandatórias:**
+1. **Protocolo VSC:** Toda troca de mensagens deve usar VSC (ex: `VALOR1|VALOR2|STATUS`).
+2. **Atomicidade de Intenção:** Gere a **Spec Técnica** antes de codar.
+3. **Design Agêntico:** Microsserviços auditáveis via **Hash de Integridade**.
+4. **Sentinel Layer:** Guardrails obrigatórios para erros de sintaxe e limites.
+
+**Primeiro Passo:** Defina a Spec VSC para o núcleo deste sistema."
+PROMPT_END
+
+[4_MIGRATION_STRATEGY]
+STEP_1|TRANSFORMER|Crie um adaptador `vsc_transformer` para converter dados legados (JSON) em VSC.
+STEP_2|EXTERNAL_SPEC|Mova variáveis hardcoded para arquivos `.vsc` de configuração.
+STEP_3|SENTINEL_INJECTION|Injete observadores (`panic_sentinel`) que monitoram o output sem tocar no core legado.
+
+[5_ENGINEERING_BENEFITS]
+PORTABILITY|HIGH|Lógica transferível entre LLMs apenas movendo a Spec.
+REFACTORING|ZERO_COST|Correção de bugs via ajuste de Spec, não de código macarrônico.
+SCALABILITY|HUMAN|Humano define Estratégia. Agente define Sintaxe.
+
+[END_OF_SPEC]
+HASH|INTEGRITY_CHECK_PENDING

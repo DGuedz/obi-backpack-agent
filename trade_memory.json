@@ -1,0 +1,59 @@
+[
+    {
+        "id": "28064780296",
+        "timestamp": 1768939620,
+        "human_time": "2026-01-20T17:07:00.678777",
+        "symbol": "SOL_USDC_PERP",
+        "side": "Sell",
+        "status": "OPEN",
+        "context": {
+            "volume_24h": 177582282.3449,
+            "best_bid": 126.86,
+            "best_ask": 126.87,
+            "spread": 7.882705344478256e-05,
+            "obi": -0.18562813650234197,
+            "price": 126.88,
+            "ema_50": 132.61236045468567,
+            "funding_rate": 5.826028266234818e-06
+        },
+        "result": null
+    },
+    {
+        "id": "28065369137",
+        "timestamp": 1768939956,
+        "human_time": "2026-01-20T17:12:36.883957",
+        "symbol": "SOL_USDC_PERP",
+        "side": "Sell",
+        "status": "OPEN",
+        "context": {
+            "volume_24h": 178090163.0177,
+            "best_bid": 127.11,
+            "best_ask": 127.12,
+            "spread": 7.867201636381965e-05,
+            "obi": -0.24250339103922738,
+            "price": 127.12,
+            "ema_50": 132.62177221939154,
+            "funding_rate": 9.605945151674858e-06
+        },
+        "result": null
+    },
+    {
+        "id": "28066335375",
+        "timestamp": 1768940469,
+        "human_time": "2026-01-20T17:21:09.855704",
+        "symbol": "BTC_USDC_PERP",
+        "side": "Sell",
+        "status": "OPEN",
+        "context": {
+            "volume_24h": 564751509.668809,
+            "best_bid": 89672.2,
+            "best_ask": 89672.3,
+            "spread": 1.1151728183965685e-06,
+            "obi": -0.33984730005682084,
+            "price": 89663.3,
+            "ema_50": 92053.88782377602,
+            "funding_rate": 1.25e-05
+        },
+        "result": null
+    }
+]

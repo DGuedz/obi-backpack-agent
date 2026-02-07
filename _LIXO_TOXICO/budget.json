@@ -1,0 +1,6 @@
+{
+    "daily_budget": 500.0,
+    "max_daily_loss_pct": 0.10,
+    "current_loss": 0.0,
+    "last_reset": ""
+}

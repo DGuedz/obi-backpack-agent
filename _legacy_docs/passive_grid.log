@@ -1,0 +1,178 @@
+2026-01-22 08:44:36,759 - Grid-SOL_USDC_PERP - INFO - 🕸️ INICIANDO PASSIVE GRID: SOL_USDC_PERP
+2026-01-22 08:44:36,759 - Grid-SOL_USDC_PERP - INFO -    -> Qtd: 0.1 | Lines: 4 | Spread: 0.5%
+2026-01-22 08:44:36,759 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 08:44:38,527 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 129.14
+2026-01-22 08:44:39,009 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 128.49
+2026-01-22 08:44:39,533 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.84
+2026-01-22 08:44:39,869 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.19
+2026-01-22 08:44:41,185 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.44
+2026-01-22 08:44:41,629 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.09
+2026-01-22 08:44:41,970 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.74
+2026-01-22 08:44:42,345 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 132.39
+2026-01-22 08:44:42,346 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $129.79
+2026-01-22 10:30:13,232 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 10:30:13,569 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: -0.1 SOL_USDC_PERP
+2026-01-22 10:30:13,570 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 10:30:16,973 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 129.82
+2026-01-22 10:30:17,300 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 129.17
+2026-01-22 10:30:17,634 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 128.51
+2026-01-22 10:30:17,958 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.86
+2026-01-22 10:30:18,289 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.12
+2026-01-22 10:30:18,638 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.77
+2026-01-22 10:30:19,531 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 132.43
+2026-01-22 10:30:19,980 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 133.08
+2026-01-22 10:30:19,980 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $130.47
+2026-01-22 10:40:41,990 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 10:40:42,331 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.1 SOL_USDC_PERP
+2026-01-22 10:40:42,333 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 10:40:45,999 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 129.07
+2026-01-22 10:40:46,335 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 128.42
+2026-01-22 10:40:46,669 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.77
+2026-01-22 10:40:47,019 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.13
+2026-01-22 10:40:47,358 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.37
+2026-01-22 10:40:47,695 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.02
+2026-01-22 10:40:48,031 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.67
+2026-01-22 10:40:48,361 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 132.31
+2026-01-22 10:40:48,361 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $129.72
+2026-01-22 10:53:15,549 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 10:53:15,882 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.2 SOL_USDC_PERP
+2026-01-22 10:53:15,883 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 10:53:19,378 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 128.45
+2026-01-22 10:53:19,709 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.81
+2026-01-22 10:53:20,049 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.16
+2026-01-22 10:53:20,390 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.52
+2026-01-22 10:53:20,728 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.75
+2026-01-22 10:53:21,065 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.39
+2026-01-22 10:53:21,400 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.04
+2026-01-22 10:53:21,730 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.68
+2026-01-22 10:53:21,730 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $129.1
+2026-01-22 11:38:07,846 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 11:38:08,179 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.3 SOL_USDC_PERP
+2026-01-22 11:38:08,179 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 11:38:11,747 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 128.01
+2026-01-22 11:38:12,100 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.36
+2026-01-22 11:38:12,440 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.72
+2026-01-22 11:38:12,774 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.08
+2026-01-22 11:38:13,120 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.29
+2026-01-22 11:38:13,456 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.94
+2026-01-22 11:38:13,797 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.58
+2026-01-22 11:38:14,144 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 131.22
+2026-01-22 11:38:14,145 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $128.65
+2026-01-22 11:47:32,670 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 11:47:33,011 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.4 SOL_USDC_PERP
+2026-01-22 11:47:33,013 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 11:47:36,570 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.41
+2026-01-22 11:47:36,973 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.77
+2026-01-22 11:47:37,391 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.13
+2026-01-22 11:47:37,730 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.49
+2026-01-22 11:47:38,081 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.69
+2026-01-22 11:47:38,430 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.33
+2026-01-22 11:47:38,781 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.97
+2026-01-22 11:47:39,232 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.61
+2026-01-22 11:47:39,233 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $128.05
+2026-01-22 11:59:37,822 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 11:59:38,149 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 11:59:41,286 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.2
+2026-01-22 11:59:41,614 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.56
+2026-01-22 11:59:41,957 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.92
+2026-01-22 11:59:42,300 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.28
+2026-01-22 11:59:42,632 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.48
+2026-01-22 11:59:42,967 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.12
+2026-01-22 11:59:43,298 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.76
+2026-01-22 11:59:43,625 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.4
+2026-01-22 11:59:43,625 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.84
+2026-01-22 12:02:10,930 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:02:11,270 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:02:15,079 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.22
+2026-01-22 12:02:16,217 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.58
+2026-01-22 12:02:17,354 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.94
+2026-01-22 12:02:17,693 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.3
+2026-01-22 12:02:18,026 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.5
+2026-01-22 12:02:18,352 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.14
+2026-01-22 12:02:18,705 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.78
+2026-01-22 12:02:19,041 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.42
+2026-01-22 12:02:19,041 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.86
+2026-01-22 12:02:50,058 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:02:50,389 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.1 SOL_USDC_PERP
+2026-01-22 12:02:50,389 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:02:53,909 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.95
+2026-01-22 12:02:54,243 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.31
+2026-01-22 12:02:54,580 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.68
+2026-01-22 12:02:54,917 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.04
+2026-01-22 12:02:55,267 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.23
+2026-01-22 12:02:55,701 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.87
+2026-01-22 12:02:56,117 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.5
+2026-01-22 12:02:56,456 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.14
+2026-01-22 12:02:56,456 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.59
+2026-01-22 12:03:58,747 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:03:59,092 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.1 SOL_USDC_PERP
+2026-01-22 12:03:59,092 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:04:02,660 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.19
+2026-01-22 12:04:03,060 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.55
+2026-01-22 12:04:03,389 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.91
+2026-01-22 12:04:03,801 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.27
+2026-01-22 12:04:04,187 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.47
+2026-01-22 12:04:04,528 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.11
+2026-01-22 12:04:04,906 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.75
+2026-01-22 12:04:05,231 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.39
+2026-01-22 12:04:05,231 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.83
+2026-01-22 12:05:17,638 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:05:17,980 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.1 SOL_USDC_PERP
+2026-01-22 12:05:17,980 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:05:22,965 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.07
+2026-01-22 12:05:23,304 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.43
+2026-01-22 12:05:23,682 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.79
+2026-01-22 12:05:24,027 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.16
+2026-01-22 12:05:24,352 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.35
+2026-01-22 12:05:24,778 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.99
+2026-01-22 12:05:25,648 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.63
+2026-01-22 12:05:25,987 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.26
+2026-01-22 12:05:25,987 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.71
+2026-01-22 12:24:09,657 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:24:10,029 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.1 SOL_USDC_PERP
+2026-01-22 12:24:10,031 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:24:14,911 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.01
+2026-01-22 12:24:15,251 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.37
+2026-01-22 12:24:15,591 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.74
+2026-01-22 12:24:15,932 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.1
+2026-01-22 12:24:16,448 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.29
+2026-01-22 12:24:16,803 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.93
+2026-01-22 12:24:17,448 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.56
+2026-01-22 12:24:17,789 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.2
+2026-01-22 12:24:17,790 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.65
+2026-01-22 12:25:20,248 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:25:20,576 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.2 SOL_USDC_PERP
+2026-01-22 12:25:20,576 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:25:24,909 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.51
+2026-01-22 12:25:25,292 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.88
+2026-01-22 12:25:25,626 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.24
+2026-01-22 12:25:25,992 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 124.61
+2026-01-22 12:25:26,847 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 127.79
+2026-01-22 12:25:27,191 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.42
+2026-01-22 12:25:27,556 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.06
+2026-01-22 12:25:28,001 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.69
+2026-01-22 12:25:28,003 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.15
+2026-01-22 12:45:13,362 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:45:13,909 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: -0.1 SOL_USDC_PERP
+2026-01-22 12:45:13,912 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:45:17,718 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 127.3
+2026-01-22 12:45:18,165 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.66
+2026-01-22 12:45:18,501 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.02
+2026-01-22 12:45:18,849 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.38
+2026-01-22 12:45:19,225 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.58
+2026-01-22 12:45:19,600 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.22
+2026-01-22 12:45:20,071 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.86
+2026-01-22 12:45:20,439 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 130.5
+2026-01-22 12:45:20,439 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.94
+2026-01-22 12:56:25,471 - Grid-SOL_USDC_PERP - INFO - ⚡ Ordem Executada! Detectando mudança...
+2026-01-22 12:56:25,966 - Grid-SOL_USDC_PERP - INFO - 📊 Posição Atual: 0.1 SOL_USDC_PERP
+2026-01-22 12:56:25,967 - Grid-SOL_USDC_PERP - INFO - ♻️ Recalibrando Grid...
+2026-01-22 12:56:31,248 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 126.6
+2026-01-22 12:56:31,738 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.97
+2026-01-22 12:56:32,268 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 125.33
+2026-01-22 12:56:32,754 - Grid-SOL_USDC_PERP - INFO - 📍 Buy Limit @ 124.7
+2026-01-22 12:56:33,246 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 127.88
+2026-01-22 12:56:33,754 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 128.51
+2026-01-22 12:56:34,250 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.15
+2026-01-22 12:56:34,740 - Grid-SOL_USDC_PERP - INFO - 📍 Sell Limit @ 129.78
+2026-01-22 12:56:34,740 - Grid-SOL_USDC_PERP - INFO - ✅ Grid Posicionado em torno de $127.24

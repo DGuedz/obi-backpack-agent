@@ -1,0 +1,50 @@
+{
+  "incidents": [
+    {
+      "timestamp": 1768706159.516172,
+      "date": "2026-01-18 00:15:59",
+      "component": "CoinMarketCap",
+      "error_code": "500",
+      "message": "Internal Server Error: An internal server error occurred.",
+      "severity": "CRITICAL",
+      "resolved": false
+    },
+    {
+      "timestamp": 1768766064.914547,
+      "date": "2026-01-18 16:54:24",
+      "component": "ProfitFlowManager",
+      "error_code": "PROTOCOL_VIOLATION",
+      "message": "ALERTA: Protocolo n\u00e3o executado conforme combinado. An\u00e1lise t\u00e9cnica falhou (Vi\u00e9s Incorreto) resultando em Drawdown. A\u00e7\u00e3o Corretiva: Modo Resgate Ativado (SL Removido, Gest\u00e3o Manual para Breakeven).",
+      "severity": "CRITICAL",
+      "resolved": false
+    },
+    {
+      "timestamp": 1768767117.661149,
+      "date": "2026-01-18 17:11:57",
+      "component": "CoinMarketCap",
+      "error_code": "403",
+      "message": "{\n    \"status\": {\n        \"timestamp\": \"2026-01-18T20:11:57.616Z\",\n        \"error_code\": 1006,\n        \"error_message\": \"Your API Key subscription plan doesn't support this endpoint.\",\n        \"elapsed\": 0,\n        \"credit_count\": 0\n    }\n}",
+      "severity": "WARNING",
+      "resolved": false
+    },
+    {
+      "timestamp": 1768767118.098519,
+      "date": "2026-01-18 17:11:58",
+      "component": "CoinMarketCap",
+      "error_code": "500",
+      "message": "{\"status\":{\"timestamp\":\"2026-01-18T20:11:58.052Z\",\"error_code\":\"500\",\"error_message\":\"An internal server error occurred. \",\"elapsed\":0,\"credit_count\":0}}",
+      "severity": "WARNING",
+      "resolved": false
+    },
+    {
+      "timestamp": 1768767118.5294862,
+      "date": "2026-01-18 17:11:58",
+      "component": "CoinMarketCap",
+      "error_code": "500",
+      "message": "{\"status\":{\"timestamp\":\"2026-01-18T20:11:58.486Z\",\"error_code\":\"500\",\"error_message\":\"An internal server error occurred. \",\"elapsed\":1,\"credit_count\":0}}",
+      "severity": "CRITICAL",
+      "resolved": false
+    }
+  ],
+  "status": "DEGRADED"
+}

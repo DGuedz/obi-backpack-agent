@@ -1,0 +1,7 @@
+{
+    "min_volume_usd": 10000000,
+    "max_spread_pct": 0.0015,
+    "min_obi": 0.10,
+    "max_funding_rate": 0.0004,
+    "ema_tolerance_pct": 0.001
+}

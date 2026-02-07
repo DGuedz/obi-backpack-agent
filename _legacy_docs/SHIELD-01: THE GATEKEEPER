@@ -1,0 +1,534 @@
+Nome do Agente: SHIELD-01: THE GATEKEEPER
+Contexto e Identidade:
+Você é o SHIELD-01, um analista de inteligência on-chain especializado em segurança Web3 e mitigação de riscos. Sua missão principal é atuar como o guardião da nossa infraestrutura, filtrando usuários para a Whitelist e identificando endereços que devem entrar na Blacklist. Você opera sob o princípio da "Privacidade Blindada", garantindo que nenhum dado sensível seja exposto, mas que nenhum criminoso on-chain passe despercebido.
+
+Objetivos Principais:
+Triagem de Reputação: Analisar o histórico de endereços de carteira (Solidity e Solana) submetidos via formulário.
+
+Consulta de Inteligência: Consumir as APIs do RugCheck (para histórico de tokens fraudulentos) e GoPlus Security (para flags de lavagem de dinheiro ou hacks).
+
+Cálculo de Risk Score: Atribuir uma nota de 0 a 100 para cada usuário.
+
+Score > 80: Aprovação automática para geração de Merkle Proof.
+
+Score 40-80: Encaminhar para revisão manual da equipe.
+
+Score < 40: Blacklist imediata e registro do motivo.
+
+Otimização de Merkle Tree: Consolidar os endereços aprovados e preparar o lote (batch) para atualização da merkleRoot no contrato inteligente, minimizando custos de gas.
+
+Diretrizes de Operação:
+Zero Trust: Trate todas as carteiras novas (com pouco tempo de existência ou baixo histórico de transações) como potenciais ataques de Sybil.
+
+Análise de Cluster: Identifique se o endereço submetido tem conexões diretas com endereços já banidos ou mixers (como Tornado Cash).
+
+Economia de Dados: Não armazene identidades reais; armazene apenas o hash do usuário vinculado ao seu status de segurança.
+
+Como este Agente se conecta à nossa estrutura:
+Input: Ele monitora o banco de dados (Supabase/PostgreSQL) onde os formulários caem.
+
+Processamento: Ele chama a API do RugCheck (/v1/tokens/{id}/report/summary) para ver se a carteira está ligada a algum token de baixa liquidez ou golpe recente.
+
+Ação: Ele atualiza o status do banco de dados para "Verificado" e dispara um webhook para nosso script de Merkle Tree reconstruir a raiz.
+
+O que você prefere agora: que eu escreva o script de automação que conecta esse agente às APIs de segurança, ou que eu detalhe os critérios exatos do Risk Score que ele deve usar para julgar os usuários?
+Excelente, mestre. Vamos direto ao código. Como estamos falando de segurança e escalabilidade, a melhor forma de gerenciar essa Whitelist/Blacklist on-chain é através de Merkle Trees.
+
+Isso permite que você tenha 1 milhão de endereços autorizados, mas o custo de armazenamento no Smart Contract seja praticamente zero (você só guarda uma única bytes32 root).
+
+Aqui está o esboço do nosso contrato inteligente em Solidity e a estrutura do dashboard:
+
+1. O Contrato Inteligente (O Cofre de Acesso)
+Este contrato protege a entrada. Ele não guarda os endereços; ele exige que o usuário apresente uma "prova" (proof) de que ele foi validado pela nossa equipe.
+
+Solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Web3BlacklistShield is Ownable {
+    bytes32 public merkleRoot;
+    
+    // Mapeamento para banir endereços manualmente se necessário (Blacklist direta)
+    mapping(address => bool) public blacklisted;
+
+    event RootUpdated(bytes32 newRoot);
+    event UserBanned(address indexed user);
+
+    constructor(address initialOwner) Ownable(initialOwner) {}
+
+    // Atualiza a Raiz da Merkle Tree (feita após nossa equipe validar os usuários)
+    function setMerkleRoot(bytes32 _merkleRoot) external onlyOwner {
+        merkleRoot = _merkleRoot;
+        emit RootUpdated(_merkleRoot);
+    }
+
+    // Banimento direto (Emergência)
+    function banAddress(address _user) external onlyOwner {
+        blacklisted[_user] = true;
+        emit UserBanned(_user);
+    }
+
+    // Função que valida se o usuário pode entrar
+    function isAllowed(address _user, bytes32[] calldata _merkleProof) public view returns (bool) {
+        if (blacklisted[_user]) return false;
+        
+        bytes32 leaf = keccak256(abi.encodePacked(_user));
+        return MerkleProof.verify(_merkleProof, merkleRoot, leaf);
+    }
+}
+2. O Dashboard de Gestão (Retool + RugCheck API)
+Para nossa equipe "do outro lado" verificar os usuários, precisamos de um painel que consolide as informações.
+
+Fluxo de Dados:
+Input: O endereço da carteira vindo do formulário.
+
+Processamento:
+
+API RugCheck: Verifica se o endereço criou tokens que sofreram Rug Pull.
+
+API GoPlus: Checa se o endereço está em listas de hackers ou exploradores de pontes (bridges).
+
+On-chain History: Verifica a idade da conta (carteiras criadas há 5 minutos são Red Flag).
+
+Output: Um botão "Aprovar e Gerar Proof".
+
+3. Viabilidade Econômica
+Para manter o projeto sustentável:
+
+Armazenamento Off-chain: Guardamos os dados brutos no Supabase (Free Tier até 500MB, o que dá para milhares de usuários).
+
+Custo de Gas: Como usamos Merkle Tree, você só paga gas quando fecha um lote de novos usuários (ex: uma vez por dia você atualiza a Root), em vez de pagar por cada usuário aprovado.
+
+API RugCheck: Use o GET /v1/tokens/{id}/report para cruzar dados se o usuário declarar que é um desenvolvedor, ou o GET /v1/stats/recent para monitorar se ele está interagindo com lixo.
+
+Próximos Passos
+A estrutura está pronta. Para avançarmos: Você quer que eu prepare o script em JavaScript para gerar a Merkle Tree com base na sua lista de usuários, ou prefere focar na integração da API do RugCheck para automatizar a pontuação de risco (Risk Score)?
+mestre quero pensar em um padrao desenhado por nos para operar com uma infra capaz de nos proteger primeiro e depois a comunidade. breve eu virei com a narrativa. mas agora me ajude estruturar a prpducao da nossa ferramnta que estara no nossos para black list, nosso web 3 kyc. nosso protocolo exige um nivel blindado de gestao de privacidade. minha ideia é que qualquer usuario possar ao entrar na white liste preencha nosso formulario de inscricao e nossa equipe do outro lado verificando em nossas fontes sobre o historico do usuario. preciso de ferramentas e bliotecas para fazer essa gestao. encontrei esta farrementa on chain e quero fazer a nossa estrra com a api deles se for free, mas se nao veja viabilidade economica deste projeto.
+
+
+
+Swagger UI
+
+doc.json
+
+Explore
+
+RugCheck API
+
+1.0
+
+[ Base URL: api.rugcheck.xyz/ ]
+
+doc.json
+
+The RugCheck API for solana tokens
+
+
+
+Authorize
+
+Auth
+
+Authentication endpoints
+
+
+
+
+
+
+
+POST
+
+/v1/auth/login/solana
+
+Login with Solana
+
+Domains
+
+Domain name related endpoints
+
+
+
+
+
+
+
+GET
+
+/v1/domains
+
+Get registered domains
+
+
+
+GET
+
+/v1/domains/data.csv
+
+Get domains CSV
+
+
+
+GET
+
+/v1/domains/lookup/{id}
+
+Lookup domain address
+
+General
+
+General purpose endpoints
+
+
+
+
+
+
+
+GET
+
+/maintenance
+
+Maintenance service
+
+
+
+GET
+
+/ping
+
+Ping service
+
+
+
+GET
+
+/v1/leaderboard
+
+Get leaderboard
+
+
+
+GET
+
+/v1/maintenance
+
+Maintenance service
+
+
+
+GET
+
+/v1/rpc/stats
+
+Get RPC statistics
+
+Stats
+
+Statistical information endpoints
+
+
+
+
+
+
+
+GET
+
+/v1/stats/new_tokens
+
+Recently detected tokens
+
+
+
+GET
+
+/v1/stats/recent
+
+Most viewed tokens in past 24 hours
+
+
+
+GET
+
+/v1/stats/trending
+
+Most voted for tokens in past 24 hours
+
+
+
+GET
+
+/v1/stats/verified
+
+Recently verified tokens
+
+Tokens
+
+Token related endpoints
+
+
+
+
+
+
+
+POST
+
+/v1/bulk/tokens/report
+
+Bulk token reports
+
+
+
+
+
+POST
+
+/v1/bulk/tokens/summary
+
+Bulk token report summary
+
+
+
+
+
+POST
+
+/v1/tokens/verify
+
+Verify token
+
+
+
+
+
+POST
+
+/v1/tokens/verify/eligible
+
+Check token eligibility
+
+
+
+
+
+POST
+
+/v1/tokens/verify/transaction
+
+Get verification transaction
+
+
+
+
+
+GET
+
+/v1/tokens/{id}/insiders/graph
+
+Get token insider graph
+
+
+
+GET
+
+/v1/tokens/{id}/report
+
+Get full token report
+
+
+
+POST
+
+/v1/tokens/{id}/report
+
+Report token
+
+
+
+
+
+GET
+
+/v1/tokens/{id}/report/summary
+
+Get token report summary
+
+Vaults
+
+Token vault related endpoints
+
+
+
+
+
+
+
+GET
+
+/v1/tokens/{id}/lockers
+
+Returns the tokens LP vaults
+
+
+
+
+
+GET
+
+/v1/tokens/{id}/lockers/flux
+
+Returns the tokens LP vaults from flux locker
+
+
+
+Votes
+
+Token voting related endpoints
+
+
+
+
+
+
+
+POST
+
+/v1/tokens/{id}/vote
+
+Submit token vote
+
+
+
+
+
+GET
+
+/v1/tokens/{id}/votes
+
+Get token votes
+
+
+
+Models
+
+dto.AuthMessage
+
+dto.AuthRequest
+
+dto.AuthResponse
+
+dto.BulkRequest
+
+dto.BulkSummaryResponse
+
+dto.DomainResponse
+
+dto.ErrorResponse
+
+dto.Pong
+
+dto.SuccessResponse
+
+dto.TokenCheckSummary
+
+dto.TokenEligibilityRequest
+
+dto.TokenEligibilityResponse
+
+dto.TokenInfoAgg
+
+dto.TokenVerificationData
+
+dto.TokenVerificationRequest
+
+dto.TokenVerificationTransactionRequest
+
+dto.TokenVerificationTransactionResponse
+
+dto.VaultResponse
+
+dto.VaultResponseSummary
+
+dto.VoteRequest
+
+dto.VoteResponse
+
+rugcheck_api.EligibilityResponse
+
+rugcheck_api.Locker
+
+rugcheck_api.LockerType
+
+rugcheck_api.Risk
+
+rugcheck_api.Token
+
+rugcheck_api.TokenEvent
+
+rugcheck_api.TokenMetadata
+
+rugcheck_api.User
+
+rugcheck_api.VerifiedToken
+
+rugcheck_api.VerifiedTokenLinks
+
+rugcheck_api.VerifiedTokenSimple
+
+services.TrendingToken
+
+WEB3 MASTER PRO
+Custom Gem
+Fala, mestre! O entusiasmo aqui é mútuo. Se você traz a narrativa, eu trago o motor.
+
+Construir uma infraestrutura que protege primeiro a nós (o "core") e depois a comunidade é o pensamento de quem entende que, na Web3, segurança é soberania. Para o nosso protocolo de Blacklist & Web3 KYC, precisamos de uma arquitetura que não crie um "honeypot" de dados (ponto central de falha) e que seja economicamente viável.
+
+Aqui está a estrutura técnica para a nossa ferramenta:
+
+1. Viabilidade da RugCheck API
+A RugCheck API é excelente para análise de tokens Solana, mas para um sistema de KYC/Blacklist focado em usuários, ela servirá como uma camada de enriquecimento (para checar se aquele usuário está ligado a tokens maliciosos ou "rugs" passados).
+
+Economia: Atualmente, a RugCheck possui um sistema híbrido. O uso via interface é gratuito, mas o acesso via API para automação em larga escala geralmente requer registro e possui limites de taxa (rate limits). Se o volume for baixo no início, o plano gratuito/community deve suprir.
+
+Alternativa: Recomendo integrar também a GoPlus Security API. Ela é amplamente utilizada para detectar endereços em blacklists, riscos de aprovação de contratos e histórico de "malicious addresses" em várias chains (Ethereum, BSC, Solana, etc.), com um tier gratuito bem generoso.
+
+2. Ferramentas e Bibliotecas para o Nosso Protocolo
+Para uma gestão "blindada" de privacidade e uma Whitelist eficiente, utilizaremos o seguinte stack:
+
+A. Gestão de Identidade e Privacidade (The "Privacy Shield")
+Para evitar armazenar dados sensíveis (KYC tradicional) e ainda assim validar o usuário:
+
+ZkPass ou Polygon ID: Permitem que o usuário prove que é humano ou que passou em um critério (ex: idade, país) via Zero-Knowledge Proofs (ZKP), sem te enviar os documentos originais.
+
+Privy ou Dynamic: Excelentes SDKs para onboarding. Eles gerenciam a conexão da carteira e podem coletar e-mails/dados sociais de forma criptografada, facilitando a criação da sua lista de espera.
+
+B. O Motor da Whitelist & Blacklist (On-Chain)
+Merkle Trees (MerkleProof.sol): Esta é a forma mais barata e eficiente de gerenciar Whitelists on-chain. Em vez de salvar 1.000 endereços no contrato (o que custaria uma fortuna em gas), você salva apenas uma "raiz" (Root Hash).
+
+Helius (para Solana): Se o foco for Solana, use as APIs da Helius para monitorar em tempo real se um endereço na sua whitelist está interagindo com protocolos suspeitos.
+
+C. Fluxo de Verificação Humana (Back-office)
+Retool ou Appsmith: Para criar o painel interno da nossa equipe. Conectamos o Retool à nossa DB (onde estão os dados do formulário) e via API à RugCheck/GoPlus.
+
+Supabase: Banco de dados focado em segurança com autenticação integrada, ideal para armazenar os hashes dos usuários e o status da verificação de forma rápida e privada.
+
+3. Arquitetura Sugerida do Protocolo
+Entrada: Usuário conecta a wallet e preenche o form (via Privy).
+
+Triagem Automática: Um script (Node.js/Python) consulta a RugCheck API e GoPlus para verificar se o endereço tem "ficha suja".
+
+Revisão Manual: Nossa equipe visualiza o report em um dashboard (no Retool).
+
+Aprovação: Ao aprovar, o sistema gera um novo Merkle Root e atualiza o Smart Contract.
+
+Acesso: O usuário agora pode interagir com o protocolo de forma blindada.
+
+Próximo Passo
+A viabilidade econômica é alta se usarmos Merkle Trees para o on-chain e Tiers Gratuitos de APIs para o off-chain.
+
+Você quer que eu esboce agora o Smart Contract (em Solidity ou Rust) para essa gestão de Whitelist via Merkle Tree ou prefere que eu detalhe o dashboard de análise da equipe?

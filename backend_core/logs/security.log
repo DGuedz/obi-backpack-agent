@@ -1,0 +1,6 @@
+2026-01-29 22:18:39,798 - IRON_DOME - INFO - 🔒 Hardening permissions for /Users/doublegreen/backpacktrading/.env...
+2026-01-29 22:18:39,798 - IRON_DOME - INFO - ✅ .env secured (0600).
+2026-01-29 22:18:39,798 - IRON_DOME - INFO - 🪤 Deploying Honeypot Decoy...
+2026-01-29 22:18:39,798 - IRON_DOME - INFO - ✅ Honeypot deployed at /Users/doublegreen/backpacktrading/_admin_backup_keys.json
+2026-01-29 22:18:39,798 - IRON_DOME - INFO - ✅ Sentinel script created at /Users/doublegreen/backpacktrading/tools/iron_dome_sentinel.py
+2026-01-29 22:18:50,492 - SENTINEL - INFO - Sentinel started.

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#10b981" stroke-width="2" style="background-color: transparent;">
+  <!-- Outer Ring with Gaps -->
+  <path d="M 50 5 A 45 45 0 0 1 95 50" stroke-opacity="0.8" stroke-dasharray="10 5" />
+  <path d="M 95 50 A 45 45 0 0 1 50 95" stroke-opacity="0.8" stroke-dasharray="10 5" />
+  <path d="M 50 95 A 45 45 0 0 1 5 50" stroke-opacity="0.8" stroke-dasharray="10 5" />
+  <path d="M 5 50 A 45 45 0 0 1 50 5" stroke-opacity="0.8" stroke-dasharray="10 5" />
+  
+  <!-- Inner Brackets (Scope Corners) -->
+  <path d="M 30 20 L 20 20 L 20 30" stroke-width="2" stroke-linecap="round" />
+  <path d="M 70 20 L 80 20 L 80 30" stroke-width="2" stroke-linecap="round" />
+  <path d="M 30 80 L 20 80 L 20 70" stroke-width="2" stroke-linecap="round" />
+  <path d="M 70 80 L 80 80 L 80 70" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Crosshairs with Mil-Dots -->
+  <line x1="50" y1="10" x2="50" y2="90" stroke-width="1" />
+  <line x1="10" y1="50" x2="90" y2="50" stroke-width="1" />
+  
+  <!-- Vertical Mil-Dots -->
+  <line x1="48" y1="30" x2="52" y2="30" stroke-width="1" />
+  <line x1="48" y1="40" x2="52" y2="40" stroke-width="1" />
+  <line x1="48" y1="60" x2="52" y2="60" stroke-width="1" />
+  <line x1="48" y1="70" x2="52" y2="70" stroke-width="1" />
+
+  <!-- Horizontal Mil-Dots -->
+  <line x1="30" y1="48" x2="30" y2="52" stroke-width="1" />
+  <line x1="40" y1="48" x2="40" y2="52" stroke-width="1" />
+  <line x1="60" y1="48" x2="60" y2="52" stroke-width="1" />
+  <line x1="70" y1="48" x2="70" y2="52" stroke-width="1" />
+
+  <!-- Center Target (Open Cross) -->
+  <circle cx="50" cy="50" r="15" stroke-width="0.5" stroke-opacity="0.5" />
+  
+  <!-- Red Dot Pulse (Dead Center) -->
+  <circle cx="50" cy="50" r="2" fill="#ef4444" stroke="none">
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+  </circle>
+</svg>

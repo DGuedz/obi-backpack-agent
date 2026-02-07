@@ -1,34 +1,41 @@
-# System & Environment
-.env
-.env.local
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-__pycache__/
-*.pyc
-node_modules/
-*.log
-venv/
+*.pem
 
-# Sensitive Credentials (Just in case)
-gen-lang-client-*.json
-_admin_backup_keys.json
-*_keys.json
-wallet.json
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-# Intellectual Property & Strategy Docs (PROTECTED)
-_legacy_docs/
-_LIXO_TOXICO/
-_LEGACY_V1_ARCHIVE/
-recovery_plan_100.md
-specifications.md
-implementation_plan.md
-constitution.md
-risk_config.json
-trade_memory.json
+# env files (can opt-in for committing if needed)
+.env*
 
-# Deprecated / Test Scripts with Hardcoded Secrets
-tools/_deprecated/
+# vercel
+.vercel
 
-# Sensitive Tool Output
-tools/sniper_shots_log.json
-tools/system_health.json
-tools/tracked_wallets.json
+# typescript
+*.tsbuildinfo
+next-env.d.ts

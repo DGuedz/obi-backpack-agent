@@ -1,0 +1,118 @@
+Decision Log - Backpack Trading Bot
+Format: [Timestamp] [Actor] Action | Reason | Details
+================================================================================
+[2026-01-19 15:24:34] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.82 | Qty: 7.5
+[2026-01-19 15:24:47] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3210.27 | Qty: 0.312
+[2026-01-19 15:25:07] [SCALP_BOT] OPEN_ORDER on DOGE_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.12917 | Qty: 7741
+[2026-01-19 15:26:14] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.83 | Qty: 7.5
+[2026-01-19 15:26:26] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3208.86 | Qty: 0.312
+[2026-01-19 15:26:29] [SCALP_BOT] FILLED on ETH_USDC_PERP | Reason: Order Executed | Entry: 3208.86
+[2026-01-19 15:26:29] [SCALP_BOT] PROTECTION_PLACED on ETH_USDC_PERP | Reason: Guardian Protocol | SL: 3176.77 | TP: 3221.7
+[2026-01-19 15:26:34] [SCALP_BOT] OPEN_ORDER on SUI_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 1.5678 | Qty: 637.8
+[2026-01-19 15:27:50] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.86 | Qty: 7.5
+[2026-01-19 15:28:10] [SCALP_BOT] OPEN_ORDER on DOGE_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.12911 | Qty: 7745
+[2026-01-19 15:28:37] [SCALP_BOT] OPEN_ORDER on LDO_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 0.5485 | Qty: 1823
+[2026-01-19 15:29:24] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.88 | Qty: 7.5
+[2026-01-19 15:29:46] [SCALP_BOT] OPEN_ORDER on DOGE_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.12909 | Qty: 7746
+[2026-01-19 15:30:14] [SCALP_BOT] OPEN_ORDER on LDO_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 0.5489 | Qty: 1821
+[2026-01-19 15:31:33] [SCALP_BOT] OPEN_ORDER on LDO_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 0.549 | Qty: 1821
+[2026-01-19 15:32:19] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.87 | Qty: 7.5
+[2026-01-19 15:32:39] [SCALP_BOT] OPEN_ORDER on DOGE_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 0.12898 | Qty: 7753
+[2026-01-19 15:33:44] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.85 | Qty: 7.5
+[2026-01-19 15:34:04] [SCALP_BOT] OPEN_ORDER on DOGE_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.1292 | Qty: 7739
+[2026-01-19 15:34:09] [SCALP_BOT] FILLED on DOGE_USDC_PERP | Reason: Order Executed | Entry: 0.1292
+[2026-01-19 15:34:10] [SCALP_BOT] PROTECTION_PLACED on DOGE_USDC_PERP | Reason: Guardian Protocol | SL: 0.13049 | TP: 0.12868
+[2026-01-19 15:35:08] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.94 | Qty: 7.5
+[2026-01-19 15:36:20] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 133.97 | Qty: 7.5
+[2026-01-19 15:37:35] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.18 | Qty: 7.5
+[2026-01-19 15:38:55] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.12 | Qty: 7.5
+[2026-01-19 15:42:20] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.18 | Qty: 7.5
+[2026-01-19 15:43:33] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.26 | Qty: 7.4
+[2026-01-19 15:44:08] [SCALP_BOT] OPEN_ORDER on LDO_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.5525 | Qty: 1809
+[2026-01-19 15:44:54] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.24 | Qty: 7.4
+[2026-01-19 15:45:29] [SCALP_BOT] OPEN_ORDER on LDO_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.5521 | Qty: 1811
+[2026-01-19 15:46:15] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.28 | Qty: 7.4
+[2026-01-19 15:46:22] [SCALP_BOT] FILLED on SOL_USDC_PERP | Reason: Order Executed | Entry: 134.28
+[2026-01-19 15:46:23] [SCALP_BOT] PROTECTION_PLACED on SOL_USDC_PERP | Reason: Guardian Protocol | SL: 135.62 | TP: 133.74
+[2026-01-19 15:46:53] [SCALP_BOT] OPEN_ORDER on LDO_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 0.5532 | Qty: 1807
+[2026-01-19 15:50:22] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 92952.3 | Qty: 0.011
+[2026-01-19 15:50:35] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.1 | Qty: 7.5
+[2026-01-19 15:50:47] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3210.52 | Qty: 0.311
+[2026-01-19 15:51:00] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 926.02 | Qty: 1.1
+[2026-01-19 15:51:12] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4687.05 | Qty: 0.213
+[2026-01-19 15:52:24] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 92975.5 | Qty: 0.011
+[2026-01-19 15:52:26] [SCALP_BOT] FILLED on BTC_USDC_PERP | Reason: Order Executed | Entry: 92975.5
+[2026-01-19 15:52:27] [SCALP_BOT] PROTECTION_PLACED on BTC_USDC_PERP | Reason: Guardian Protocol | SL: 92045.7 | TP: 93347.4
+[2026-01-19 15:52:32] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 134.03 | Qty: 7.5
+[2026-01-19 15:52:44] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3209.51 | Qty: 0.312
+[2026-01-19 15:53:00] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4687.08 | Qty: 0.213
+[2026-01-19 15:54:12] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.13 | Qty: 7.5
+[2026-01-19 15:54:26] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3211.81 | Qty: 0.311
+[2026-01-19 15:54:43] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4686.85 | Qty: 0.213
+[2026-01-19 15:56:16] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.15 | Qty: 7.5
+[2026-01-19 15:56:23] [SCALP_BOT] FILLED on SOL_USDC_PERP | Reason: Order Executed | Entry: 134.15
+[2026-01-19 15:56:24] [SCALP_BOT] PROTECTION_PLACED on SOL_USDC_PERP | Reason: Guardian Protocol | SL: 135.49 | TP: 133.61
+[2026-01-19 15:56:33] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 926.27 | Qty: 1.1
+[2026-01-19 15:56:46] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4687.18 | Qty: 0.213
+[2026-01-19 15:57:43] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.13 | Qty: 7.5
+[2026-01-19 15:57:55] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3211.34 | Qty: 0.311
+[2026-01-19 15:58:13] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4687.26 | Qty: 0.213
+[2026-01-19 15:58:33] [SCALP_BOT] OPEN_ORDER on HYPE_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 23.997 | Qty: 41.7
+[2026-01-19 15:58:40] [SCALP_BOT] FILLED on HYPE_USDC_PERP | Reason: Order Executed | Entry: 23.997
+[2026-01-19 15:58:42] [SCALP_BOT] PROTECTION_PLACED on HYPE_USDC_PERP | Reason: Guardian Protocol | SL: 24.237 | TP: 23.901
+[2026-01-19 15:59:37] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.16 | Qty: 7.5
+[2026-01-19 15:59:49] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 3212.09 | Qty: 0.311
+[2026-01-19 16:00:06] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4686.79 | Qty: 0.213
+[2026-01-19 16:00:31] [SCALP_BOT] OPEN_ORDER on APT_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 1.6064 | Qty: 622.5
+[2026-01-19 16:01:26] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.3 | Qty: 7.4
+[2026-01-19 16:01:42] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 926.77 | Qty: 1.1
+[2026-01-19 16:02:00] [SCALP_BOT] OPEN_ORDER on LIT_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 1.7229 | Qty: 580.4
+[2026-01-19 16:02:21] [SCALP_BOT] OPEN_ORDER on APT_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 1.6089 | Qty: 621.5
+[2026-01-19 16:03:34] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 93009.6 | Qty: 0.011
+[2026-01-19 16:03:47] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.32 | Qty: 7.4
+[2026-01-19 16:03:59] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 3215.69 | Qty: 0.311
+[2026-01-19 16:04:55] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 926.58 | Qty: 1.1
+[2026-01-19 16:05:09] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4685.82 | Qty: 0.213
+[2026-01-19 16:05:27] [SCALP_BOT] OPEN_ORDER on LIT_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 1.7318 | Qty: 577.4
+[2026-01-19 16:05:30] [SCALP_BOT] FILLED on LIT_USDC_PERP | Reason: Order Executed | Entry: 1.7318
+[2026-01-19 16:05:31] [SCALP_BOT] PROTECTION_PLACED on LIT_USDC_PERP | Reason: Guardian Protocol | SL: 1.7578 | TP: 1.7249
+[2026-01-19 16:05:36] [SCALP_BOT] OPEN_ORDER on HYPE_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 23.992 | Qty: 41.7
+[2026-01-19 16:05:53] [SCALP_BOT] OPEN_ORDER on APT_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 1.6087 | Qty: 621.6
+[2026-01-19 16:05:58] [SCALP_BOT] FILLED on APT_USDC_PERP | Reason: Order Executed | Entry: 1.6087
+[2026-01-19 16:05:59] [SCALP_BOT] PROTECTION_PLACED on APT_USDC_PERP | Reason: Guardian Protocol | SL: 1.6328 | TP: 1.6023
+[2026-01-19 16:06:43] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 92953.3 | Qty: 0.011
+[2026-01-19 16:06:56] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 134.21 | Qty: 7.5
+[2026-01-19 16:07:04] [SCALP_BOT] FILLED on SOL_USDC_PERP | Reason: Order Executed | Entry: 134.21
+[2026-01-19 16:07:05] [SCALP_BOT] PROTECTION_PLACED on SOL_USDC_PERP | Reason: Guardian Protocol | SL: 136.22 | TP: 133.67
+[2026-01-19 16:07:14] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 926.65 | Qty: 1.1
+[2026-01-19 16:08:22] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 92969.1 | Qty: 0.011
+[2026-01-19 16:08:36] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 3216.13 | Qty: 0.311
+[2026-01-19 16:08:49] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 926.98 | Qty: 1.1
+[2026-01-19 16:09:01] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Band Support) | Side: Bid | Price: 4686.1 | Qty: 0.213
+[2026-01-19 16:09:13] [SCALP_BOT] OPEN_ORDER on SUI_USDC_PERP | Reason: SHORT (Band Resistance) | Side: Ask | Price: 1.5742 | Qty: 635.2
+[2026-01-19 16:11:17] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 134.19 | Qty: 7.5
+[2026-01-19 16:12:16] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 134.29 | Qty: 7.4
+[2026-01-19 16:12:29] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 3217.55 | Qty: 0.311
+[2026-01-19 16:12:42] [SCALP_BOT] OPEN_ORDER on BNB_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 927.0 | Qty: 1.1
+[2026-01-19 16:12:56] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Trend Following) | Side: Bid | Price: 4685.78 | Qty: 0.213
+[2026-01-19 16:13:14] [SCALP_BOT] OPEN_ORDER on HYPE_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 24.035 | Qty: 41.6
+[2026-01-19 16:13:38] [SCALP_BOT] OPEN_ORDER on APT_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 1.6102 | Qty: 621.0
+[2026-01-19 16:14:37] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 134.33 | Qty: 7.4
+[2026-01-19 16:14:50] [SCALP_BOT] OPEN_ORDER on ETH_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 3218.04 | Qty: 0.311
+[2026-01-19 16:14:52] [SCALP_BOT] FILLED on ETH_USDC_PERP | Reason: Order Executed | Entry: 3218.04
+[2026-01-19 16:14:54] [SCALP_BOT] PROTECTION_PLACED on ETH_USDC_PERP | Reason: Guardian Protocol | SL: 3266.31 | TP: 3192.3
+[2026-01-19 16:15:05] [SCALP_BOT] OPEN_ORDER on PAXG_USDC_PERP | Reason: LONG (Trend Following) | Side: Bid | Price: 4683.96 | Qty: 0.213
+[2026-01-19 16:15:19] [SCALP_BOT] OPEN_ORDER on SUI_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 1.5759 | Qty: 634.6
+[2026-01-19 16:15:32] [SCALP_BOT] OPEN_ORDER on HYPE_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 24.015 | Qty: 41.6
+[2026-01-19 16:15:56] [SCALP_BOT] OPEN_ORDER on APT_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 1.6108 | Qty: 620.8
+[2026-01-19 16:16:03] [SCALP_BOT] FILLED on APT_USDC_PERP | Reason: Order Executed | Entry: 1.6108
+[2026-01-19 16:16:04] [SCALP_BOT] PROTECTION_PLACED on APT_USDC_PERP | Reason: Guardian Protocol | SL: 1.635 | TP: 1.5979
+[2026-01-19 16:16:51] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 93040.0 | Qty: 0.011
+[2026-01-19 16:30:38] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 134.38 | Qty: 7.4
+[2026-01-19 16:30:52] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 93000.3 | Qty: 0.011
+[2026-01-19 16:31:36] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 134.41 | Qty: 7.4
+[2026-01-19 16:33:14] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 92991.0 | Qty: 0.011
+[2026-01-19 16:34:04] [SCALP_BOT] OPEN_ORDER on BTC_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 93002.5 | Qty: 0.011
+[2026-01-19 16:34:07] [SNIPER_BOT] FILLED on BTC_USDC_PERP | Reason: Order Executed | Entry: 93002.5
+[2026-01-19 17:28:45] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 135.04 | Qty: 7.4
+[2026-01-19 17:29:27] [SCALP_BOT] OPEN_ORDER on SOL_USDC_PERP | Reason: SHORT (Trend Following) | Side: Ask | Price: 135.0 | Qty: 7.4
