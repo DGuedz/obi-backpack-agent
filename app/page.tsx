@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "./components/Hero";
 import AirdropCalculator from "./components/AirdropCalculator";
 import ProofSection from "./components/ProofSection";
@@ -9,7 +10,9 @@ export default function Home() {
       <Hero />
       <AirdropCalculator />
       <ProofSection />
-      <PricingSection />
+      <Suspense fallback={null}>
+        <PricingSection />
+      </Suspense>
     </main>
   );
 }
