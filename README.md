@@ -106,9 +106,11 @@ python3 tools/generate_audit_receipt.py
 The source code is licensed under the **MIT License**. You are free to fork, modify, and use it, provided you include the original copyright notice.
 
 ### Concepts & Documentation (IP)
-The VSC (Value-Separated Content) framework, tokenomics design, and "Proof of Volume" conceptual methodology are licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0)**.
+<a href="https://github.com/doublegreen/backpacktrading">OBI Agent (VSC Protocol)</a> © 2026 by <a href="https://x.com/dg_doublegreen">Diego Guedes Da Silva</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
 
-**Copyright (c) 2026 DoubleGreen. All Rights Reserved.**
+You are free to share and adapt, even commercially, provided you give appropriate credit.
+
+**Copyright (c) 2026 Diego Guedes Da Silva. All Rights Reserved.**
 
 
 - **Runtime**: Python 3.10+ (Optimized for speed)
