@@ -13,13 +13,13 @@ export default function Home() {
       <Suspense fallback={null}>
         <PricingSection />
       </Suspense>
-      <footer className="border-t border-zinc-800 bg-black text-zinc-400 text-xs sm:text-sm py-6 px-6">
+      <footer className="border-t border-zinc-700 bg-black text-zinc-100 text-xs sm:text-sm py-6 px-6">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-2">
           <span>Registro de Software: OBI Agent (VSC Protocol) © 2026 Diego Guedes Da Silva</span>
           <span>
             Licença:{" "}
             <a
-              className="text-emerald-400 hover:text-emerald-300"
+              className="text-emerald-300 hover:text-emerald-200"
               href="https://creativecommons.org/licenses/by/4.0/"
               target="_blank"
               rel="noreferrer"
@@ -28,7 +28,7 @@ export default function Home() {
             </a>{" "}
             · Repositório:{" "}
             <a
-              className="text-emerald-400 hover:text-emerald-300"
+              className="text-emerald-300 hover:text-emerald-200"
               href="https://github.com/doublegreen/backpacktrading"
               target="_blank"
               rel="noreferrer"
@@ -37,7 +37,7 @@ export default function Home() {
             </a>{" "}
             · Autor:{" "}
             <a
-              className="text-emerald-400 hover:text-emerald-300"
+              className="text-emerald-300 hover:text-emerald-200"
               href="https://x.com/dg_doublegreen"
               target="_blank"
               rel="noreferrer"
