@@ -100,6 +100,27 @@ python3 tools/generate_audit_receipt.py
 
 ---
 
+##  Agent Dashboard (Web Interface)
+
+OBI includes a specialized Web Interface (Next.js) for monitoring agent performance, visualizing on-chain proofs, and managing licenses.
+
+**Access the Dashboard:**
+1. Navigate to the web module:
+   ```bash
+   cd obiwork_web
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the interface:
+   ```bash
+   npm run dev
+   ```
+4. Open `http://localhost:3000` to view the **Agent Control Center**.
+
+---
+
 ##  License & Copyright
 
 ### Code (Software)
