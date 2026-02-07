@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Activity, BarChart3, Lock, Zap, Medal, Trophy, CheckCircle2, Award, ShieldCheck, Terminal } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import Link from "next/link";
 
 const terminalLogs = [
   { text: "> INITIALIZING LIQUIDITY CORE v1.0...", color: "text-zinc-300", delay: 100 },
@@ -87,12 +88,12 @@ export default function ProofSection() {
         {/* Header */}
         <div className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold font-mono tracking-tighter mb-4 text-white">
-            SUSTAINABLE. <span className="text-emerald-500">PROVEN.</span>
+            PROOF OF VOLUME. <span className="text-emerald-500">REAL.</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto font-mono">
-            Most users transact. We partner. We build infrastructure that lasts.
+            Métricas e logs fazem parte do pipeline de validação do agente.
             <br />
-            Real engagement metrics from our production environment.
+            Backpack Season 4: 423.77M volume units, Day 70/70.
           </p>
         </div>
 
@@ -102,7 +103,7 @@ export default function ProofSection() {
             { label: "LIQUIDITY PROVIDED", value: "$1,376,499+", icon: BarChart3, color: "text-emerald-400" },
             { label: "PLATFORM SYNC", value: "< 45ms", icon: Zap, color: "text-yellow-400" },
             { label: "SYSTEM UPTIME", value: "99.9%", icon: Activity, color: "text-blue-400" },
-            { label: "CAPITAL EFFICIENCY", value: "OPTIMIZED", icon: Lock, color: "text-red-400" },
+            { label: "SEASON 4 VOLUME", value: "423.77M units", icon: Medal, color: "text-emerald-400" },
           ].map((stat, i) => (
             <motion.div
               key={i}
@@ -210,23 +211,23 @@ export default function ProofSection() {
             <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
               <Activity className="w-24 h-24 text-red-500" />
             </div>
-            <h3 className="text-xl font-bold text-red-400 font-mono mb-4">TRANSACTIONAL USAGE</h3>
+            <h3 className="text-xl font-bold text-red-400 font-mono mb-4">USO TRANSACTIONAL</h3>
             <ul className="space-y-3 font-mono text-sm text-zinc-400">
               <li className="flex items-start gap-2">
                 <span className="text-red-500">×</span>
-                <span>Emotional entries (Short term focus)</span>
+                <span>Emoção humana impactando em perdas</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-500">×</span>
-                <span>Manual execution (Inefficient)</span>
+                <span>Execução manual e reativa</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-500">×</span>
-                <span>Reactive approach (Chasing markets)</span>
+                <span>Baixo farm em PEPR DEX</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-500">×</span>
-                <span>No long-term strategy</span>
+                <span>Sem prova verificável de contribuição em liquidez</span>
               </li>
             </ul>
           </motion.div>
@@ -241,27 +242,49 @@ export default function ProofSection() {
              <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
               <Lock className="w-24 h-24 text-emerald-500" />
             </div>
-            <h3 className="text-xl font-bold text-emerald-400 font-mono mb-4">STRATEGIC PARTNERSHIP</h3>
+            <h3 className="text-xl font-bold text-emerald-400 font-mono mb-4">OBI AGENT</h3>
             <ul className="space-y-3 font-mono text-sm text-zinc-300">
               <li className="flex items-start gap-2">
                 <span className="text-emerald-500"></span>
-                <span><strong>Exchange Aligned:</strong> Growth linked to platform success.</span>
+                <span><strong>Prova Real:</strong> métricas e logs no pipeline de validação.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-500"></span>
-                <span><strong>Sustainable Activity:</strong> Consistent participation.</span>
+                <span><strong>Relatórios:</strong> evidências verificáveis para o hackathon.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-500"></span>
-                <span><strong>Automated Efficiency:</strong> Precision execution.</span>
+                <span><strong>Reputação:</strong> transparência e auditabilidade contínuas.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-500"></span>
-                <span><strong>Long-Term Value:</strong> Building enduring assets.</span>
+                <span><strong>Impacto:</strong> confiança com prova social real.</span>
               </li>
             </ul>
           </motion.div>
 
+        </div>
+        <div className="mt-16">
+          <h3 className="text-xs font-mono text-zinc-500 mb-4 text-center uppercase tracking-[0.2em]">Critérios do Hackathon</h3>
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              "Impacto com métricas reais de liquidez",
+              "Inovação aplicada ao agente e reputação",
+              "Execução técnica com pipeline verificável",
+              "Clareza na narrativa e evidências",
+            ].map((item) => (
+              <div key={item} className="p-4 border border-zinc-800 bg-zinc-900/40 rounded text-sm font-mono text-zinc-300">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-12 flex justify-center">
+          <Link href="/dashboard">
+            <button className="px-8 py-4 bg-emerald-500 text-black font-bold font-mono rounded hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.6)]">
+              Ver evidências
+            </button>
+          </Link>
         </div>
       </div>
     </section>

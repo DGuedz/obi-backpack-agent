@@ -65,8 +65,8 @@ export default function Hero() {
          "SKIN IN THE GAME", 
          "EXECUÇÃO SOBERANA", 
          "PROTEÇÃO ATÔMICA", 
-         "OBI AGENT V4", 
-         "VALIDADO ON-CHAIN: BACKPACK AIRDROP" 
+        "OBI AGENT V4", 
+        "REPUTAÇÃO ON-CHAIN: BACKPACK S4" 
        ],
        clickToShoot: "< CLIQUE PARA ATIRAR E DESBLOQUEAR ALPHA />"
      },
@@ -75,8 +75,8 @@ export default function Hero() {
          "SKIN IN THE GAME", 
          "SOVEREIGN EXECUTION", 
          "ATOMIC PROTECTION", 
-         "OBI AGENT V4", 
-         "ON-CHAIN VALIDATED: BACKPACK AIRDROP" 
+        "OBI AGENT V4", 
+        "ON-CHAIN REPUTATION: BACKPACK S4" 
        ],
        clickToShoot: "< CLICK TO SHOOT & UNLOCK ALPHA />"
      }
@@ -294,7 +294,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              STRATEGIC PARTNERSHIP PROTOCOL
+              HACKATHON | BACKPACK SEASON 4
             </motion.div>
 
             {/* LOGO HERO */}
@@ -314,9 +314,9 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg md:text-xl text-zinc-400 max-w-2xl mb-10 font-mono"
             >
-              BUILDING <span className="text-emerald-400 font-bold">SUSTAINABLE LIQUIDITY</span> & LONG-TERM VALUE.
+              OBI Agent — prova real de execução e reputação on-chain para a Backpack Season 4.
               <br />
-              ALIGNING USER GROWTH WITH <span className="text-white">PLATFORM SUCCESS</span>.
+              Métricas verificáveis, evidências e transparência operacional para jurados.
             </motion.p>
 
             {/* Buttons */}
@@ -328,14 +328,14 @@ export default function Hero() {
             >
               <Link href="/dashboard">
                   <button className="group relative px-8 py-4 bg-emerald-500 text-black font-bold font-mono rounded hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.6)] flex items-center gap-2">
-                    INITIATE PARTNERSHIP
+                    VER DEMO
                     <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
               </Link>
               <Link href="/manifesto">
                 <button className="px-8 py-3 bg-zinc-900 border border-zinc-800 text-zinc-300 font-mono rounded hover:bg-zinc-800 transition-colors flex items-center gap-2 cursor-pointer">
                   <Terminal className="w-4 h-4" />
-                  READ VISION
+                  MANIFESTO
                 </button>
               </Link>
             </motion.div>
@@ -343,24 +343,24 @@ export default function Hero() {
             {/* Features Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 text-left w-full max-w-5xl">
               <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
-                <Shield className="w-8 h-8 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-bold font-mono mb-2">Partner Aligned</h3>
+                <Target className="w-8 h-8 text-emerald-500 mb-4" />
+                <h3 className="text-xl font-bold font-mono mb-2">Problema</h3>
                 <p className="text-zinc-400 text-sm">
-                  Designed for mutual growth. We prioritize strategies that contribute to healthy market depth and platform stability.
-                </p>
-              </div>
-              <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
-                <Terminal className="w-8 h-8 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-bold font-mono mb-2">Ecosystem Integration</h3>
-                <p className="text-zinc-400 text-sm">
-                  Seamlessly connected to the brokerage infrastructure, enhancing the user experience through advanced automation.
+                  Falta prova verificável de contribuição em liquidez. Emoção humana impacta em perdas e há baixo farm em PEPR DEX.
                 </p>
               </div>
               <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
                 <Cpu className="w-8 h-8 text-emerald-500 mb-4" />
-                <h3 className="text-xl font-bold font-mono mb-2">Liquidity Provision</h3>
+                <h3 className="text-xl font-bold font-mono mb-2">Solução</h3>
                 <p className="text-zinc-400 text-sm">
-                  Not just trading, but providing consistent liquidity. We analyze market needs to ensure efficient execution.
+                  Painel com métricas reais, provas e relatórios do OBI Agent para validação no hackathon.
+                </p>
+              </div>
+              <div className="p-6 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:border-emerald-500/50 transition-colors">
+                <Shield className="w-8 h-8 text-emerald-500 mb-4" />
+                <h3 className="text-xl font-bold font-mono mb-2">Impacto</h3>
+                <p className="text-zinc-400 text-sm">
+                  Confiança, transparência e auditabilidade com reputação on-chain para a Backpack Season 4.
                 </p>
               </div>
             </div>
