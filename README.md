@@ -7,7 +7,7 @@ OBI (Order Book Imbalance) is an **Autonomous Trading Desk** built natively for 
 
 ---
 
-## 🧠 The Agentic Paradigm (VSC)
+##  The Agentic Paradigm (VSC)
 
 Most trading bots are fragile scripts wrapped in complex frameworks. OBI is different. It uses **VSC (Value-Separated Content)** as its native language.
 
@@ -26,12 +26,12 @@ value_created,Immutable Audit Trail|Real-Time Proof of Volume|Capital Efficiency
 
 ---
 
-## 🛡️ Proof of Volume (The "Audit Receipt")
+## ️ Proof of Volume (The "Audit Receipt")
 
 OBI introduces a new standard for agent accountability: **The Audit Receipt**.
 Instead of trusting a black box, OBI generates a cryptographic receipt of its tokenomics and volume, hashed and signed via AgentWallet on Solana.
 
-### 🏆 Battle-Tested Metrics (Backpack Season 4)
+###  Battle-Tested Metrics (Backpack Season 4)
 This agent is not a simulation. It has been deployed in production, farming volume and reputation under hostile market conditions.
 
 **Global Performance:**
@@ -70,15 +70,15 @@ python3 tools/generate_audit_receipt.py
  VSC Hash:     52ea99d8385e617f... (SHA256)
 ------------------------------------------------------------
  [FINAL VALIDATION]
- Real Demand:          ✅ TRUE
- Survives w/o Hype:    ✅ TRUE
- Project Valid:        ✅ TRUE
+ Real Demand:           TRUE
+ Survives w/o Hype:     TRUE
+ Project Valid:         TRUE
 ============================================================
 ```
 
 ---
 
-## ⚡ Architecture
+##  Architecture
 
 ### 1. Perception Layer (On-Chain & Off-Chain)
 - **Whale Wall Detection**: Scans orderbooks for liquidity voids.
@@ -96,7 +96,20 @@ python3 tools/generate_audit_receipt.py
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
+
+---
+
+##  License & Copyright
+
+### Code (Software)
+The source code is licensed under the **MIT License**. You are free to fork, modify, and use it, provided you include the original copyright notice.
+
+### Concepts & Documentation (IP)
+The VSC (Value-Separated Content) framework, tokenomics design, and "Proof of Volume" conceptual methodology are licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0)**.
+
+**Copyright (c) 2026 DoubleGreen. All Rights Reserved.**
+
 
 - **Runtime**: Python 3.10+ (Optimized for speed)
 - **Cognitive Engine**: VSC (Value-Separated Content)
@@ -106,7 +119,7 @@ python3 tools/generate_audit_receipt.py
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 ### Prerequisites
 1. Python 3.10+
@@ -136,7 +149,7 @@ python3 start_system.py
 
 ---
 
-## 🔮 Roadmap: The Agentic Future
+##  Roadmap: The Agentic Future
 
 1.  **On-Chain Inference**: Deploy VSC logic directly to Solana via Cauldron (Frostbite VM).
 2.  **DeFi Integration**: Expand execution to Jupiter and Kamino.

@@ -9,7 +9,7 @@ def generate_receipt():
     vsc_path = "tools/obi_tokenomics.vsc"
     
     if not os.path.exists(vsc_path):
-        print("❌ Error: VSC file not found.")
+        print(" Error: VSC file not found.")
         return
 
     with open(vsc_path, "r") as f:
@@ -68,12 +68,12 @@ def generate_receipt():
  Hype Dependency:      LOW (Real Revenue)
 
  [FINAL VALIDATION]
- Real Demand:          ✅ TRUE
- Survives w/o Hype:    ✅ TRUE
- Project Valid:        ✅ TRUE
+ Real Demand:           TRUE
+ Survives w/o Hype:     TRUE
+ Project Valid:         TRUE
 
 ============================================================
- STATUS: ✅ VALID FOR DEPLOY
+ STATUS:  VALID FOR DEPLOY
 ============================================================
     """
     

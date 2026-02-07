@@ -6,15 +6,20 @@ def remove_emojis(text):
     # This covers a wide range of unicode blocks used for emojis
     emoji_pattern = re.compile(
         "["
-        "\U0001f600-\U0001f64f"  # Emoticons
-        "\U0001f300-\U0001f5ff"  # Misc Symbols and Pictographs
-        "\U0001f680-\U0001f6ff"  # Transport and Map
-        "\U0001f1e0-\U0001f1ff"  # Flags (iOS)
-        "\U00002700-\U000027bf"  # Dingbats
-        "\U00002600-\U000026ff"  # Misc Symbols
-        "\U00002460-\U000024ff"  # Enclosed Alphanumerics
-        "\U0001f900-\U0001f9ff"  # Supplemental Symbols and Pictographs
-        "\U0001fa70-\U0001faff"  # Symbols and Pictographs Extended-A
+        "\\U0001f600-\\U0001f64f"  # Emoticons
+        "\\U0001f300-\\U0001f5ff"  # Misc Symbols and Pictographs
+        "\\U0001f680-\\U0001f6ff"  # Transport and Map
+        "\\U0001f1e0-\\U0001f1ff"  # Flags (iOS)
+        "\\U00002700-\\U000027bf"  # Dingbats
+        "\\U00002600-\\U000026ff"  # Misc Symbols
+        "\\U00002460-\\U000024ff"  # Enclosed Alphanumerics
+        "\\U0001f900-\\U0001f9ff"  # Supplemental Symbols and Pictographs
+        "\\U0001fa70-\\U0001faff"  # Symbols and Pictographs Extended-A
+        "\\U0001f700-\\U0001f7ff"  # Geometric Shapes Extended (includes circles)
+        "\\ufe0f"                  # Variation Selector-16
+        "\\u200d"                  # Zero Width Joiner
+        "\\u26a0"                  # Warning sign
+        "\\u26a1"                  # High Voltage
         "]+", flags=re.UNICODE
     )
     return emoji_pattern.sub("", text)

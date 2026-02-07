@@ -24,10 +24,10 @@
 ## 3. Scorecard do Hackathon
 | Critério | OBI Status | Ação de Refinamento |
 |----------|------------|---------------------|
-| **Problema Claro** | ✅ (Transparência em HFT) | Reforçar na narrativa do README. |
-| **Loop Funcional** | ✅ (Scan -> Trade -> Audit) | Garantir que o loop nunca falhe (Resiliência). |
-| **On-Chain Real** | ✅ (AgentWallet Sign) | Publicar mais provas durante a demo. |
-| **Agenticidade** | ✅ (Autônomo via VSC) | Demonstrar o agente "pensando" (logs de decisão). |
+| **Problema Claro** |  (Transparência em HFT) | Reforçar na narrativa do README. |
+| **Loop Funcional** |  (Scan -> Trade -> Audit) | Garantir que o loop nunca falhe (Resiliência). |
+| **On-Chain Real** |  (AgentWallet Sign) | Publicar mais provas durante a demo. |
+| **Agenticidade** |  (Autônomo via VSC) | Demonstrar o agente "pensando" (logs de decisão). |
 
 ## 4. O Caminho para a Vitória (Next Steps)
 Foco total na **Opção 4: Agent-native Trading Desk**.
