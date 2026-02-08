@@ -1,9 +1,0 @@
-cryptography
-requests
-python-dotenv
-pandas
-numpy
-ta
-rich
-streamlit
-watchdog

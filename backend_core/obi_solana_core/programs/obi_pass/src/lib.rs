@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{Mint, TokenAccount, TokenInterface};
 use anchor_spl::associated_token::AssociatedToken;
 
-declare_id!("OBiPass111111111111111111111111111111111111");
+declare_id!("2xESoWwTmrvmjoev3ZTh52XTnMpzPLQycf7VU2e6D3sv");
 
 #[program]
 pub mod obi_pass {
@@ -15,12 +15,32 @@ pub mod obi_pass {
     }
 
     // 2. Comprar Licença (Mint OBI Pass)
-    // O usuário paga uma taxa (ex: 1 SOL ou 100 USDC) e recebe 1 Token 2022 (SBT ou NFT)
+    // O usuário paga uma taxa (1 SOL) e recebe 1 Token 2022 (SBT ou NFT)
     pub fn mint_license(ctx: Context<MintLicense>) -> Result<()> {
         msg!("🎟️ Mintando OBI Pass para: {}", ctx.accounts.buyer.key());
 
-        // TODO: Implementar transferência de pagamento (SOL/USDC) para o Treasury
-        // system_program::transfer(...)
+        // Preço da Licença: 1 SOL (Hardcoded para MVP)
+        let price_lamports: u64 = 1_000_000_000;
+
+        msg!("💰 Processando pagamento de {} lamports...", price_lamports);
+
+        // Transferir SOL do Buyer para o Treasury
+        let transfer_ix = anchor_lang::solana_program::system_instruction::transfer(
+            &ctx.accounts.buyer.key(),
+            &ctx.accounts.treasury.key(),
+            price_lamports,
+        );
+
+        anchor_lang::solana_program::program::invoke(
+            &transfer_ix,
+            &[
+                ctx.accounts.buyer.to_account_info(),
+                ctx.accounts.treasury.to_account_info(),
+                ctx.accounts.system_program.to_account_info(),
+            ],
+        )?;
+
+        msg!("✅ Pagamento confirmado!");
 
         // Mintar 1 Token para o comprador
         // Usando Token Extensions (Token 2022) para metadados on-chain
@@ -32,7 +52,7 @@ pub mod obi_pass {
                     to: ctx.accounts.buyer_token_account.to_account_info(),
                     authority: ctx.accounts.mint_authority.to_account_info(),
                 },
-                &[], // Seeds para PDA se necessário
+                &[], // Seeds para PDA se necessário: idealmente seeds=[b"authority", bump]
             ),
             1, // Quantidade: 1 Licença
         )?;
@@ -69,6 +89,10 @@ pub struct MintLicense<'info> {
     #[account(mut)]
     pub buyer: Signer<'info>,
     
+    /// CHECK: Treasury Wallet que receberá o pagamento (Validar pubkey no client ou aqui)
+    #[account(mut)]
+    pub treasury: UncheckedAccount<'info>,
+
     #[account(mut)]
     pub mint: InterfaceAccount<'info, Mint>,
     

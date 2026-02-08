@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rust / Anchor
+**/target/
+**/*.rs.bk
+
+# Python
+**/__pycache__/
+*.pyc

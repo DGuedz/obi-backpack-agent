@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { CreditCard, CheckCircle, AlertTriangle, Shield, Calendar, RefreshCw, Star, Activity } from "lucide-react";
 import Link from "next/link";
 
@@ -14,34 +16,26 @@ interface License {
 }
 
 export default function SubscriptionPage() {
+  const { publicKey, connected } = useWallet();
   const [license, setLicense] = useState<License | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Default to false, wait for wallet
   const [error, setError] = useState<string | null>(null);
-  const [wallet, setWallet] = useState<string | null>(null);
 
   const fetchLicense = async () => {
+    if (!connected || !publicKey) {
+        setLicense(null);
+        return;
+    }
+
     setLoading(true);
     setError(null);
     try {
-        // First check cookies for wallet
-        const getCookie = (name: string) => {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop()?.split(';').shift();
-        };
-        const walletCookie = getCookie('obi_access_wallet');
-        
-        if (!walletCookie) {
-            setError("Wallet not connected. Please go through the gatekeeper check.");
-            setLoading(false);
-            return;
-        }
-        setWallet(walletCookie);
+        const walletAddress = publicKey.toBase58();
 
         const res = await fetch('/api/licenses/status', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ walletAddress: walletCookie })
+            body: JSON.stringify({ walletAddress })
         });
         
         const data = await res.json();
@@ -60,8 +54,12 @@ export default function SubscriptionPage() {
   };
 
   useEffect(() => {
-    fetchLicense();
-  }, []);
+    if (connected && publicKey) {
+        fetchLicense();
+    } else {
+        setLicense(null);
+    }
+  }, [connected, publicKey]);
 
   const formatDate = (isoString: string) => {
     return new Date(isoString).toLocaleDateString('en-US', { 
@@ -151,7 +149,7 @@ export default function SubscriptionPage() {
                         <div className="flex justify-between py-2 border-b border-zinc-800/50">
                             <span className="text-zinc-500">Wallet</span>
                             <span className="text-zinc-300">
-                                {wallet ? `${wallet.slice(0, 6)}...${wallet.slice(-4)}` : '---'}
+                                {publicKey ? `${publicKey.toBase58().slice(0, 6)}...${publicKey.toBase58().slice(-4)}` : '---'}
                             </span>
                         </div>
                         <div className="flex justify-between py-2 border-b border-zinc-800/50">
@@ -168,6 +166,19 @@ export default function SubscriptionPage() {
                         <button className="w-full py-2 border border-zinc-700 hover:bg-zinc-800 text-zinc-300 rounded font-mono text-xs transition-colors">
                             VIEW INVOICE
                         </button>
+                    </div>
+                </div>
+            ) : !connected ? (
+                <div className="py-12 text-center relative z-10">
+                    <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Shield className="w-8 h-8 text-zinc-600" />
+                    </div>
+                    <h4 className="text-white font-bold font-mono mb-2">Wallet Not Connected</h4>
+                    <p className="text-zinc-500 text-sm font-mono mb-6 max-w-xs mx-auto">
+                        Please connect your Solana wallet to view your subscription details.
+                    </p>
+                    <div className="flex justify-center">
+                        <WalletMultiButton className="!bg-emerald-600 hover:!bg-emerald-500 !font-mono !text-sm !rounded" />
                     </div>
                 </div>
             ) : (

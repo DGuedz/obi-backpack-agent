@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import ObiWorkLogo from "../components/ObiWorkLogo";
-import { User, LogOut, LayoutDashboard, Calendar, Settings, Home, CreditCard } from "lucide-react";
+import { User, LogOut, LayoutDashboard, Calendar, Settings, Home, CreditCard, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
-  const cookieStore = cookies();
+export default async function DashboardLayout({ children }: { children: ReactNode }) {
+  const cookieStore = await cookies();
   const allowed = cookieStore.get("obi_access_allowed")?.value === "true";
   if (!allowed) {
     redirect("/access");
@@ -28,6 +28,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 bg-zinc-900/50 text-white hover:bg-zinc-800 rounded transition-colors">
             <LayoutDashboard className="w-4 h-4 text-emerald-500" />
             <span>Overview</span>
+          </Link>
+          <Link href="/dashboard/proof" className="flex items-center gap-3 px-4 py-3 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded transition-colors">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            <span>Visual Proof</span>
           </Link>
           <Link href="/dashboard/mentorship" className="flex items-center gap-3 px-4 py-3 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded transition-colors">
             <Calendar className="w-4 h-4" />
