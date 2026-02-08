@@ -129,7 +129,7 @@ const getTiers = (lang: 'pt' | 'en') => [
     id: "scout",
     name: "PARTNER SCOUT",
     role: CONTENT[lang].sections.scout.role,
-    price: 29.99,
+    price: "DYNAMIC PEG",
     sbt: "OBI-SCOUT",
     color: "emerald",
     gradient: "from-emerald-900/40 to-black",
@@ -149,7 +149,7 @@ const getTiers = (lang: 'pt' | 'en') => [
     id: "commander",
     name: "LIQUIDITY PROVIDER",
     role: CONTENT[lang].sections.commander.role,
-    price: 49.90,
+    price: "DYNAMIC PEG",
     sbt: "OBI-CMDR",
     color: "blue",
     gradient: "from-blue-900/40 to-black",
@@ -169,7 +169,7 @@ const getTiers = (lang: 'pt' | 'en') => [
     id: "architect",
     name: "INSTITUTIONAL PARTNER",
     role: CONTENT[lang].sections.architect.role,
-    price: 99.00,
+    price: "DYNAMIC PEG",
     sbt: "OBI-ARCH",
     color: "yellow",
     gradient: "from-yellow-900/40 to-black",
@@ -226,8 +226,8 @@ function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang
             <h3 className="text-3xl font-bold text-white mb-2">{tier.name}</h3>
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-zinc-500" />
-              <span className="text-2xl font-bold text-zinc-500 blur-[4px] select-none">$999</span>
-              <span className="text-xs text-zinc-500 ml-2">{CONTENT[lang].season_pass}</span>
+              <span className="text-xl font-bold text-zinc-500 select-none tracking-tight">DYNAMIC PEG</span>
+              <span className="text-xs text-zinc-600 ml-1 animate-pulse">CALCULATING...</span>
             </div>
           </div>
 

@@ -1,0 +1,11 @@
+# OBI WORK CORE (Agentic Execution System)
+# Ignore logs, secrets, and cache
+__pycache__/
+*.log
+*.vsc_log
+.env
+.env.local
+secrets/
+audit_receipts/
+memory/
+*.tmp

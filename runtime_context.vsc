@@ -1,0 +1,4 @@
+risk_profile: aggressive
+assets: [SOL]
+max_loss_usd: 100.0
+allow_short: true

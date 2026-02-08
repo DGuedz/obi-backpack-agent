@@ -9,7 +9,7 @@ pub mod obi_pass {
     use super::*;
 
     // 1. Inicializar a "Casa da Moeda" (Mint Authority)
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+    pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
         msg!("🚀 OBI Pass: Protocolo Inicializado!");
         Ok(())
     }
@@ -44,6 +44,9 @@ pub mod obi_pass {
 
         // Mintar 1 Token para o comprador
         // Usando Token Extensions (Token 2022) para metadados on-chain
+        let bump = ctx.bumps.mint_authority;
+        let signer_seeds: &[&[&[u8]]] = &[&[b"authority", &[bump]]];
+
         anchor_spl::token_interface::mint_to(
             CpiContext::new_with_signer(
                 ctx.accounts.token_program.to_account_info(),
@@ -52,7 +55,7 @@ pub mod obi_pass {
                     to: ctx.accounts.buyer_token_account.to_account_info(),
                     authority: ctx.accounts.mint_authority.to_account_info(),
                 },
-                &[], // Seeds para PDA se necessário: idealmente seeds=[b"authority", bump]
+                signer_seeds,
             ),
             1, // Quantidade: 1 Licença
         )?;

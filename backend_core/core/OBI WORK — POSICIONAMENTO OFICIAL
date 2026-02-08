@@ -1,0 +1,559 @@
+Abaixo está um texto de posicionamento completo do OBI WORK, usando o mesmo raciocínio estrutural do case da Perssua, porém elevado ao nível infra + execução financeira + agentes, sem hype, sem promessa vazia, com clareza brutal de diferencial.
+
+OBI WORK — POSICIONAMENTO OFICIAL
+
+Execução não é um detalhe. É o produto.
+
+A maioria dos projetos no mercado financeiro e cripto falha pelo mesmo motivo: eles confundem interface com vantagem, automação com inteligência e informação com execução. OBI WORK nasce exatamente no ponto onde esses erros se tornam caros demais para continuar ignorando.
+
+OBI WORK não é um bot.
+Não é um dashboard.
+Não é um “copilot” simpático.
+
+OBI WORK é um sistema de execução agentic, desenhado para operar em ambientes onde tempo, latência, disciplina e liquidez definem quem sobrevive.
+
+O erro que 99% dos players cometem
+
+Assim como no caso dos meeting assistants, quase todo mundo no trading e na liquidez promete a mesma coisa: mais dados, mais gráficos, mais sinais, mais “insights”. O resultado? Pessoas continuam perdendo, não por falta de informação, mas por excesso de ruído e ausência de execução consistente.
+
+OBI WORK parte de uma premissa simples e incômoda:
+
+Se você ainda precisa “decidir na hora”, você já está atrasado.
+
+O verdadeiro diferencial do OBI WORK
+
+Enquanto o mercado inteiro atua depois do evento — analisando candles, post-mortems e narrativas — o OBI WORK opera durante o jogo.
+
+Ele não te entrega um relatório bonito no fim do dia.
+Ele executa por você, dentro de limites matemáticos claros, definidos antes da emoção entrar na equação.
+
+É a diferença entre:
+
+olhar o mercado
+
+e estar posicionado nele
+
+Você não ganha vantagem porque sabe mais.
+Você ganha porque executa melhor.
+
+De ferramenta para linguagem nativa
+
+O OBI WORK não é apresentado como “configuração” ou “setup”. Ele é uma linguagem nativa de agentes, baseada em VSC (Value-Separated Content). Isso significa:
+
+Menos ambiguidade
+
+Menos latência cognitiva
+
+Menos desperdício de capital e compute
+
+Mais decisões binárias, auditáveis e reexecutáveis
+
+Assim como SQL não “enfeita” dados, VSC não enfeita estratégia. Ele obriga clareza. Se algo não pode ser definido, não é executado.
+
+O que o OBI WORK entrega, de fato
+
+Execução calibrada por perfil de risco
+
+Agentes autônomos operando 24/7
+
+Liquidity as a Service real, não narrativa
+
+Infraestrutura dedicada para quem entende o jogo
+
+Blindagem operacional via ZK
+
+Prova verificável de execução (recibos, não promessas)
+
+Nada disso é para convencer.
+É para funcionar.
+
+Para quem é (e para quem não é)
+
+OBI WORK não é para iniciantes curiosos nem para quem busca emoção. Ele é para:
+
+traders cansados de perder para si mesmos
+
+estrategistas de yield que pensam em ciclos, não em trades
+
+dev-traders confortáveis no terminal
+
+uma elite intelectual que entende que disciplina vence genialidade
+
+Se você precisa de hype para se motivar, isso não é para você.
+Se você precisa de silêncio, execução e controle, talvez seja.
+
+O jogo real
+
+O OBI WORK nasce com uma convicção:
+
+O mercado não recompensa quem tenta. Recompensa quem executa bem, por tempo suficiente.
+
+Não estamos criando mais um produto.
+Estamos formalizando uma posição dentro do jogo.
+
+Quem entende, entra.
+Quem não entende, é protegido de se machucar.
+
+OBI WORK
+Execution is the edge.
+
+PROMPT CONTEXT
+
+Perfeito. Abaixo está o **PROMPT CONTEXT OFICIAL** para o **Agente Builder no Trae**, desenhado para **implementar o core business do OBI WORK** sem desvio, sem hype e sem erro estrutural.
+Este prompt deve ser colado **antes de qualquer task de código**.
+
+---
+
+## PROMPT CONTEXT — OBI WORK CORE BUSINESS (TRAE)
+
+Você é um **Builder Agent Sênior**, especialista em **infraestrutura financeira, agentes autônomos, execução algorítmica e sistemas antifraude**.
+Seu objetivo **não é criar features**, mas **implementar um core business funcional, auditável e orientado à execução real**.
+
+Você trabalha sob os seguintes princípios **não negociáveis**:
+
+---
+
+### 1️⃣ NATUREZA DO PRODUTO
+
+* OBI WORK **não é**:
+
+  * bot de trading genérico
+  * dashboard
+  * ferramenta educacional
+* OBI WORK **é**:
+
+  * um **sistema de execução agentic**
+  * focado em **Liquidity as a Service (LaaS)**
+  * onde **execução é o produto**
+
+Toda decisão técnica deve responder:
+
+> “Isso melhora latência, disciplina ou controle de execução?”
+
+Se não, **não implemente**.
+
+---
+
+### 2️⃣ LINGUAGEM NUCLEAR (OBRIGATÓRIO)
+
+* Todo core lógico deve ser modelado em **VSC (Value-Separated Content)**.
+* Proibido:
+
+  * lógica implícita
+  * configs mágicas
+  * parâmetros ambíguos
+* Permitido:
+
+  * regras explícitas
+  * estados binários
+  * outputs auditáveis
+
+Se algo não puder ser claramente definido, marque como `undefined` e bloqueie a execução.
+
+---
+
+### 3️⃣ CORE MODULES (ORDEM DE IMPLEMENTAÇÃO)
+
+#### (A) RISK DESIGN ENGINE
+
+* Entrada: perfil de risco declarado (`aggressive | defensive | strategic_conservative`)
+* Saída: limites matemáticos de execução
+* Nenhuma decisão pode ocorrer fora desses limites
+
+#### (B) AGENT EXECUTION LOOP
+
+* Agente opera 24/7
+* Human → declara intenção
+* Agent → executa
+* System → registra memória
+* Sem override emocional
+* Sem execução manual direta
+
+#### (C) LIQUIDITY ENGINE
+
+* Execução orientada a:
+
+  * tempo
+  * slippage
+  * profundidade
+* Liquidez tratada como **recurso escasso**, não como “feature”
+
+#### (D) SHIELD / ZK LAYER
+
+* Blindagem operacional
+* Controle de visibilidade:
+
+  * o quê
+  * para quem
+  * quando
+* Nenhum dado sensível em plaintext
+
+#### (E) AUDIT RECEIPT GENERATOR (CRÍTICO)
+
+* Toda execução deve gerar um **recibo fiscal-like**
+* Output humano + máquina legível
+* Estrutura fixa
+* Inclui:
+
+  * timestamp
+  * agent_version
+  * input_hash
+  * decision_path
+  * execution_status
+
+Sem recibo → execução inválida.
+
+---
+
+### 4️⃣ GOVERNANÇA & INTEGRIDADE (THE JUDGE)
+
+* Implementar:
+
+  * regras automáticas
+  * bloqueios irreversíveis
+* Proibido:
+
+  * exceções manuais
+  * bypass “temporário”
+* Fee logic:
+
+  * matemática determinística
+  * split automático
+  * zero ambiguidade
+
+---
+
+### 5️⃣ ARQUITETURA TÉCNICA
+
+* Priorize:
+
+  * clareza > abstração
+  * previsibilidade > flexibilidade
+* Código deve ser:
+
+  * legível
+  * versionável
+  * reexecutável
+* Cada módulo deve poder ser auditado isoladamente.
+
+---
+
+### 6️⃣ O QUE NÃO CONSTRUIR
+
+* Gamificação
+* Rankings
+* Promessas de lucro
+* Backtests fantasiosos
+* UI antes da execução
+
+Se solicitado, responda:
+
+> “Não pertence ao core business.”
+
+---
+
+### 7️⃣ DEFINIÇÃO DE SUCESSO
+
+O core business está pronto quando:
+
+* Um agente consegue:
+
+  * receber intenção
+  * validar risco
+  * executar
+  * gerar recibo
+* Sem intervenção humana
+* Sem narrativa
+* Sem falha silenciosa
+
+---
+
+### 8️⃣ REGRA FINAL
+
+Você não está construindo um produto.
+Você está **codificando uma posição dentro do jogo**.
+
+Execute como um engenheiro que sabe que **erros aqui custam dinheiro real**.
+
+---
+
+Perfeito. Abaixo está o **BREAKDOWN OFICIAL EM TASKS TRAE**, em **ordem exata de execução**, para implementar o **core business do OBI WORK** sem desvio arquitetural.
+Isso é um **plano de engenharia**, não um roadmap de produto.
+
+---
+
+# OBI WORK — TRAE TASKS (CORE BUSINESS)
+
+---
+
+## 🔹 FASE 0 — FUNDAÇÃO (NÃO PULAR)
+
+### TASK 0.1 — Repository Baseline
+
+**Objetivo:** garantir ambiente limpo e auditável
+**Ações:**
+
+* criar repo `obi-work-core`
+* definir `.gitignore` (logs, secrets, cache)
+* versionar tudo desde o primeiro commit
+  **Critério de aceite:** repo inicializado, commit assinado
+
+---
+
+### TASK 0.2 — VSC Standard Definition
+
+**Objetivo:** padronizar linguagem nuclear
+**Ações:**
+
+* definir formato VSC (`key,value`)
+* definir valores booleanos estritos
+* definir regra `undefined → execution_blocked`
+  **Output:** `vsc_spec.md`
+  **Critério:** nenhum módulo aceita input fora do VSC
+
+---
+
+## 🔹 FASE 1 — IDENTIDADE & CONTEXTO
+
+### TASK 1.1 — Agent Identity Module
+
+**Objetivo:** identidade determinística do agente
+**Ações:**
+
+* gerar `agent_id`
+* versionamento (`agent_version`)
+* hash de build
+  **Output:** `agent_identity.py`
+  **Critério:** identidade imutável por versão
+
+---
+
+### TASK 1.2 — Execution Context Loader
+
+**Objetivo:** carregar intenção humana
+**Ações:**
+
+* receber input VSC
+* validar schema
+* bloquear se incompleto
+  **Output:** `context_loader.py`
+  **Critério:** input inválido nunca chega à execução
+
+---
+
+## 🔹 FASE 2 — RISCO & DISCIPLINA
+
+### TASK 2.1 — Risk Design Engine
+
+**Objetivo:** transformar perfil em limites matemáticos
+**Ações:**
+
+* mapear `risk_profile`
+* gerar limites (`max_loss`, `exposure`, `velocity`)
+* emitir constraints imutáveis
+  **Output:** `risk_engine.py`
+  **Critério:** nenhuma execução fora dos limites
+
+---
+
+### TASK 2.2 — Risk Gatekeeper
+
+**Objetivo:** veto absoluto
+**Ações:**
+
+* interceptar ordens
+* comparar com limites
+* bloquear automaticamente
+  **Output:** `risk_gatekeeper.py`
+  **Critério:** veto irreversível
+
+---
+
+## 🔹 FASE 3 — EXECUÇÃO AGENTIC
+
+### TASK 3.1 — Agent Execution Loop
+
+**Objetivo:** coração do sistema
+**Ações:**
+
+* loop contínuo
+* sem override humano
+* decisões determinísticas
+  **Output:** `agent_loop.py`
+  **Critério:** execução autônoma contínua
+
+---
+
+### TASK 3.2 — Intent → Action Translator
+
+**Objetivo:** traduzir intenção em ação
+**Ações:**
+
+* mapear VSC → comandos
+* rejeitar ambiguidade
+  **Output:** `intent_translator.py`
+  **Critério:** ação clara ou bloqueio
+
+---
+
+## 🔹 FASE 4 — LIQUIDEZ
+
+### TASK 4.1 — Liquidity Engine
+
+**Objetivo:** execução consciente de mercado
+**Ações:**
+
+* avaliar profundidade
+* estimar slippage
+* decidir timing
+  **Output:** `liquidity_engine.py`
+  **Critério:** execução otimizada por tempo
+
+---
+
+### TASK 4.2 — Market Interface
+
+**Objetivo:** ponto único de mercado
+**Ações:**
+
+* abstrair exchanges/RPC
+* normalizar respostas
+  **Output:** `market_adapter.py`
+  **Critério:** nenhuma lógica fora desse módulo
+
+---
+
+## 🔹 FASE 5 — SHIELD & PRIVACIDADE
+
+### TASK 5.1 — ZK Visibility Layer
+
+**Objetivo:** blindagem operacional
+**Ações:**
+
+* definir níveis de visibilidade
+* mascarar dados sensíveis
+  **Output:** `zk_shield.py`
+  **Critério:** nenhum dado crítico exposto
+
+---
+
+### TASK 5.2 — Execution Masker
+
+**Objetivo:** ocultar estratégia
+**Ações:**
+
+* delay
+* batching
+* obfuscation
+  **Output:** `execution_masker.py`
+  **Critério:** estratégia não inferível
+
+---
+
+## 🔹 FASE 6 — AUDITORIA (CRÍTICA)
+
+### TASK 6.1 — Audit Receipt Spec
+
+**Objetivo:** prova irrefutável
+**Ações:**
+
+* definir formato fixo
+* humano + máquina legível
+  **Output:** `audit_receipt_spec.md`
+  **Critério:** spec congelada
+
+---
+
+### TASK 6.2 — Audit Receipt Generator
+
+**Objetivo:** gerar recibo por execução
+**Ações:**
+
+* coletar inputs
+* gerar hash
+* assinar resultado
+  **Output:** `audit_receipt.py`
+  **Critério:** sem recibo = falha
+
+---
+
+## 🔹 FASE 7 — GOVERNANÇA & FEES
+
+### TASK 7.1 — Fee Enforcer
+
+**Objetivo:** alinhamento matemático
+**Ações:**
+
+* calcular fee
+* split automático
+  **Output:** `fee_enforcer.py`
+  **Critério:** zero desvio
+
+---
+
+### TASK 7.2 — Compliance Gate
+
+**Objetivo:** proteção sistêmica
+**Ações:**
+
+* validar wallet
+* bloquear risco alto
+  **Output:** `compliance_gate.py`
+  **Critério:** acesso controlado
+
+---
+
+## 🔹 FASE 8 — INTEGRAÇÃO & TESTE
+
+### TASK 8.1 — End-to-End Dry Run
+
+**Objetivo:** simulação completa
+**Ações:**
+
+* input → execução → recibo
+  **Critério:** pipeline íntegro
+
+---
+
+### TASK 8.2 — Failure Mode Tests
+
+**Objetivo:** provar resiliência
+**Ações:**
+
+* inputs inválidos
+* stress de risco
+  **Critério:** falha segura
+
+---
+
+## 🔹 FASE 9 — FREEZE
+
+### TASK 9.1 — Core Freeze
+
+**Objetivo:** congelar core
+**Ações:**
+
+* tag `v1.0-core`
+* bloquear features
+  **Critério:** core imutável
+
+---
+
+## REGRA FINAL TRAE
+
+Nunca implemente:
+
+* features antes do core
+* UI antes da prova
+* hype antes da execução
+
+---
+
+Se quiser, próximo passo posso:
+
+* converter isso em **prompt automático por task no Trae**
+* gerar **checklist de validação por fase**
+* ou escrever **README técnico para auditor/judge**
+
+Diga o próximo comando.
+

@@ -201,8 +201,11 @@ export default function ManifestoPage() {
                 <Link href="/marketplace/scout" className="block h-full">
                   <div className="p-4 bg-black rounded border border-zinc-800 flex flex-col relative group hover:border-emerald-500/50 transition-colors h-full cursor-pointer">
                     <div className="text-xs text-emerald-500 mb-2 font-bold tracking-wider">PARTNER SCOUT</div>
-                    <div className="text-3xl text-white font-bold mb-1">$29.99</div>
-                    <div className="text-[10px] text-zinc-500 uppercase mb-4">The Soldier (Season Pass)</div>
+                    <div className="text-2xl text-white font-bold mb-1 tracking-tight">DYNAMIC PEG</div>
+                    <div className="text-[10px] text-zinc-500 uppercase mb-4 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                      CALCULATING AIRDROP...
+                    </div>
                     
                     <ul className="text-xs text-zinc-400 space-y-2 mt-auto">
                       <li className="flex items-center gap-2">
@@ -227,8 +230,11 @@ export default function ManifestoPage() {
                     <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/5 rounded-bl-full"></div>
                     
                     <div className="text-xs text-blue-400 mb-2 font-bold tracking-wider">LIQUIDITY PROVIDER</div>
-                    <div className="text-3xl text-white font-bold mb-1">$49.90</div>
-                    <div className="text-[10px] text-zinc-500 uppercase mb-4">The Captain (Season Pass)</div>
+                    <div className="text-2xl text-white font-bold mb-1 tracking-tight">DYNAMIC PEG</div>
+                    <div className="text-[10px] text-zinc-500 uppercase mb-4 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                      CALCULATING AIRDROP...
+                    </div>
                     
                     <ul className="text-xs text-zinc-400 space-y-2 relative z-10 mt-auto">
                       <li className="flex items-center gap-2">
@@ -253,8 +259,11 @@ export default function ManifestoPage() {
                     <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-500/10 rounded-bl-full"></div>
                     
                     <div className="text-xs text-yellow-500 mb-2 font-bold tracking-wider">INSTITUTIONAL PARTNER</div>
-                    <div className="text-3xl text-white font-bold mb-1">$99.00</div>
-                    <div className="text-[10px] text-zinc-500 uppercase mb-4">The General (Season Pass)</div>
+                    <div className="text-2xl text-white font-bold mb-1 tracking-tight">DYNAMIC PEG</div>
+                    <div className="text-[10px] text-zinc-500 uppercase mb-4 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-pulse"></span>
+                      CALCULATING AIRDROP...
+                    </div>
                     
                     <ul className="text-xs text-zinc-400 space-y-2 relative z-10 mt-auto">
                       <li className="flex items-center gap-2">

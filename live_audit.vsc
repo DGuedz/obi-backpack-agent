@@ -1,0 +1,21 @@
+# OBI WORK - LIVE AUDIT CONTEXT
+# Risk Profile: Aggressive (Forced for Demo/Volume Proof)
+# Asset: SOL (High Liquidity)
+
+version: 4.0
+type: execution_context
+
+# Identity
+agent_id: obi_v4_auditor
+risk_profile: aggressive
+
+# Execution Parameters
+# Strict Limits for Safety
+max_loss_usd: 5.0
+max_entry_size: 10.0
+allow_short: false
+assets: [SOL]
+
+# Integrity
+audit_enabled: true
+zk_level: standard
