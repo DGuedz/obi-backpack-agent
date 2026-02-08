@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CreditCard, CheckCircle, AlertTriangle, Shield, Calendar, RefreshCw, Star } from "lucide-react";
+import { CreditCard, CheckCircle, AlertTriangle, Shield, Calendar, RefreshCw, Star, Activity } from "lucide-react";
+import Link from "next/link";
 
 interface License {
   id: string;
@@ -125,7 +126,7 @@ export default function SubscriptionPage() {
                 <div className="py-8 text-center">
                     <AlertTriangle className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
                     <p className="text-zinc-400 font-mono text-sm mb-4">{error}</p>
-                    <a href="/" className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded font-mono text-xs">Return to Gatekeeper</a>
+                    <Link href="/" className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded font-mono text-xs">Return to Gatekeeper</Link>
                 </div>
             ) : license ? (
                 <div className="space-y-6 relative z-10">
@@ -178,9 +179,9 @@ export default function SubscriptionPage() {
                     <p className="text-zinc-500 text-sm font-mono mb-6 max-w-xs mx-auto">
                         You are currently viewing the dashboard in Guest Mode. Upgrade to unlock full features.
                     </p>
-                    <a href="/marketplace" className="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded font-mono text-sm transition-colors inline-block">
+                    <Link href="/marketplace" className="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded font-mono text-sm transition-colors inline-block">
                         BROWSE PLANS
-                    </a>
+                    </Link>
                 </div>
             )}
         </div>

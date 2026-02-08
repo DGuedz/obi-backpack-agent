@@ -3,16 +3,12 @@ import { NextResponse } from 'next/server';
 import { CieloService } from '@/app/lib/cielo';
 import path from 'path';
 import crypto from 'crypto';
-import Database from 'better-sqlite3';
 import { promises as fs } from 'node:fs';
+import { getDb } from '@/app/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-const dbPath = process.env.OBI_APPLICATION_DB_PATH
-  ? path.resolve(process.env.OBI_APPLICATION_DB_PATH)
-  : path.join(process.cwd(), 'backend_core', 'db', 'obi_applications.sqlite');
-let dbInstance: ReturnType<typeof Database> | null = null;
 const TIER_PRICES: Record<string, number> = {
   scout: 29.99,
   commander: 49.9,
@@ -215,25 +211,6 @@ export async function POST(req: Request) {
   }
 }
 
-async function getDb() {
-  if (dbInstance) return dbInstance;
-  const dbDir = path.dirname(dbPath);
-  await fs.mkdir(dbDir, { recursive: true });
-  const db = new Database(dbPath);
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS payments (id TEXT PRIMARY KEY, created_at TEXT, wallet_address TEXT, tier_id TEXT, amount REAL, status TEXT, provider TEXT, provider_payment_id TEXT, order_id TEXT, email TEXT)"
-  );
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS licenses (id TEXT PRIMARY KEY, wallet_address TEXT, tier_id TEXT, status TEXT, issued_at TEXT, payment_id TEXT)"
-  );
-  db.exec("CREATE INDEX IF NOT EXISTS idx_payments_wallet ON payments(wallet_address)");
-  db.exec("CREATE INDEX IF NOT EXISTS idx_licenses_wallet ON licenses(wallet_address)");
-  ensureColumn(db, "payments", "order_id", "TEXT");
-  ensureColumn(db, "payments", "email", "TEXT");
-  dbInstance = db;
-  return dbInstance;
-}
-
 async function persistPaymentAndLicense(input: {
   walletAddress: string;
   tierId: string;
@@ -285,14 +262,6 @@ async function findActiveLicense(walletAddress: string, tierId: string) {
     };
   } catch {
     return null;
-  }
-}
-
-function ensureColumn(db: Database.Database, table: string, column: string, type: string) {
-  try {
-    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
-  } catch {
-    return;
   }
 }
 

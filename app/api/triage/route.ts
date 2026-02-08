@@ -1,15 +1,10 @@
 import { NextResponse } from "next/server";
 import path from "node:path";
 import { promises as fs } from "node:fs";
-import Database from "better-sqlite3";
+import { getDb } from '@/app/lib/db';
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-const dbPath = process.env.OBI_APPLICATION_DB_PATH
-  ? path.resolve(process.env.OBI_APPLICATION_DB_PATH)
-  : path.join(process.cwd(), "backend_core", "db", "obi_applications.sqlite");
-let dbInstance: ReturnType<typeof Database> | null = null;
 
 export async function GET() {
   try {
@@ -147,26 +142,6 @@ async function readJsonLines(filePath: string) {
   } catch {
     return [];
   }
-}
-
-async function getDb() {
-  if (dbInstance) return dbInstance;
-  const dbDir = path.dirname(dbPath);
-  await fs.mkdir(dbDir, { recursive: true });
-  const db = new Database(dbPath);
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS applications (id TEXT PRIMARY KEY, received_at TEXT, wallet_address TEXT, user_agent TEXT, forwarded_for TEXT, answers_json TEXT, gatekeeper_allowed INTEGER, gatekeeper_mode TEXT, status TEXT)"
-  );
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS triage (application_id TEXT PRIMARY KEY, received_at TEXT, wallet_address TEXT, score INTEGER, tier TEXT, tags_json TEXT, status TEXT, gatekeeper_allowed INTEGER, gatekeeper_mode TEXT)"
-  );
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS triage_status (id INTEGER PRIMARY KEY AUTOINCREMENT, application_id TEXT, status TEXT, reviewer TEXT, updated_at TEXT)"
-  );
-  db.exec("CREATE INDEX IF NOT EXISTS idx_applications_wallet ON applications(wallet_address)");
-  db.exec("CREATE INDEX IF NOT EXISTS idx_triage_status_app ON triage_status(application_id)");
-  dbInstance = db;
-  return dbInstance;
 }
 
 function parseJsonArray(value: unknown) {

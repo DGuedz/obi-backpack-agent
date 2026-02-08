@@ -1,10 +1,6 @@
 import { NextResponse } from 'next/server';
 import path from 'path';
 import { promises as fs } from 'node:fs';
-import { execFile } from 'child_process';
-import util from 'util';
-
-const execFilePromise = util.promisify(execFile);
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -70,8 +66,8 @@ async function checkGatekeeperHealth(configured: boolean, rpcConfigured: boolean
   let latency = 0;
   
   if (rpcConfigured) {
-      // Simple connectivity check if possible, or assume OK if configured for now to avoid blocking
-      // In future: await pingRpc(process.env.OBI_SOLANA_RPC_URL)
+    // Simple connectivity check if possible, or assume OK if configured for now to avoid blocking
+    // In future: await pingRpc(process.env.OBI_SOLANA_RPC_URL)
   }
   
   latency = Math.round(performance.now() - start);
@@ -84,67 +80,67 @@ async function checkGatekeeperHealth(configured: boolean, rpcConfigured: boolean
 }
 
 async function checkReportsHealth(latestGeneratedAt: string | null, fresh: boolean) {
-    const start = performance.now();
-    const ok = Boolean(latestGeneratedAt) && fresh;
-    const status = latestGeneratedAt ? (fresh ? 'ok' : 'stale') : 'pending';
-    const latency = Math.round(performance.now() - start);
-    return {
-        ok,
-        status,
-        latency,
-        details: { latestGeneratedAt, reportAgeHours: latestGeneratedAt ? (Date.now() - new Date(latestGeneratedAt).getTime()) / 36e5 : null }
-    };
+  const start = performance.now();
+  const ok = Boolean(latestGeneratedAt) && fresh;
+  const status = latestGeneratedAt ? (fresh ? 'ok' : 'stale') : 'pending';
+  const latency = Math.round(performance.now() - start);
+  return {
+    ok,
+    status,
+    latency,
+    details: { latestGeneratedAt, reportAgeHours: latestGeneratedAt ? (Date.now() - new Date(latestGeneratedAt).getTime()) / 36e5 : null }
+  };
 }
 
 async function checkPaymentsHealth(configured: boolean) {
-    const start = performance.now();
-    let ok = configured;
-    let status = configured ? 'ok' : 'needs_config';
-    let latency = 0;
-    
-    // Check DB connection for payments
-    try {
-        const dbPath = process.env.OBI_APPLICATION_DB_PATH
-            ? path.resolve(process.env.OBI_APPLICATION_DB_PATH)
-            : path.join(process.cwd(), 'backend_core', 'db', 'obi_applications.sqlite');
-        await fs.access(dbPath).catch(() => {}); 
-    } catch {
-        // If DB file doesn't exist yet, it's fine, it will be created on first write
-    }
-    
-    latency = Math.round(performance.now() - start);
-    return {
-        ok,
-        status,
-        latency,
-        details: { cieloConfigured: configured }
-    };
+  const start = performance.now();
+  let ok = configured;
+  let status = configured ? 'ok' : 'needs_config';
+  let latency = 0;
+  
+  // Check DB connection for payments
+  try {
+    const dbPath = process.env.OBI_APPLICATION_DB_PATH
+      ? path.resolve(process.env.OBI_APPLICATION_DB_PATH)
+      : path.join(process.cwd(), 'backend_core', 'db', 'obi_applications.sqlite');
+    await fs.access(dbPath).catch(() => {}); 
+  } catch {
+    // If DB file doesn't exist yet, it's fine, it will be created on first write
+  }
+  
+  latency = Math.round(performance.now() - start);
+  return {
+    ok,
+    status,
+    latency,
+    details: { cieloConfigured: configured }
+  };
 }
 
 async function checkMentorshipHealth(configured: boolean) {
-    const start = performance.now();
-    let ok = configured;
-    let status = configured ? 'ok' : 'needs_config';
-    const latency = Math.round(performance.now() - start);
-    return {
-        ok,
-        status,
-        latency,
-        details: { googleConfigured: configured }
-    };
+  const start = performance.now();
+  let ok = configured;
+  let status = configured ? 'ok' : 'needs_config';
+  const latency = Math.round(performance.now() - start);
+  return {
+    ok,
+    status,
+    latency,
+    details: { googleConfigured: configured }
+  };
 }
 
 async function checkBackpackHealth(configured: boolean) {
-    const start = performance.now();
-    let ok = configured;
-    let status = configured ? 'ok' : 'needs_config';
-    const latency = Math.round(performance.now() - start);
-    return {
-        ok,
-        status,
-        latency,
-        details: { configured }
-    };
+  const start = performance.now();
+  let ok = configured;
+  let status = configured ? 'ok' : 'needs_config';
+  const latency = Math.round(performance.now() - start);
+  return {
+    ok,
+    status,
+    latency,
+    details: { configured }
+  };
 }
 
 async function readJson(filePath: string) {

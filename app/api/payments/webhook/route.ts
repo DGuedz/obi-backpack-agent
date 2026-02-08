@@ -1,16 +1,11 @@
 import { NextResponse } from 'next/server';
 import path from 'path';
 import crypto from 'crypto';
-import Database from 'better-sqlite3';
 import { promises as fs } from 'node:fs';
+import { getDb } from '@/app/lib/db';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
-
-const dbPath = process.env.OBI_APPLICATION_DB_PATH
-  ? path.resolve(process.env.OBI_APPLICATION_DB_PATH)
-  : path.join(process.cwd(), 'backend_core', 'db', 'obi_applications.sqlite');
-let dbInstance: ReturnType<typeof Database> | null = null;
 
 export async function POST(req: Request) {
   const requestId = crypto.randomUUID();
@@ -69,22 +64,6 @@ export async function POST(req: Request) {
     await appendAudit({ event: 'webhook_error', status: 'error', meta: { message }, requestId });
     return NextResponse.json({ error: message }, { status: 500 });
   }
-}
-
-async function getDb() {
-  if (dbInstance) return dbInstance;
-  const dbDir = path.dirname(dbPath);
-  await fs.mkdir(dbDir, { recursive: true });
-  const db = new Database(dbPath);
-  // Ensure tables exist (shared with payments route)
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS payments (id TEXT PRIMARY KEY, created_at TEXT, wallet_address TEXT, tier_id TEXT, amount REAL, status TEXT, provider TEXT, provider_payment_id TEXT, order_id TEXT, email TEXT)"
-  );
-  db.exec(
-    "CREATE TABLE IF NOT EXISTS licenses (id TEXT PRIMARY KEY, wallet_address TEXT, tier_id TEXT, status TEXT, issued_at TEXT, payment_id TEXT)"
-  );
-  dbInstance = db;
-  return dbInstance;
 }
 
 async function appendAudit(entry: Record<string, unknown>) {
