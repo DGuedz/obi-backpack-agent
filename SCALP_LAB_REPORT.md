@@ -60,7 +60,37 @@ Every execution generates a signed audit receipt to ensure immutability and trus
 -   **Signature:** `4cc57gKerj81K5Fa...`
 -   **Proof Type:** `SCALP_LAB_V1`
 
+## 🌍 Multi-Strategy Ecosystem (Labs)
+The OBI WORK agent has expanded beyond Scalping to cover multiple timeframes and modalities, ensuring resilience across market conditions.
+
+### ☀️ Day Trade Lab (15m Timeframe)
+- **Strategy**: EMA Crossover (9/21) Trend Following.
+- **Status**: ✅ Validated.
+- **Signal Logic**: `EMA9 > EMA21` = Bullish.
+- **Risk/Reward**: 1:2 (SL 1% / TP 2%).
+
+### 🌊 Swing Trade Lab (4H Timeframe)
+- **Strategy**: MACD (12, 26, 9) Momentum.
+- **Status**: ✅ Validated.
+- **Signal Logic**: MACD Line > Signal Line.
+- **Risk/Reward**: 1:2 (SL 5% / TP 10%).
+
+### 🏰 Position Lab (Daily Timeframe)
+- **Strategy**: Golden Cross (SMA 50/200) + HODL.
+- **Status**: ✅ Validated.
+- **Current State**: BEARISH (Death Cross).
+- **Action**: Cash/Stablecoins (Defensive Mode).
+
+### ⚖️ Arbitrage Lab (Market Neutral)
+- **Strategy**: Spot-Perp Basis Monitor.
+- **Status**: ✅ Active.
+- **Logic**: Exploits spread > 0.1% between `SOL_USDC` and `SOL_USDC_PERP`.
+
 ## 📂 Code References
--   **Lab Logic:** [scalp_lab.py](backend_core/obi_work_core/scalp_lab.py)
+-   **Scalp Lab:** [scalp_lab.py](backend_core/obi_work_core/scalp_lab.py)
+-   **Day Trade Lab:** [day_trade_lab.py](backend_core/obi_work_core/day_trade_lab.py)
+-   **Swing Trade Lab:** [swing_trade_lab.py](backend_core/obi_work_core/swing_trade_lab.py)
+-   **Position Lab:** [position_lab.py](backend_core/obi_work_core/position_lab.py)
+-   **Arbitrage Lab:** [arbitrage_lab.py](backend_core/obi_work_core/arbitrage_lab.py)
 -   **Exchange Client:** [backpack_client.py](backend_core/obi_work_core/backpack_client.py)
 -   **Signer:** [solana_signer.py](backend_core/obi_work_core/solana_signer.py)
