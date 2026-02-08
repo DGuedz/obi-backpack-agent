@@ -1,5 +1,12 @@
 # OBIWORK | PARTNER ECOSYSTEM (V4.0)
 
+![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
+![Hackathon](https://img.shields.io/badge/Colosseum-Agent_Hackathon-blueviolet?style=flat-square)
+![Solana](https://img.shields.io/badge/Solana-Integration-00FFA3?style=flat-square&logo=solana&logoColor=black)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=flat-square)
+
 **Scale Liquidity. Master the Game.**
 The PARTNER ECOSYSTEM is for those who understand that the market rewards consistency, precision, and alignment.
 
