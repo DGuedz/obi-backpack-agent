@@ -1,7 +1,7 @@
 {
-  "name": "OBI Agent (Backpack Trading)",
-  "description": "Autonomous AI agent for HFT and volume farming on Backpack Exchange. Features a real-world audit trail validated on-chain (Proof of Volume) to demonstrate resilience under volatile conditions. Built with VSC (Value-Separated Content) tokenomics for sustainable utility.",
+  "name": "OBI WORK: Agentic Liquidity Infrastructure",
+  "description": "Autonomous AI agent infrastructure providing 24/7 liquidity and multi-strategy execution (Scalp, Day, Swing, Position, Arb) on Backpack Exchange. Designed to act as a 'Yield Farming Agent' for Perp DEXs across the Solana ecosystem, automating volume generation and point farming strategies.",
   "repoLink": "https://github.com/DGuedz/obi-backpack-agent",
-  "solanaIntegration": "Publishes OBI Proof of Volume hashes and signatures to Solana via AgentWallet, creating a cryptographic audit trail that verifies live trading performance. Utilizes VSC-based token economy design.",
+  "solanaIntegration": "Uses Solana Signer (Ed25519) to publish cryptographic receipts of every trading operation directly on-chain. Integrates AgentWallet for secure key management. Positioned as a plug-and-play volume farmer for any Solana Perp DEX (Backpack, Jupiter, Drift, Zeta).",
   "tags": ["trading", "ai", "defi"]
 }

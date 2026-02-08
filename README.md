@@ -36,9 +36,18 @@ https://obi-backpack-agent.vercel.app/
 ## Foco no Hackathon
 
 - **Multi-Strategy Execution**: Agente capaz de operar em múltiplas modalidades (Scalp, Day Trade, Swing, Position, Arb).
+- **Yield Farming Automation**: OBI atua como um "Volume Farmer" autônomo, gerando atividade on-chain e off-chain para maximizar pontos e recompensas em Perp DEXs (Backpack, e futuramente Jupiter, Drift, Zeta).
 - **On-Chain Validation**: Todas as execuções geram recibos criptográficos auditáveis (Solana Signer).
 - **Prova de Volume**: Métricas visíveis e comprovadas em laboratório.
 - **Relatório de Auditoria**: [SCALP_LAB_REPORT.md](./SCALP_LAB_REPORT.md) - Documento técnico com telemetria, latência (<350ms) e PnL.
+
+## Ecosystem Utility (Solana DeFi)
+
+O OBI não é apenas um bot de trading; é uma **infraestrutura de liquidez portátil** para o ecossistema Solana.
+
+*   **Farm Perp DEX**: Projetado para "farmar" sistematicamente programas de incentivo (Points/Airdrops) em protocolos como Backpack, Drift e Jupiter Perps.
+*   **Liquidez como Serviço**: Projetos DeFi podem integrar o OBI para garantir liquidez 24/7 em seus mercados, pagando taxas de performance via Smart Contracts.
+*   **Integração Total**: Uso de AgentWallet para interagir nativamente com qualquer instrução on-chain da Solana.
 
 ## Core Capabilities (Labs)
 
