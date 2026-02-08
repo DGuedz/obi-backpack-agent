@@ -1,23 +1,48 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Search, Filter, ShoppingCart, Star, Zap, ChevronRight, ArrowLeft, Shield, Cpu, Globe, Lock, Activity, Layers, Server } from "lucide-react";
+import { Search, ShoppingCart, Zap, ArrowLeft, Shield, Cpu, Globe, Lock, Activity, Layers, Server } from "lucide-react";
 import Link from "next/link";
 import BrandHeader3D from "../components/BrandHeader3D";
 import { useLanguage } from "../context/LanguageContext";
 
-// --- Dictionary ---
-const CONTENT = {
+type SectionContent = {
+  role: string;
+  desc_1: string;
+  desc_2: string;
+  features: string[];
+};
+
+type MarketplaceContent = {
+  nav_back: string;
+  search_placeholder: string;
+  title: string;
+  subtitle_1: string;
+  sbt_highlight: string;
+  subtitle_2: string;
+  limited_spots: string;
+  season_pass: string;
+  mint_action: string;
+  explore_action: string;
+  sections: {
+    scout: SectionContent;
+    commander: SectionContent;
+    architect: SectionContent;
+  };
+};
+
+const CONTENT: Record<"pt" | "en", MarketplaceContent> = {
   pt: {
     nav_back: "VOLTAR AO TERMINAL",
     search_placeholder: "Buscar acesso...",
-    title: "ESCOLHA SEU ACESSO",
-    subtitle_1: "Selecione seu nível de acesso ao ecossistema OBI WORK. Cada Tier é representado por um",
+    title: "BLACKLIST ACCESS",
+    subtitle_1: "Solicite seu acesso exclusivo ao ecossistema OBI WORK. Cada Tier é representado por um",
     sbt_highlight: "Soulbound Token (SBT)",
     subtitle_2: "intransferível.",
-    season_pass: "/ Passe de Temporada",
-    mint_action: "MINTAR",
+    limited_spots: "⚠️ Apenas 15 vagas para Early Adopters nesta fase.",
+    season_pass: "/ Reveal @ Launch",
+    mint_action: "APLICAR",
     explore_action: "EXPLORAR DADOS",
     sections: {
       scout: {
@@ -55,12 +80,13 @@ const CONTENT = {
   en: {
     nav_back: "BACK TO TERMINAL",
     search_placeholder: "Search access...",
-    title: "CHOOSE YOUR ACCESS",
-    subtitle_1: "Select your access level to the OBI WORK ecosystem. Each Tier is represented by a non-transferable",
+    title: "BLACKLIST ACCESS",
+    subtitle_1: "Request your exclusive access to the OBI WORK ecosystem. Each Tier is represented by a non-transferable",
     sbt_highlight: "Soulbound Token (SBT)",
     subtitle_2: ".",
-    season_pass: "/ Season Pass",
-    mint_action: "MINT",
+    limited_spots: "⚠️ Only 15 spots for Early Adopters in this phase.",
+    season_pass: "/ Reveal @ Launch",
+    mint_action: "APPLY",
     explore_action: "EXPLORE DATA",
     sections: {
       scout: {
@@ -198,9 +224,9 @@ function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang
           <div className="transform translate-z-20 mb-6">
             <div className={`text-xs font-bold tracking-widest uppercase mb-1 ${tier.text}`}>{tier.role}</div>
             <h3 className="text-3xl font-bold text-white mb-2">{tier.name}</h3>
-            <div className="flex items-baseline gap-1">
-              <span className="text-2xl font-bold text-white">$</span>
-              <span className="text-4xl font-bold text-white">${tier.price.toFixed(2)}</span>
+            <div className="flex items-center gap-2">
+              <Lock className="w-4 h-4 text-zinc-500" />
+              <span className="text-2xl font-bold text-zinc-500 blur-[4px] select-none">$999</span>
               <span className="text-xs text-zinc-500 ml-2">{CONTENT[lang].season_pass}</span>
             </div>
           </div>
@@ -224,7 +250,7 @@ function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang
           <div className="transform translate-z-30 mt-auto">
             <Link href={`/marketplace/${tier.id}`}>
               <button className={`w-full py-3 ${tier.bg} text-black font-bold text-sm rounded uppercase tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-${tier.color}-500/20`}>
-                {CONTENT[lang].mint_action} {tier.sbt}
+                {CONTENT[lang].mint_action} FOR BLACKLIST
               </button>
             </Link>
           </div>
@@ -238,7 +264,6 @@ function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang
 }
 
 export default function MarketplacePage() {
-  const [filter, setFilter] = useState("ALL");
   const [search, setSearch] = useState("");
   const { language } = useLanguage();
   const t = CONTENT[language];
@@ -280,9 +305,12 @@ export default function MarketplacePage() {
 
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">{t.title}</h2>
-          <p className="text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-zinc-400 max-w-2xl mx-auto mb-4">
             {t.subtitle_1} <strong className="text-emerald-400"> {t.sbt_highlight}</strong> {t.subtitle_2}
           </p>
+          <div className="inline-block px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-bold tracking-wide animate-pulse">
+            {t.limited_spots}
+          </div>
         </div>
 
         {/* 3D Tier Grid */}
@@ -405,9 +433,9 @@ export default function MarketplacePage() {
               </div>
             </div>
           </section>
-          
-          {/* Architect Section (Simplified for this file update) */}
-           <section id="architect-section" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+          {/* Architect Section */}
+          <section id="architect-section" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 space-y-6">
               <div className="flex items-center gap-3 text-yellow-500 mb-2">
                 <Cpu className="w-6 h-6" />
@@ -453,13 +481,14 @@ export default function MarketplacePage() {
                {/* 3D Floating Element */}
                <motion.div 
                  animate={{ scale: [1, 1.1, 1] }}
-                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-yellow-500/5 rounded-full backdrop-blur-sm border border-yellow-400/20"
+                 transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-yellow-500/5 rounded-full border border-yellow-400/20"
                />
             </div>
           </section>
 
         </div>
+
       </main>
     </div>
   );

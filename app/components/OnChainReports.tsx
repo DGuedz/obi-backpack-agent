@@ -5,22 +5,37 @@ import {
   FileText, RefreshCw, Terminal, ShieldCheck, 
   Rocket, TrendingUp, Trophy, PieChart, Calendar, 
   Brain, Lightbulb, DollarSign, Coins, 
-  Zap, BarChart2, Award, ArrowRight
+  Zap, BarChart2, Award, ArrowRight, History, ChevronDown
 } from "lucide-react";
+
+interface ReportHistoryItem {
+  date: string;
+  filename: string;
+}
 
 export default function OnChainReports() {
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [history, setHistory] = useState<ReportHistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const fetchReport = async () => {
+  const fetchReport = async (date?: string) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/reports/latest');
+      let url = '/api/reports/latest';
+      if (date) {
+        url = `/api/reports/history?date=${date}`;
+      }
+      
+      const res = await fetch(url);
       const data = await res.json();
+      
       if (data.content) {
         setContent(data.content);
         setLastUpdated(new Date());
+        setSelectedDate(date || null);
       }
     } catch (e) {
       console.error("Failed to fetch report", e);
@@ -30,8 +45,21 @@ export default function OnChainReports() {
     }
   };
 
+  const fetchHistory = async () => {
+    try {
+        const res = await fetch('/api/reports/history');
+        const data = await res.json();
+        if (data.ok && Array.isArray(data.history)) {
+            setHistory(data.history);
+        }
+    } catch (e) {
+        console.error("Failed to fetch history", e);
+    }
+  };
+
   useEffect(() => {
     fetchReport();
+    fetchHistory();
   }, []);
 
   // Helper to choose icon based on header text
@@ -148,13 +176,44 @@ export default function OnChainReports() {
           </h3>
           <p className="text-zinc-400 text-xs font-mono mt-1">Immutable proof of liquidity provision & yield metrics.</p>
         </div>
-        <button 
-          onClick={fetchReport} 
-          disabled={loading}
-          className="p-2 hover:bg-zinc-800 rounded-full transition-colors text-zinc-500 hover:text-white"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-        </button>
+        <div className="flex gap-2">
+            <div className="relative">
+                <button 
+                    onClick={() => setShowHistory(!showHistory)}
+                    className="flex items-center gap-2 px-3 py-2 bg-zinc-800/50 hover:bg-zinc-800 rounded-lg text-xs font-mono text-zinc-300 transition-colors border border-zinc-700/50"
+                >
+                    <History className="w-3 h-3" />
+                    {selectedDate ? selectedDate : "LATEST"}
+                    <ChevronDown className="w-3 h-3 opacity-50" />
+                </button>
+                {showHistory && (
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-zinc-900 border border-zinc-700 rounded-lg shadow-xl z-50 py-1 max-h-60 overflow-y-auto">
+                        <button 
+                            onClick={() => { fetchReport(); setShowHistory(false); }}
+                            className="w-full text-left px-4 py-2 text-xs font-mono text-emerald-400 hover:bg-zinc-800"
+                        >
+                            LATEST REPORT
+                        </button>
+                        {history.map((h) => (
+                            <button
+                                key={h.date}
+                                onClick={() => { fetchReport(h.date); setShowHistory(false); }}
+                                className="w-full text-left px-4 py-2 text-xs font-mono text-zinc-400 hover:text-white hover:bg-zinc-800"
+                            >
+                                {h.date}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+            <button 
+            onClick={() => fetchReport(selectedDate || undefined)} 
+            disabled={loading}
+            className="p-2 hover:bg-zinc-800 rounded-full transition-colors text-zinc-500 hover:text-white"
+            >
+            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+            </button>
+        </div>
       </div>
 
       <div className="bg-black/50 border border-zinc-800 rounded-lg p-4 font-mono text-sm overflow-auto max-h-125 scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">

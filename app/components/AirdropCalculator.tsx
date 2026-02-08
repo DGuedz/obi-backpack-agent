@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calculator, DollarSign, Percent, BarChart3, Info } from 'lucide-react'
+import { Calculator, Percent, BarChart3, Info } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function AirdropCalculator() {
@@ -11,7 +11,7 @@ export default function AirdropCalculator() {
   const [userPoints, setUserPoints] = useState<string>("1000")
   const [fdvBillions, setFdvBillions] = useState(0.7)
   const [airdropPercent, setAirdropPercent] = useState(25)
-  const [totalSeasonPoints, setTotalSeasonPoints] = useState(423.77) // Millions
+  const [totalSeasonPoints] = useState(423.77)
 
   // Constants
   const SEASON_START = new Date("2025-11-20")
@@ -80,7 +80,7 @@ export default function AirdropCalculator() {
   const t = CONTENT[language]
 
   return (
-    <section className="py-20 bg-zinc-950 relative overflow-hidden">
+    <section className="py-16 md:py-20 bg-zinc-950 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="mb-12 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 text-xs font-mono mb-4">
@@ -220,7 +220,7 @@ export default function AirdropCalculator() {
 
                   <div className="text-center py-8">
                     <div className="text-zinc-500 text-sm font-mono mb-2">{t.est_value}</div>
-                    <div className="text-6xl md:text-7xl font-bold text-emerald-400 tracking-tighter">
+                    <div className="text-4xl sm:text-5xl md:text-7xl font-bold text-emerald-400 tracking-tighter break-words">
                       ${estimatedUserValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
                   </div>

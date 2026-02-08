@@ -111,4 +111,10 @@ Manter o foco em BTC/SOL (Liquidez) e respeitar o filtro de tendência para tran
 
 if __name__ == "__main__":
     report = StrategicReport()
-    report.generate()
+    days = 10
+    if len(sys.argv) > 1:
+        try:
+            days = int(sys.argv[1])
+        except Exception:
+            days = 10
+    report.generate(days=days)

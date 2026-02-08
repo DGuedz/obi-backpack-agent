@@ -2,13 +2,68 @@
 
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Check, Shield, Zap, Layers, Cpu, Globe, Server, Activity, Lock, Terminal } from "lucide-react";
+import { ArrowLeft, Check, Shield, Layers, Cpu, Server, Lock, UserPlus } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage, type Language } from "../../context/LanguageContext";
 
 // --- Dictionary ---
-const CONTENT = {
+type TierId = "scout" | "commander" | "architect";
+
+type TierSpec = { label: string; value: string };
+
+type TierContent = {
+  role: string;
+  tagline: string;
+  desc: string;
+  benefits: string[];
+  specs: TierSpec[];
+};
+
+type PageContent = {
+  back: string;
+  secure_connection: string;
+  access_denied: string;
+  return: string;
+  soulbound: string;
+  core_benefits: string;
+  total_investment: string;
+  season_pass: string;
+  available: string;
+  verifying: string;
+  minting: string;
+  success: string;
+  join: string;
+  dashboard: string;
+  harvester: string;
+  tech_specs: string;
+  spots_warning: string;
+  sections: {
+    scout: TierContent;
+    commander: TierContent;
+    architect: TierContent;
+  };
+};
+
+type TierData = {
+  id: TierId;
+  name: string;
+  role: string;
+  price: number;
+  sbt: string;
+  color: string;
+  accent: string;
+  border: string;
+  bg_gradient: string;
+  icon: LucideIcon;
+  tagline: string;
+  description: string;
+  benefits: string[];
+  technical_specs: TierSpec[];
+};
+
+const CONTENT: Record<Language, PageContent> = {
   pt: {
     back: "VOLTAR AO MARKETPLACE",
     secure_connection: "CONEXÃO SEGURA",
@@ -16,15 +71,16 @@ const CONTENT = {
     return: "Voltar ao Marketplace",
     soulbound: "SOULBOUND TOKEN:",
     core_benefits: "BENEFÍCIOS PRINCIPAIS",
-    total_investment: "Investimento Total",
+    total_investment: "Contribuição Inicial",
     season_pass: "Passe de Temporada",
-    available: "Disponível Agora",
-    verifying: "VERIFICANDO ELIGIBILIDADE...",
-    minting: "MINTANDO SBT...",
-    success: "ACESSO CONCEDIDO",
-    join: "ENTRAR NA GUILDA",
+    available: "Apenas Whitelist",
+    verifying: "VERIFICANDO VAGAS...",
+    minting: "INICIANDO APLICAÇÃO...",
+    success: "REDIRECIONANDO",
+    join: "APLICAR PARA BLACKLIST",
     dashboard: "ACESSAR TERMINAL",
     harvester: "Inclui contrato de 3% de Taxa de Sucesso (The Harvester).",
+    spots_warning: "Vagas limitadas. Confirmação manual necessária.",
     tech_specs: "ESPECIFICAÇÕES TÉCNICAS",
     sections: {
       scout: {
@@ -87,15 +143,16 @@ const CONTENT = {
     return: "Return to Marketplace",
     soulbound: "SOULBOUND TOKEN:",
     core_benefits: "CORE BENEFITS",
-    total_investment: "Total Investment",
+    total_investment: "Initial Contribution",
     season_pass: "Season Pass",
-    available: "Available Now",
-    verifying: "VERIFYING ELIGIBILITY...",
-    minting: "MINTING SBT...",
-    success: "ACCESS GRANTED",
-    join: "JOIN THE GUILD",
+    available: "Whitelist Only",
+    verifying: "CHECKING SPOTS...",
+    minting: "STARTING APPLICATION...",
+    success: "REDIRECTING",
+    join: "APPLY FOR BLACKLIST",
     dashboard: "ACCESS TERMINAL",
     harvester: "Includes 3% Success Fee Contract (The Harvester).",
+    spots_warning: "Limited spots. Manual approval required.",
     tech_specs: "TECHNICAL SPECIFICATIONS",
     sections: {
       scout: {
@@ -154,7 +211,7 @@ const CONTENT = {
 };
 
 // --- Data Generator ---
-const getTiersData = (lang: 'pt' | 'en') => ({
+const getTiersData = (lang: Language): Record<TierId, TierData> => ({
   scout: {
     id: "scout",
     name: "PARTNER SCOUT",
@@ -208,19 +265,76 @@ const getTiersData = (lang: 'pt' | 'en') => ({
 export default function TierDetailPage() {
   const params = useParams();
   const tierId = params.tierId as string;
-  const [status, setStatus] = useState<"idle" | "verifying" | "minting" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "verifying" | "payment" | "processing" | "success" | "error">("idle");
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [paymentRef, setPaymentRef] = useState<string | null>(null);
+  const [paymentForm, setPaymentForm] = useState({
+    walletAddress: "",
+    email: "",
+    cardNumber: "",
+    cardHolder: "",
+    cardExpiry: "",
+    cardCvc: "",
+    cardBrand: "Visa"
+  });
   const { language } = useLanguage();
   const t = CONTENT[language];
   const tiersData = getTiersData(language);
-  // @ts-ignore
-  const tier = tiersData[tierId];
+  const isValidTier = tierId === "scout" || tierId === "commander" || tierId === "architect";
+  const tier = isValidTier ? tiersData[tierId as TierId] : undefined;
 
   const handleMint = () => {
+    setPaymentError(null);
     setStatus("verifying");
     setTimeout(() => {
-      // Redirect to Application Form instead of Minting
-      window.location.href = "/apply";
-    }, 1500);
+      setStatus("payment");
+    }, 700);
+  };
+
+  const handlePayment = async () => {
+    setPaymentError(null);
+    if (!tier) {
+      setPaymentError(language === "pt" ? "Plano inválido." : "Invalid tier.");
+      setStatus("payment");
+      return;
+    }
+    if (!paymentForm.walletAddress || !paymentForm.cardNumber || !paymentForm.cardHolder || !paymentForm.cardExpiry || !paymentForm.cardCvc) {
+      setPaymentError(language === "pt" ? "Preencha todos os campos obrigatórios." : "Fill in all required fields.");
+      return;
+    }
+    setStatus("processing");
+    try {
+      const res = await fetch("/api/payments/cielo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          walletAddress: paymentForm.walletAddress,
+          tierId: tier.id,
+          amount: tier.price,
+          email: paymentForm.email,
+          customerName: paymentForm.cardHolder,
+          cardData: {
+            number: paymentForm.cardNumber,
+            holder: paymentForm.cardHolder,
+            expiry: paymentForm.cardExpiry,
+            cvc: paymentForm.cardCvc,
+            brand: paymentForm.cardBrand
+          }
+        })
+      });
+      const data = await res.json();
+      const paymentId = data?.Payment?.PaymentId;
+      if (!res.ok || !paymentId) {
+        setPaymentError(language === "pt" ? "Falha no pagamento. Tente novamente." : "Payment failed. Try again.");
+        setStatus("payment");
+        return;
+      }
+      setPaymentRef(paymentId);
+      setStatus("success");
+    } catch {
+      setPaymentError(language === "pt" ? "Falha no pagamento. Tente novamente." : "Payment failed. Try again.");
+      setStatus("payment");
+    }
   };
 
   if (!tier) {
@@ -313,7 +427,10 @@ export default function TierDetailPage() {
                <div className="flex justify-between items-center mb-2">
                   <span className="text-zinc-400 text-sm font-mono">{t.total_investment}</span>
                   <div className="text-right">
-                     <span className="block text-3xl font-bold text-white font-mono">${tier.price.toFixed(2)}</span>
+                     <div className="flex items-center justify-end gap-2">
+                       <Lock className="w-4 h-4 text-zinc-500" />
+                       <span className="block text-2xl font-bold text-zinc-300 font-mono blur-[4px] select-none">$999.00</span>
+                     </div>
                      <span className="text-[10px] text-zinc-500 uppercase tracking-wider">{t.season_pass}</span>
                   </div>
                </div>
@@ -321,21 +438,98 @@ export default function TierDetailPage() {
                <button 
                  onClick={handleMint}
                  disabled={status !== "idle"}
-                 className={`w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold font-mono rounded flex items-center justify-center gap-3 transition-all transform hover:scale-[1.01] mb-4 ${status !== "idle" ? "opacity-80 cursor-wait" : ""}`}
+                 className={`w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold font-mono rounded flex items-center justify-center gap-3 transition-all transform hover:scale-[1.01] mb-2 ${status !== "idle" ? "opacity-80 cursor-wait" : ""}`}
                >
                   {status === "idle" && (
                     <>
-                      <Zap className="w-5 h-5 fill-black" />
+                      <UserPlus className="w-5 h-5 fill-black" />
                       {t.join}
                     </>
                   )}
                   {status === "verifying" && (
                     <>
                        <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                       REDIRECTING TO APPLICATION...
+                       {t.verifying}
                     </>
                   )}
                </button>
+               {status === "payment" && (
+                 <div className="space-y-3 mt-4">
+                   <input
+                     value={paymentForm.walletAddress}
+                     onChange={(event) => setPaymentForm((prev) => ({ ...prev, walletAddress: event.target.value }))}
+                     placeholder="Wallet Address"
+                     className="w-full bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                   />
+                   <input
+                     value={paymentForm.email}
+                     onChange={(event) => setPaymentForm((prev) => ({ ...prev, email: event.target.value }))}
+                     placeholder="Email"
+                     className="w-full bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                   />
+                   <input
+                     value={paymentForm.cardNumber}
+                     onChange={(event) => setPaymentForm((prev) => ({ ...prev, cardNumber: event.target.value }))}
+                     placeholder="Card Number"
+                     className="w-full bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                   />
+                   <div className="grid grid-cols-2 gap-3">
+                     <input
+                       value={paymentForm.cardExpiry}
+                       onChange={(event) => setPaymentForm((prev) => ({ ...prev, cardExpiry: event.target.value }))}
+                       placeholder="MM/YY"
+                       className="w-full bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                     />
+                     <input
+                       value={paymentForm.cardCvc}
+                       onChange={(event) => setPaymentForm((prev) => ({ ...prev, cardCvc: event.target.value }))}
+                       placeholder="CVC"
+                       className="w-full bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                     />
+                   </div>
+                   <input
+                     value={paymentForm.cardHolder}
+                     onChange={(event) => setPaymentForm((prev) => ({ ...prev, cardHolder: event.target.value }))}
+                     placeholder="Card Holder"
+                     className="w-full bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500"
+                   />
+                   <button
+                     onClick={handlePayment}
+                     className="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold font-mono rounded flex items-center justify-center gap-3 transition-all"
+                   >
+                     {t.minting}
+                   </button>
+                   {paymentError && (
+                     <div className="text-xs text-red-400">{paymentError}</div>
+                   )}
+                 </div>
+               )}
+               {status === "processing" && (
+                 <div className="flex items-center justify-center gap-2 text-xs text-zinc-400 mt-4">
+                   <div className="w-4 h-4 border-2 border-zinc-400 border-t-transparent rounded-full animate-spin"></div>
+                   {t.minting}
+                 </div>
+               )}
+               {status === "success" && (
+                 <div className="mt-4 space-y-2">
+                   {paymentRef && (
+                     <div className="text-[10px] text-zinc-500 font-mono break-all">
+                       Payment ID: {paymentRef}
+                     </div>
+                   )}
+                   <Link href="/dashboard">
+                     <button className="w-full py-3 bg-white text-black font-bold font-mono rounded">
+                       {t.dashboard}
+                     </button>
+                   </Link>
+                 </div>
+               )}
+
+               <div className="text-center mb-4">
+                  <span className="text-[10px] text-red-400 font-bold tracking-widest animate-pulse">
+                    {t.spots_warning}
+                  </span>
+               </div>
                
                <p className="text-center text-xs text-zinc-600 mt-3">
                  {t.harvester}
@@ -351,7 +545,7 @@ export default function TierDetailPage() {
             {t.tech_specs}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {tier.technical_specs.map((spec: any, idx: number) => (
+            {tier.technical_specs.map((spec, idx) => (
               <div key={idx} className="p-6 bg-zinc-900/30 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-colors">
                 <div className="text-xs text-zinc-500 uppercase tracking-wider mb-2">{spec.label}</div>
                 <div className="text-lg font-bold text-white font-mono">{spec.value}</div>

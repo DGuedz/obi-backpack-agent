@@ -22,6 +22,31 @@ interface DashboardStats {
   activePositions: ActivePosition[];
 }
 
+interface TriageItem {
+  applicationId: string;
+  receivedAt: string;
+  walletAddress: string;
+  status: "pending" | "review" | "approved" | "rejected";
+  triage: { score: number; tier: string; tags: string[] };
+  gatekeeper?: { allowed?: boolean; mode?: string };
+}
+
+interface ServiceStatus {
+  overall?: { ok?: boolean; status?: string };
+  services?: {
+    gatekeeper?: { ok?: boolean; status?: string; latency?: number; details?: Record<string, unknown> };
+    reports?: { ok?: boolean; status?: string; latency?: number; details?: Record<string, unknown> };
+    payments?: { ok?: boolean; status?: string; latency?: number; details?: Record<string, unknown> };
+    mentorship?: { ok?: boolean; status?: string; latency?: number; details?: Record<string, unknown> };
+    backpack?: { ok?: boolean; status?: string; latency?: number; details?: Record<string, unknown> };
+  };
+  gatekeeper?: { mintConfigured?: boolean; rpcConfigured?: boolean };
+  reports?: { latestGeneratedAt?: string | null };
+  payments?: { cieloConfigured?: boolean };
+  mentorship?: { googleConfigured?: boolean };
+  backpack?: { configured?: boolean };
+}
+
 export default function DashboardHome() {
   const [stats, setStats] = useState<DashboardStats>({
     totalBalance: "---",
@@ -30,6 +55,10 @@ export default function DashboardHome() {
     activePositions: []
   });
   const [loading, setLoading] = useState(true);
+  const [triageItems, setTriageItems] = useState<TriageItem[]>([]);
+  const [triageLoading, setTriageLoading] = useState(true);
+  const [triageError, setTriageError] = useState<string | null>(null);
+  const [serviceStatus, setServiceStatus] = useState<ServiceStatus | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,6 +79,111 @@ export default function DashboardHome() {
     const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const loadStatus = async () => {
+      try {
+        const res = await fetch("/api/status");
+        const data = await res.json();
+        if (res.ok && data?.ok) {
+          setServiceStatus(data.status);
+          try {
+            localStorage.setItem(
+              "obi_service_status_cache",
+              JSON.stringify({ ts: Date.now(), status: data.status })
+            );
+          } catch {
+            void 0;
+          }
+        }
+      } catch {
+        setServiceStatus(null);
+      }
+    };
+    try {
+      const cached = localStorage.getItem("obi_service_status_cache");
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed?.ts && parsed?.status && Date.now() - parsed.ts < 60000) {
+          setServiceStatus(parsed.status);
+        }
+      }
+    } catch {
+      void 0;
+    }
+    loadStatus();
+    const interval = setInterval(loadStatus, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const loadTriage = async () => {
+      setTriageLoading(true);
+      setTriageError(null);
+      try {
+        const res = await fetch("/api/triage");
+        const data = await res.json();
+        if (!res.ok || !data?.ok) {
+          setTriageError("Falha ao carregar fila de triagem.");
+          setTriageLoading(false);
+          return;
+        }
+        setTriageItems(data.items || []);
+      } catch {
+        setTriageError("Falha ao carregar fila de triagem.");
+      } finally {
+        setTriageLoading(false);
+      }
+    };
+    loadTriage();
+  }, []);
+
+  const updateTriageStatus = async (applicationId: string, status: TriageItem["status"]) => {
+    try {
+      const res = await fetch("/api/triage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ applicationId, status, reviewer: "dashboard" })
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) {
+        return;
+      }
+      setTriageItems((prev) =>
+        prev.map((item) => (item.applicationId === applicationId ? { ...item, status } : item))
+      );
+    } catch {
+      return;
+    }
+  };
+
+  const gatekeeperOk = Boolean(
+    serviceStatus?.services?.gatekeeper?.ok ??
+      (serviceStatus?.gatekeeper?.mintConfigured && serviceStatus?.gatekeeper?.rpcConfigured)
+  );
+  const reportsStatus =
+    serviceStatus?.services?.reports?.status ??
+    (serviceStatus?.reports?.latestGeneratedAt ? "ok" : "pending");
+  const paymentsOk = Boolean(
+    serviceStatus?.services?.payments?.ok ?? serviceStatus?.payments?.cieloConfigured
+  );
+  const mentorshipOk = Boolean(
+    serviceStatus?.services?.mentorship?.ok ?? serviceStatus?.mentorship?.googleConfigured
+  );
+  const backpackOk = Boolean(
+    serviceStatus?.services?.backpack?.ok ?? serviceStatus?.backpack?.configured
+  );
+  const overallOk = Boolean(
+    serviceStatus?.overall?.ok ??
+      (gatekeeperOk && reportsStatus === "ok" && paymentsOk && mentorshipOk && backpackOk)
+  );
+  const reportsLabel =
+    reportsStatus === "ok" ? "READY" : reportsStatus === "stale" ? "STALE" : "PENDING";
+
+  const renderLatency = (ms?: number) => {
+    if (ms === undefined) return null;
+    return <span className="text-[10px] text-zinc-600 font-mono ml-2">({ms}ms)</span>;
+  };
 
   return (
     <div className="space-y-8">
@@ -108,7 +242,6 @@ export default function DashboardHome() {
         <div className="lg:col-span-1 space-y-8">
             <ObiChatInterface />
             
-            {/* Quick Actions (Simulated) */}
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
                 <h3 className="text-sm font-bold text-white font-mono mb-4 flex items-center gap-2">
                     <Activity className="w-4 h-4 text-purple-500" />
@@ -116,18 +249,122 @@ export default function DashboardHome() {
                 </h3>
                 <div className="space-y-3">
                     <div className="flex justify-between text-xs font-mono">
+                        <span className="text-zinc-500">OVERALL</span>
+                        <span className={overallOk ? "text-emerald-500" : "text-yellow-400"}>
+                          {overallOk ? "HEALTHY" : "DEGRADED"}
+                        </span>
+                    </div>
+                    <div className="flex justify-between text-xs font-mono">
                         <span className="text-zinc-500">GATEKEEPER</span>
-                        <span className="text-emerald-500">ACTIVE</span>
+                        <div className="flex items-center">
+                            <span className={gatekeeperOk ? "text-emerald-500" : "text-yellow-400"}>
+                            {gatekeeperOk ? "ACTIVE" : "CONFIG REQUIRED"}
+                            </span>
+                            {renderLatency(serviceStatus?.services?.gatekeeper?.latency)}
+                        </div>
                     </div>
                     <div className="flex justify-between text-xs font-mono">
-                        <span className="text-zinc-500">RUGCHECK API</span>
-                        <span className="text-emerald-500">CONNECTED</span>
+                        <span className="text-zinc-500">REPORT PIPELINE</span>
+                        <div className="flex items-center">
+                            <span className={reportsStatus === "ok" ? "text-emerald-500" : "text-yellow-400"}>
+                            {reportsLabel}
+                            </span>
+                            {renderLatency(serviceStatus?.services?.reports?.latency)}
+                        </div>
                     </div>
                     <div className="flex justify-between text-xs font-mono">
-                        <span className="text-zinc-500">MERKLE ROOT</span>
-                        <span className="text-zinc-400">SYNCED</span>
+                        <span className="text-zinc-500">PAYMENTS</span>
+                        <div className="flex items-center">
+                            <span className={paymentsOk ? "text-emerald-500" : "text-yellow-400"}>
+                            {paymentsOk ? "CONNECTED" : "MOCK"}
+                            </span>
+                            {renderLatency(serviceStatus?.services?.payments?.latency)}
+                        </div>
+                    </div>
+                    <div className="flex justify-between text-xs font-mono">
+                        <span className="text-zinc-500">MENTORSHIP</span>
+                        <div className="flex items-center">
+                            <span className={mentorshipOk ? "text-emerald-500" : "text-yellow-400"}>
+                            {mentorshipOk ? "CONNECTED" : "OFFLINE"}
+                            </span>
+                            {renderLatency(serviceStatus?.services?.mentorship?.latency)}
+                        </div>
+                    </div>
+                    <div className="flex justify-between text-xs font-mono">
+                        <span className="text-zinc-500">BACKPACK</span>
+                        <div className="flex items-center">
+                            <span className={backpackOk ? "text-emerald-500" : "text-yellow-400"}>
+                            {backpackOk ? "CONNECTED" : "OFFLINE"}
+                            </span>
+                            {renderLatency(serviceStatus?.services?.backpack?.latency)}
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-sm font-bold text-white font-mono flex items-center gap-2">
+                        <RefreshCw className={`w-4 h-4 ${triageLoading ? "animate-spin" : ""}`} />
+                        TRIAGE QUEUE
+                    </h3>
+                </div>
+                {triageError && (
+                  <div className="text-xs text-red-400 mb-3">{triageError}</div>
+                )}
+                {triageLoading ? (
+                  <div className="text-xs text-zinc-500 font-mono">Loading triage...</div>
+                ) : triageItems.length === 0 ? (
+                  <div className="text-xs text-zinc-500 font-mono">No applications in queue.</div>
+                ) : (
+                  <div className="space-y-3">
+                    {triageItems.slice(0, 5).map((item) => {
+                      const triage = item.triage || { score: 0, tier: "standard", tags: [] };
+                      const statusColor =
+                        item.status === "approved"
+                          ? "text-emerald-400"
+                          : item.status === "rejected"
+                          ? "text-red-400"
+                          : item.status === "review"
+                          ? "text-yellow-400"
+                          : "text-zinc-400";
+                      return (
+                        <div key={item.applicationId} className="border border-zinc-800 rounded-lg p-3 bg-black/40">
+                          <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500">
+                            <span>{new Date(item.receivedAt).toLocaleDateString()}</span>
+                            <span className={statusColor}>{item.status.toUpperCase()}</span>
+                          </div>
+                          <div className="text-xs font-mono text-zinc-300 mt-1">
+                            {item.walletAddress.slice(0, 6)}...{item.walletAddress.slice(-4)}
+                          </div>
+                          <div className="text-[10px] text-zinc-500 mt-1">
+                            Score {triage.score} · {triage.tier.toUpperCase()}
+                          </div>
+                          <div className="flex gap-2 mt-2">
+                            <button
+                              onClick={() => updateTriageStatus(item.applicationId, "review")}
+                              className="px-2 py-1 text-[10px] font-mono border border-zinc-700 rounded text-zinc-400 hover:text-white hover:bg-zinc-800"
+                            >
+                              REVIEW
+                            </button>
+                            <button
+                              onClick={() => updateTriageStatus(item.applicationId, "approved")}
+                              className="px-2 py-1 text-[10px] font-mono border border-emerald-700 rounded text-emerald-300 hover:bg-emerald-900/30"
+                            >
+                              APPROVE
+                            </button>
+                            <button
+                              onClick={() => updateTriageStatus(item.applicationId, "rejected")}
+                              className="px-2 py-1 text-[10px] font-mono border border-red-700 rounded text-red-300 hover:bg-red-900/30"
+                            >
+                              REJECT
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
             </div>
         </div>
 

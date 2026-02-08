@@ -1,9 +1,9 @@
 "use client"; 
  
- import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion"; 
- import { Terminal, Shield, Cpu, ChevronRight, Compass, Target } from "lucide-react"; 
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"; 
+import { Terminal, Shield, ChevronRight, Target } from "lucide-react"; 
  import Link from "next/link"; 
- import { useState, useRef, useEffect } from "react"; 
+import { useState, useEffect } from "react"; 
 import { useLanguage } from "../context/LanguageContext";
 import ObiWorkLogo from "./ObiWorkLogo"; 
 import SniperScope from "./SniperScope"; 
@@ -53,7 +53,6 @@ const ChartBackground = () => (
 export default function Hero() { 
    const { language } = useLanguage();
    // Mouse Interaction State 
-   const ref = useRef<HTMLDivElement>(null); 
    const [isFiring, setIsFiring] = useState(false); 
    const [isUnlocked, setIsUnlocked] = useState(false); // Default: Locked 
    const [isHit, setIsHit] = useState(false); // Visual feedback for shot impact
@@ -68,7 +67,7 @@ export default function Hero() {
         "OBI AGENT", 
         "BACKPACK S4" 
       ],
-       clickToShoot: "< CLIQUE PARA ATIRAR E DESBLOQUEAR ALPHA />"
+       clickToShoot: "< CLIQUE / TOQUE PARA DESBLOQUEAR ALPHA />"
      },
      en: {
       phrases: [
@@ -78,7 +77,7 @@ export default function Hero() {
         "OBI AGENT", 
         "BACKPACK S4" 
       ],
-       clickToShoot: "< CLICK TO SHOOT & UNLOCK ALPHA />"
+       clickToShoot: "< CLICK / TAP TO UNLOCK ALPHA />"
      }
    };
 
@@ -170,7 +169,7 @@ export default function Hero() {
                             transition={{ duration: 0.4, ease: "easeOut" }} 
                             className="text-center" 
                         > 
-                            <h2 className="text-5xl md:text-7xl font-thin font-sans text-white tracking-widest mb-4 drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]"> 
+                            <h2 className="text-3xl sm:text-5xl md:text-7xl font-thin font-sans text-white tracking-widest mb-4 drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] px-4"> 
                                 {PHRASES[textIndex]} 
                             </h2> 
                         </motion.div> 
@@ -180,9 +179,9 @@ export default function Hero() {
                          initial={{ opacity: 0 }} 
                          animate={{ opacity: [0.5, 1, 0.5] }} 
                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }} 
-                         className="text-emerald-500 font-mono text-sm md:text-base tracking-[0.3em] mt-4" 
+                         className="text-emerald-500 font-mono text-xs sm:text-sm md:text-base tracking-[0.2em] md:tracking-[0.3em] mt-4 px-4 text-center" 
                      > 
-                         &lt; CLICK TO SHOOT & UNLOCK ALPHA /&gt; 
+                         {t.clickToShoot}
                      </motion.p> 
                  </div> 
  

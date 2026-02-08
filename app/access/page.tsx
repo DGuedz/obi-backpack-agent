@@ -1,33 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lock, CheckCircle2, ArrowLeft, Wallet, ShieldCheck, Zap } from "lucide-react";
+import { CheckCircle2, ArrowLeft, Wallet, ShieldCheck, Zap } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ObiWorkLogo from "../components/ObiWorkLogo";
 
 export default function AccessPage() {
   const [step, setStep] = useState<"idle" | "connecting" | "signing" | "success">("idle");
+  const [walletAddress, setWalletAddress] = useState(() => {
+    if (typeof window === "undefined") {
+      return "";
+    }
+    return window.localStorage.getItem("obi_access_wallet") ?? "";
+  });
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
+    setError(null);
+    const trimmedWallet = walletAddress.trim();
+    if (!trimmedWallet) {
+      setError("Informe uma wallet válida.");
+      return;
+    }
+
     setStep("connecting");
-    
-    // 1. Simulate Wallet Connection
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/access/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ walletAddress: trimmedWallet })
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) {
+        setError("Falha ao validar acesso. Tente novamente.");
+        setStep("idle");
+        return;
+      }
+      const allowed = Boolean(data?.gatekeeper?.allowed);
+      if (!allowed) {
+        setError("Acesso pendente. Sua wallet não possui permissão.");
+        setStep("idle");
+        return;
+      }
       setStep("signing");
-      
-      // 2. Simulate Signature/Handshake
+      window.localStorage.setItem("obi_access_wallet", trimmedWallet);
+      window.localStorage.setItem("obi_access_allowed", "true");
       setTimeout(() => {
         setStep("success");
-        
-        // 3. Redirect to Dashboard
         setTimeout(() => {
-            router.push("/dashboard");
+          router.push("/dashboard");
         }, 1500);
-      }, 1500);
-    }, 1500);
+      }, 700);
+    } catch {
+      setError("Falha ao validar acesso. Tente novamente.");
+      setStep("idle");
+    }
   };
 
   return (
@@ -95,12 +125,22 @@ export default function AccessPage() {
                          "CONNECT WALLET"}
                     </h1>
                     
-                    <p className="text-zinc-500 text-sm mb-8 h-10">
+                    <p className="text-zinc-500 text-sm mb-6 h-10">
                         {step === "success" ? "Redirecting to Command Center..." :
                          step === "signing" ? "Signing cryptographic handshake..." :
                          step === "connecting" ? "Establishing secure channel with Backpack..." :
                          "Sync your Backpack Wallet to access the OBIWORK Terminal."}
                     </p>
+
+                    {step === "idle" && (
+                        <input
+                            type="text"
+                            value={walletAddress}
+                            onChange={(event) => setWalletAddress(event.target.value)}
+                            placeholder="Wallet Address (Solana/Backpack)"
+                            className="w-full mb-6 bg-black/50 border border-zinc-700 rounded-xl p-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/50 transition-all"
+                        />
+                    )}
 
                     {/* ACTION BUTTON */}
                     {step === "idle" && (
@@ -125,6 +165,12 @@ export default function AccessPage() {
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse delay-150"></span>
                             </div>
                             ENCRYPTED CONNECTION
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="mt-6 text-sm text-red-400">
+                            {error}
                         </div>
                     )}
                 </div>

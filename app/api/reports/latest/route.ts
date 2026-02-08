@@ -4,33 +4,67 @@ import path from 'path';
 
 export async function GET() {
   try {
-    // Try to locate the STRATEGIC_REPORT.md file
-    // Assuming the app runs in obiwork_web, the file is in the parent directory
-    const filePath = path.join(process.cwd(), '..', 'STRATEGIC_REPORT.md');
-    
-    // Fallback if running from root
-    const filePathAlt = path.join(process.cwd(), 'STRATEGIC_REPORT.md');
+    const reportsDir = path.join(process.cwd(), 'backend_core', 'reports');
+    const latestPath = path.join(reportsDir, 'strategic_report_latest.md');
+    const metaPath = path.join(reportsDir, 'strategic_report_latest.json');
+    const legacyPath = path.join(process.cwd(), '..', 'STRATEGIC_REPORT.md');
+    const legacyAltPath = path.join(process.cwd(), 'STRATEGIC_REPORT.md');
 
     let content = '';
-    
-    if (fs.existsSync(filePath)) {
-      content = fs.readFileSync(filePath, 'utf-8');
-    } else if (fs.existsSync(filePathAlt)) {
-      content = fs.readFileSync(filePathAlt, 'utf-8');
+    let meta: Record<string, unknown> | null = null;
+
+    if (fs.existsSync(latestPath)) {
+      content = fs.readFileSync(latestPath, 'utf-8');
+      if (fs.existsSync(metaPath)) {
+        try {
+          meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+        } catch {
+          meta = null;
+        }
+      }
+    } else if (fs.existsSync(legacyPath)) {
+      content = fs.readFileSync(legacyPath, 'utf-8');
+    } else if (fs.existsSync(legacyAltPath)) {
+      content = fs.readFileSync(legacyAltPath, 'utf-8');
     } else {
-        // If file doesn't exist, return a placeholder or error
-        return NextResponse.json(
-            { error: 'Report file not found', content: '# Strategic Report\n\nNo report generated yet.' },
-            { status: 404 }
-        );
+      return NextResponse.json(
+        { error: 'Report file not found', content: '# Strategic Report\n\nNo report generated yet.' },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ content });
+    await appendAudit({
+      event: 'report_latest',
+      status: 'ok',
+      meta: meta ?? undefined
+    });
+
+    return NextResponse.json({ content, meta });
   } catch (error) {
-    console.error('Error reading strategic report:', error);
+    await appendAudit({
+      event: 'report_latest',
+      status: 'error',
+      meta: { message: error instanceof Error ? error.message : 'unknown_error' }
+    });
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
     );
+  }
+}
+
+async function appendAudit(entry: Record<string, unknown>) {
+  const logDir = path.join(process.cwd(), 'backend_core', 'logs');
+  const logPath = path.join(logDir, 'audit.jsonl');
+  const payload = {
+    ts: new Date().toISOString(),
+    service: 'reports',
+    ...entry
+  };
+  try {
+    fs.mkdirSync(logDir, { recursive: true });
+    fs.appendFileSync(logPath, `${JSON.stringify(payload)}\n`, 'utf-8');
+  } catch {
+    return;
   }
 }

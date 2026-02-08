@@ -150,7 +150,7 @@ class StrategicAnalyzer:
             },
             {
                 'type': 'ARBITRAGE_STABLE',
-                'symbols': ['RLUSD-USD', 'USDC-USD'],
+                'symbols': ['USDC-USD', 'USDT-USD'],
                 'reason': 'Arbitragem de stablecoins, risco mínimo',
                 'risk_level': 'VERY_LOW',
                 'expected_frequency': 'WEEKLY'

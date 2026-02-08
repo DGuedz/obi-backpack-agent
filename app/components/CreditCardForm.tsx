@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from 'react';
-import { CreditCard, Lock, Loader2, Calendar, User, CheckCircle, AlertCircle } from 'lucide-react';
+import { CreditCard, Lock, Loader2, Calendar, User, AlertCircle } from 'lucide-react';
 
 interface CreditCardFormProps {
   amount: number;
@@ -54,8 +54,9 @@ export default function CreditCardForm({ amount, onSuccess, onCancel }: CreditCa
          throw new Error(data.Payment?.ReturnMessage || 'Payment not authorized');
       }
 
-    } catch (err: any) {
-      setError(err.message || 'Transaction failed');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Transaction failed';
+      setError(message);
     } finally {
       setLoading(false);
     }

@@ -48,7 +48,19 @@ def check_status():
             # Check for active polls
             if data.get("hasActivePoll"):
                 print("ACTIVE POLL DETECTED! Fetching poll details...")
-                # Fetch poll (implementation pending)
+                poll_url = "https://agents.colosseum.com/api/agents/polls/active"
+                poll_res = requests.get(poll_url, headers=headers)
+                if poll_res.status_code == 200:
+                    poll_data = poll_res.json()
+                    print("\n--- ACTIVE POLL ---")
+                    print(f"ID: {poll_data.get('poll', {}).get('id')}")
+                    print(f"Question: {poll_data.get('poll', {}).get('question')}")
+                    print("Options:")
+                    for opt in poll_data.get('poll', {}).get('options', []):
+                        print(f" - [{opt.get('id')}] {opt.get('label')}")
+                    print("-------------------\n")
+                else:
+                    print(f"Failed to fetch poll: {poll_res.status_code}")
         else:
             print(f"Status Check Failed: {response.status_code} - {response.text}")
     except Exception as e:

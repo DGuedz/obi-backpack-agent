@@ -1,9 +1,9 @@
 "use client"; 
  
- import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion"; 
- import { Terminal, Shield, Cpu, ChevronRight, Compass, Target } from "lucide-react"; 
+ import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"; 
+ import { Terminal, Shield, Cpu, ChevronRight } from "lucide-react"; 
  import Link from "next/link"; 
- import { useState, useRef, useEffect } from "react"; 
+ import { useState, useEffect } from "react"; 
  import ObiWorkLogo from "./ObiWorkLogo"; 
 import SniperScope from "./SniperScope"; 
 
@@ -51,7 +51,6 @@ const ChartBackground = () => (
 
 export default function Hero() { 
    // Mouse Interaction State 
-   const ref = useRef<HTMLDivElement>(null); 
    const [isFiring, setIsFiring] = useState(false); 
   const [isUnlocked, setIsUnlocked] = useState(false); // Default: Locked 
   const [isHit, setIsHit] = useState(false); // Visual feedback for shot impact
@@ -71,7 +70,7 @@ export default function Hero() {
          setTextIndex((prev) => (prev + 1) % PHRASES.length); 
      }, 2000); // Synced with animate-pulse (2s duration) 
      return () => clearInterval(interval); 
-   }, [isUnlocked]); 
+   }, [isUnlocked, PHRASES.length]); 
    
    // Motion Values for Mouse Tracking 
    const x = useMotionValue(0); 

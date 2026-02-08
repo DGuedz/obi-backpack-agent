@@ -1,26 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Target } from "lucide-react";
-import { useState, useEffect } from "react";
 
 export default function SniperScope({ children }: { children: React.ReactNode }) {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return (
-        <div className="relative group flex items-center justify-center">
-            <div className="relative z-10 w-full bg-black/90 backdrop-blur-md rounded-lg overflow-hidden border border-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.15)]">
-                 {children}
-            </div>
-        </div>
-    );
-  }
-
   return (
     <div className="relative group flex items-center justify-center">
       {/* --- SCOPE IMAGE OVERLAY --- */}

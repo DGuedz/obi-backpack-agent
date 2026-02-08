@@ -1,27 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Wallet, AlertTriangle, Cpu, Shield, Layers } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import ObiWorkLogo from "./ObiWorkLogo";
+import { Check, AlertTriangle, Cpu, Shield, Layers, Lock, UserPlus } from "lucide-react";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
 
+type TierColor = "emerald" | "blue" | "yellow";
+
+type Theme = {
+  text: string;
+  bg: string;
+  border: string;
+  ring: string;
+  gradient: string;
+  glow: string;
+  badge_bg: string;
+  badge_border: string;
+};
+
 const CONTENT = {
   pt: {
-    title: "PASSE DA TEMPORADA 4",
-    subtitle_1: "Junte-se à ",
+    title: "SEASON 4 BLACKLIST",
+    subtitle_1: "Acesso restrito à ",
     subtitle_2: "Guilda de Mineração de Liquidez",
-    subtitle_3: ". Baixa barreira, alto volume.",
-    desc: "Este passe garante acesso para toda a Temporada 4. Seu sucesso é nosso sucesso via o ",
-    desc_highlight: "Protocolo Harvester (3%)",
-    harvester_notice: "O HARVESTER: Todos os tiers incluem uma obrigação contratual inteligente de 3% de Taxa de Sucesso sobre lucros/airdrops gerados. O não cumprimento queima a licença.",
-    mint_button: "MINTAR PASSE DE ACESSO",
-    price_label: "Preço",
-    network_label: "Rede: Ethereum / Base / Solana (Bridged)",
-    badge_1: "LICENCIADO",
-    badge_2: "SOBERANO",
+    subtitle_3: ". Vagas limitadas para Early Adopters.",
+    desc: "Valores revelados apenas no lançamento. Garanta sua posição na lista de prioridade. ",
+    desc_highlight: "Apenas 15 vagas iniciais.",
+    harvester_notice: "O HARVESTER: Todos os tiers incluem uma obrigação contratual inteligente de 3% de Taxa de Sucesso. Acesso sujeito a aprovação.",
+    mint_button: "APLICAR PARA BLACKLIST",
+    price_label: "Contribuição Inicial",
+    network_label: "Rede: Solana Native",
+    badge_1: "RESTRICTED",
+    badge_2: "BLACKLIST",
     features: {
       access: "Acesso ao Nível",
       ecosystem: "Integração ao Ecossistema",
@@ -31,18 +43,18 @@ const CONTENT = {
     }
   },
   en: {
-    title: "SEASON 4 PASS",
-    subtitle_1: "Join the ",
+    title: "SEASON 4 BLACKLIST",
+    subtitle_1: "Restricted access to the ",
     subtitle_2: "Liquidity Mining Guild",
-    subtitle_3: ". Low barrier, high volume.",
-    desc: "This pass grants access for the full Season 4. Your success is our success via the ",
-    desc_highlight: "Harvester Protocol (3%)",
-    harvester_notice: "THE HARVESTER: All tiers include a smart contract obligation of 3% Success Fee on generated profits/airdrops. Non-compliance burns the license.",
-    mint_button: "MINT ACCESS PASS",
-    price_label: "Price",
-    network_label: "Network: Ethereum / Base / Solana (Bridged)",
-    badge_1: "LICENSED",
-    badge_2: "SOVEREIGN",
+    subtitle_3: ". Limited spots for Early Adopters.",
+    desc: "Pricing revealed at launch. Secure your position on the priority list. ",
+    desc_highlight: "Only 15 initial spots.",
+    harvester_notice: "THE HARVESTER: All tiers include a smart contract obligation of 3% Success Fee. Access subject to approval.",
+    mint_button: "APPLY FOR BLACKLIST",
+    price_label: "Initial Contribution",
+    network_label: "Network: Solana Native",
+    badge_1: "RESTRICTED",
+    badge_2: "BLACKLIST",
     features: {
       access: "Access to",
       ecosystem: "Ecosystem Integration",
@@ -58,9 +70,9 @@ const TIERS = [
     id: "scout", 
     name: "PARTNER SCOUT", 
     role: "The Soldier",
-    price: "$29.99", 
+    price: "REVEAL @ LAUNCH", 
     weight: "1.0x", 
-    color: "emerald",
+    color: "emerald" as TierColor,
     icon: Shield,
     features: ["CLI Access", "Phoenix V2 Strategy", "Single Pair Limit", "3% Success Fee"]
   },
@@ -68,9 +80,9 @@ const TIERS = [
     id: "commander", 
     name: "LIQUIDITY PROVIDER", 
     role: "The Captain",
-    price: "$49.90", 
+    price: "REVEAL @ LAUNCH", 
     weight: "1.5x", 
-    color: "blue",
+    color: "blue" as TierColor,
     icon: Layers,
     features: ["Weaver Grid V2", "Delta Neutral Bot", "Multi-Pair (3x)", "3% Success Fee"]
   },
@@ -78,34 +90,25 @@ const TIERS = [
     id: "architect", 
     name: "INSTITUTIONAL PARTNER", 
     role: "The General",
-    price: "$99.00", 
+    price: "REVEAL @ LAUNCH", 
     weight: "2.0x", 
-    color: "yellow",
+    color: "yellow" as TierColor,
     icon: Cpu,
     features: ["Market Proxy Oracle", "Flash Scalper HFT", "Iron Dome VPS", "Priority RPC"]
   },
 ];
 
 export default function PricingSection() {
-  const [selectedTier, setSelectedTier] = useState(TIERS[0]);
-  const router = useRouter();
+  const [manualTierId, setManualTierId] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const { language } = useLanguage();
   const t = CONTENT[language];
-
-  useEffect(() => {
-    const idParam = searchParams.get("tier");
-    if (idParam) {
-      const found = TIERS.find(t => t.id === idParam);
-      if (found) {
-        setSelectedTier(found);
-      }
-    }
-  }, [searchParams]);
+  const selectedTierId = manualTierId ?? searchParams.get("tier") ?? TIERS[0].id;
+  const selectedTier = TIERS.find((tier) => tier.id === selectedTierId) ?? TIERS[0];
 
   // Color Mapping Helper
-  const getTheme = (color: string) => {
-    const themes: any = {
+  const getTheme = (color: TierColor): Theme => {
+    const themes: Record<TierColor, Theme> = {
       emerald: {
         text: "text-emerald-400",
         bg: "bg-emerald-500",
@@ -137,19 +140,27 @@ export default function PricingSection() {
         badge_border: "border-yellow-900/50"
       }
     };
-    return themes[color] || themes.emerald;
+    return themes[color] ?? themes.emerald;
   };
 
   const theme = getTheme(selectedTier.color);
 
   return (
-    <section className="relative py-24 bg-zinc-950 border-t border-zinc-900">
+    <section className="relative py-16 md:py-24 bg-zinc-950 border-t border-zinc-900">
       <div className="container px-4 md:px-6 mx-auto">
         
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           
           {/* Left: The Offer */}
           <div className="text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-500/20 bg-red-500/5 text-red-400 text-xs font-mono mb-6">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
+                15 SPOTS FOR OBI EARLY ADOPTERS
+            </div>
+
             <h2 className="text-3xl md:text-4xl font-bold font-mono text-white mb-6">
               THE <span className={theme.text}>{t.title}</span>
             </h2>
@@ -162,11 +173,11 @@ export default function PricingSection() {
             <div className="mb-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
                {TIERS.map((tier) => {
                  const tTheme = getTheme(tier.color);
-                 const isSelected = selectedTier.id === tier.id;
+                 const isSelected = selectedTierId === tier.id;
                  return (
                    <button
                      key={tier.id}
-                     onClick={() => setSelectedTier(tier)}
+                     onClick={() => setManualTierId(tier.id)}
                      className={`p-4 rounded border text-left transition-all relative overflow-hidden group ${
                        isSelected
                        ? `bg-zinc-800 ${tTheme.border} ring-1 ${tTheme.ring}` 
@@ -176,8 +187,9 @@ export default function PricingSection() {
                       {isSelected && <div className={`absolute top-0 left-0 w-full h-1 ${tTheme.bg}`} />}
                       <div className="flex justify-between items-start mb-2">
                         <span className={`text-[10px] font-mono uppercase tracking-wider ${isSelected ? "text-white" : "text-zinc-500"}`}>{tier.id}</span>
+                        {isSelected && <Lock className="w-3 h-3 text-zinc-400" />}
                       </div>
-                      <div className={`text-lg font-bold font-mono mb-1 ${isSelected ? "text-white" : "text-zinc-400"}`}>{tier.price}</div>
+                      <div className={`text-xs font-bold font-mono mb-1 ${isSelected ? "text-zinc-300" : "text-zinc-500"}`}>HIDDEN</div>
                       <div className={`text-[10px] font-mono ${isSelected ? tTheme.text : "text-zinc-600"}`}>{tier.role}</div>
                    </button>
                  );
@@ -283,19 +295,22 @@ export default function PricingSection() {
 
             <div className="w-full max-w-sm mt-8">
                <div className="flex justify-between items-center mb-4 text-sm font-mono text-zinc-400">
-                  <span>Price</span>
-                  <span className="text-white font-bold text-xl">{selectedTier.price}</span>
+                  <span>{t.price_label}</span>
+                  <div className="flex items-center gap-2">
+                    <Lock className="w-3 h-3 text-zinc-500" />
+                    <span className="text-zinc-300 font-bold text-lg blur-[4px] select-none">$999.00</span>
+                  </div>
                </div>
                <Link href={`/marketplace/${selectedTier.id}`} className="block w-full">
                  <button 
                    className={`w-full py-4 bg-white hover:bg-zinc-200 text-black font-bold font-mono rounded flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02]`}
                  >
-                    <Wallet className="w-5 h-5" />
-                    APPLY FOR WHITELIST
+                    <UserPlus className="w-5 h-5" />
+                    {t.mint_button}
                  </button>
                </Link>
               <p className="mt-3 text-center text-[10px] text-zinc-600 font-mono">
-                Network: Ethereum / Base / Solana (Bridged)
+                {t.network_label}
               </p>
             </div>
           </div>

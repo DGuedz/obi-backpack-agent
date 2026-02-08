@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, ArrowLeft, Terminal, Shield, Layers, Cpu, Zap, Crosshair } from "lucide-react";
+import { ShieldCheck, ArrowLeft, Terminal, Shield, Layers, Cpu, Crosshair } from "lucide-react";
 import Link from "next/link";
 import BrandHeader3D from "../components/BrandHeader3D";
 

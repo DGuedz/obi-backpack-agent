@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { GoogleClient } from '@/app/lib/google';
+import path from "node:path";
+import { promises as fs } from "node:fs";
 
 export const dynamic = 'force-dynamic';
 
@@ -11,24 +13,35 @@ export async function GET() {
   if (!process.env.GOOGLE_PRIVATE_KEY) missingEnv.push("GOOGLE_PRIVATE_KEY");
 
   if (missingEnv.length > 0) {
+      await appendAudit({
+          event: "mentorship_list",
+          status: "error",
+          meta: { missingEnv }
+      });
       return NextResponse.json({
           connected: false,
           missingEnv,
-          events: [
-              { id: 'mock1', summary: 'Weekly Market Sync (Mock)', start: { dateTime: new Date().toISOString() }, description: 'Community Call' },
-              { id: 'mock2', summary: 'Risk Management Class (Mock)', start: { dateTime: new Date(Date.now() + 86400000).toISOString() }, description: 'Masterclass' }
-          ]
-      });
+          events: []
+      }, { status: 500 });
   }
 
   try {
       const events = await googleClient.listUpcomingEvents(5);
+      await appendAudit({
+          event: "mentorship_list",
+          status: "ok"
+      });
       return NextResponse.json({
           connected: true,
           events: events
       });
   } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Unexpected error';
+      await appendAudit({
+          event: "mentorship_list",
+          status: "error",
+          meta: { message }
+      });
       return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -42,7 +55,12 @@ export async function POST(req: Request) {
         if (!process.env.GOOGLE_CLIENT_EMAIL) missingEnv.push("GOOGLE_CLIENT_EMAIL");
         if (!process.env.GOOGLE_PRIVATE_KEY) missingEnv.push("GOOGLE_PRIVATE_KEY");
         if (missingEnv.length > 0) {
-            return NextResponse.json({ success: true, mock: true, missingEnv, message: "Mock Event Created" });
+            await appendAudit({
+                event: "mentorship_create",
+                status: "error",
+                meta: { missingEnv }
+            });
+            return NextResponse.json({ success: false, error: "missing_credentials", missingEnv }, { status: 500 });
         }
 
         // Criar evento de 1h
@@ -57,10 +75,36 @@ export async function POST(req: Request) {
             email
         );
 
+        await appendAudit({
+            event: "mentorship_create",
+            status: "ok",
+            meta: { eventId: event?.id ?? null }
+        });
         return NextResponse.json({ success: true, event });
 
     } catch (error: unknown) {
         const message = error instanceof Error ? error.message : 'Unexpected error';
+        await appendAudit({
+            event: "mentorship_create",
+            status: "error",
+            meta: { message }
+        });
         return NextResponse.json({ error: message }, { status: 500 });
     }
+}
+
+async function appendAudit(entry: Record<string, unknown>) {
+  const logDir = path.join(process.cwd(), "backend_core", "logs");
+  const logPath = path.join(logDir, "audit.jsonl");
+  const payload = {
+    ts: new Date().toISOString(),
+    service: "mentorship",
+    ...entry
+  };
+  try {
+    await fs.mkdir(logDir, { recursive: true });
+    await fs.appendFile(logPath, `${JSON.stringify(payload)}\n`, "utf8");
+  } catch {
+    return;
+  }
 }

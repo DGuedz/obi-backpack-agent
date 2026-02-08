@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, ArrowRight, CheckCircle2, Lock, Loader2, AlertTriangle, FileText } from "lucide-react";
 import Link from "next/link";
-import { useLanguage } from "../context/LanguageContext";
 
 const QUESTIONS = [
   { id: "q1", text: "Nome Completo (Full Name)", placeholder: "Ex: John Doe" },
@@ -21,10 +20,11 @@ const QUESTIONS = [
 
 export default function ApplyPage() {
   const [step, setStep] = useState(0);
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { language } = useLanguage();
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [gatekeeperResult, setGatekeeperResult] = useState<{ allowed?: boolean; mode?: string } | null>(null);
 
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,11 +37,32 @@ export default function ApplyPage() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          walletAddress: formData.q3,
+          answers: formData
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) {
+        setSubmitError("Falha ao enviar aplicação. Tente novamente.");
+        setIsSubmitting(false);
+        return;
+      }
+      setGatekeeperResult({
+        allowed: data?.gatekeeper?.allowed,
+        mode: data?.gatekeeper?.mode
+      });
       setIsSubmitting(false);
       setIsSuccess(true);
-    }, 2000);
+    } catch {
+      setSubmitError("Falha ao enviar aplicação. Tente novamente.");
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,10 +75,10 @@ export default function ApplyPage() {
       <nav className="border-b border-zinc-800 p-6 flex justify-between items-center bg-zinc-900/50 backdrop-blur">
         <div className="flex items-center gap-2">
             <Shield className="w-6 h-6 text-emerald-500" />
-            <span className="font-bold tracking-widest">OBI WHITELIST</span>
+            <span className="font-bold tracking-widest">BLACKLIST APPLICATION</span>
         </div>
         <div className="text-xs text-zinc-500 uppercase tracking-widest">
-            Protocol VSC v1.0
+            Protocol VSC v1.0 • 15 SPOTS LEFT
         </div>
       </nav>
 
@@ -133,6 +154,11 @@ export default function ApplyPage() {
                             )}
                         </button>
                     </div>
+                    {submitError && (
+                      <div className="mt-6 text-sm text-red-400">
+                        {submitError}
+                      </div>
+                    )}
                 </form>
               </motion.div>
             ) : (
@@ -149,14 +175,28 @@ export default function ApplyPage() {
                 </div>
 
                 <h2 className="text-3xl font-bold text-white mb-4">Application Received</h2>
+                <p className="text-zinc-400 mb-6 text-sm">
+                    You have entered the selection pool for the <strong>15 Early Adopter Spots</strong>.
+                </p>
                 
                 <div className="bg-black/30 border border-zinc-800 rounded-xl p-6 mb-8 text-left space-y-4">
+                    {gatekeeperResult && (
+                      <div className="flex gap-3">
+                        <AlertTriangle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                        <div>
+                            <h3 className="font-bold text-white text-sm mb-1">Gatekeeper Check</h3>
+                            <p className="text-xs text-zinc-400 leading-relaxed">
+                                Status: {gatekeeperResult.allowed ? "Aprovado" : "Pendente"} · Mode: {gatekeeperResult.mode || "unknown"}
+                            </p>
+                        </div>
+                      </div>
+                    )}
                     <div className="flex gap-3">
                         <Lock className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
                         <div>
-                            <h3 className="font-bold text-white text-sm mb-1">Under Review (5 Days)</h3>
+                            <h3 className="font-bold text-white text-sm mb-1">Manual Selection (Black List)</h3>
                             <p className="text-xs text-zinc-400 leading-relaxed">
-                                Your application is now with the Gatekeeper Team. We conduct a manual KYC and Wallet History check to ensure alignment with the Guild.
+                                Your profile is being analyzed by the Core Team. We are selecting only the best profiles to fill the 15 available spots for the launch.
                             </p>
                         </div>
                     </div>

@@ -70,7 +70,7 @@ export default function ManifestoPage() {
             </h2>
             
             <blockquote className="border-l-4 border-emerald-500 pl-4 italic text-zinc-400 mb-8 text-lg">
-              &quot;We don't sell promises. We deliver structural advantage.&quot;
+              &quot;We don&apos;t sell promises. We deliver structural advantage.&quot;
             </blockquote>
 
             <div className="space-y-6 text-zinc-300 leading-relaxed">
@@ -138,11 +138,11 @@ export default function ManifestoPage() {
                This ecosystem is born with a certainty:
              </p>
              <blockquote className="text-2xl font-bold text-white italic">
-               &quot;They need Brazil. They just don't know it yet.&quot;
+              &quot;They need Brazil. They just don&apos;t know it yet.&quot;
              </blockquote>
              <p>
                And there are people here who understand exactly what we are talking about.
-               It wasn't 6 hackathons by chance. It wasn't luck. It was survival inside the game.
+              It wasn&apos;t 6 hackathons by chance. It wasn&apos;t luck. It was survival inside the game.
              </p>
              <p className="text-emerald-400 font-bold uppercase tracking-widest">
                We got the password. Now the access is structural.
@@ -345,7 +345,7 @@ export default function ManifestoPage() {
                   Este conhecimento é uma arma que deve ser utilizada <strong>pelo bem e para o bem</strong>, nunca em desvantagem do próximo.
                   <br/><br/>
                   Buscamos <strong>oportunidades reais</strong>. Open Interest real. Ordens executadas e posicionadas.
-                  Sem ilusão. Sem "Exit Liquidity" nas costas da comunidade.
+                  Sem ilusão. Sem &quot;Exit Liquidity&quot; nas costas da comunidade.
                 </p>
              </div>
           </div>

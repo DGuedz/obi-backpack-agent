@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { BackpackClient } from '@/app/lib/backpack';
+import path from "node:path";
+import { promises as fs } from "node:fs";
 
 export const dynamic = 'force-dynamic'; // Disable caching
 
@@ -15,6 +17,7 @@ export async function GET() {
     // Or return error. User asked for "dados on chain via backpack api", so error is better to prompt config.
     // But to avoid breaking the UI completely, maybe a specific flag.
     console.error("Missing API Keys in Environment Variables (BACKPACK_API_KEY, BACKPACK_API_SECRET)");
+    await appendAudit({ event: "backpack_stats", status: "error", meta: { message: "missing_keys" } });
     return NextResponse.json({ 
         connected: false, 
         error: 'API Keys not configured in .env' 
@@ -79,6 +82,7 @@ export async function GET() {
         .filter((pos): pos is NonNullable<typeof pos> => Boolean(pos));
     }
 
+    await appendAudit({ event: "backpack_stats", status: "ok" });
     return NextResponse.json({
         totalBalance: totalBalance.toFixed(2),
         totalPnl: totalUnrealizedPnl.toFixed(2),
@@ -89,6 +93,23 @@ export async function GET() {
   } catch (error: unknown) {
     console.error("Backpack API Route Error:", error);
     const message = error instanceof Error ? error.message : 'Unexpected error';
+    await appendAudit({ event: "backpack_stats", status: "error", meta: { message } });
     return NextResponse.json({ error: message, connected: false }, { status: 500 });
+  }
+}
+
+async function appendAudit(entry: Record<string, unknown>) {
+  const logDir = path.join(process.cwd(), "backend_core", "logs");
+  const logPath = path.join(logDir, "audit.jsonl");
+  const payload = {
+    ts: new Date().toISOString(),
+    service: "backpack",
+    ...entry
+  };
+  try {
+    await fs.mkdir(logDir, { recursive: true });
+    await fs.appendFile(logPath, `${JSON.stringify(payload)}\n`, "utf8");
+  } catch {
+    return;
   }
 }

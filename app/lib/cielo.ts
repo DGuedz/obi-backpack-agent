@@ -56,8 +56,8 @@ export class CieloService {
       }
 
       return result;
-    } catch (error: any) {
-      console.error('Cielo Transaction Error:', error.message);
+    } catch (error) {
+      console.error('Cielo Transaction Error:', (error as Error)?.message || String(error));
       throw error;
     }
   }

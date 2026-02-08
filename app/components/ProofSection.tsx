@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Activity, BarChart3, Lock, Zap, Medal, Trophy, CheckCircle2, Award, ShieldCheck, Terminal } from "lucide-react";
+import { Activity, BarChart3, Lock, Medal, Trophy, CheckCircle2, Award, ShieldCheck, Terminal } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useLanguage } from "../context/LanguageContext";
 import Link from "next/link";
 
 const terminalLogs = [
@@ -11,15 +10,14 @@ const terminalLogs = [
   { text: "> ESTABLISHING SECURE CONNECTION... [OK]", color: "text-emerald-400", delay: 800 },
   { text: "> VERIFYING PARTNERSHIP CREDENTIALS... [VERIFIED]", color: "text-emerald-400", delay: 1500 },
   { text: "> LOADING MARKET ANALYSIS ENGINE... [READY]", color: "text-zinc-300", delay: 2200 },
-  { text: "> SCANNING MARKET DEPTH: BTC_USDC", color: "text-blue-400", delay: 3000 },
-  { text: "  - DEPTH: 10450 bids / 9802 asks", color: "text-zinc-400", delay: 3500 },
+  { text: "> SCANNING MARKET DEPTH: SOL_USDC", color: "text-blue-400", delay: 3000 },
+  { text: "  - DEPTH: 45,200 bids / 38,900 asks", color: "text-zinc-400", delay: 3500 },
   { text: "  - MARKET HEALTH: OPTIMAL (STABLE)", color: "text-emerald-400 font-bold", delay: 4000 },
-  { text: "  - VOLATILITY INDEX: NORMALIZED", color: "text-yellow-400", delay: 4800 },
-  { text: "> EXECUTING STRATEGY: LIQUIDITY_PROVISION", color: "text-purple-400", delay: 5500 },
-  { text: "  - ENTRY: MAKER ORDER @ 90,120.5 (PostOnly)", color: "text-zinc-300", delay: 6000 },
-  { text: "  - RISK PARAMETERS: ACTIVE", color: "text-red-400", delay: 6500 },
+  { text: "> EXECUTING STRATEGY: OBI_SEASON_4", color: "text-purple-400", delay: 5500 },
+  { text: "  - TARGET: LEVEL 15 (PLATINUM)", color: "text-zinc-300", delay: 6000 },
+  { text: "  - CURRENT TIER: LEVEL 14 (GOLD)", color: "text-yellow-400 font-bold", delay: 6500 },
   { text: "  - EFFICIENCY TARGET: 99.9%", color: "text-emerald-400", delay: 7000 },
-  { text: "> ORDER PLACED: ID #88291029 [CONFIRMED]", color: "text-emerald-500", delay: 7800 },
+  { text: "> PROOF GENERATED: HASH 37b2ff...afc0 [SIGNED]", color: "text-emerald-500", delay: 7800 },
   { text: "> MAINTAINING MARKET STABILITY...", color: "text-blue-400 animate-pulse", delay: 8500 },
 ];
 
@@ -61,7 +59,7 @@ const TerminalSimulation = () => {
   }, []);
 
   return (
-    <div className="font-mono text-xs md:text-sm p-6 bg-black/90 rounded-lg border border-zinc-800 shadow-2xl h-100 overflow-hidden flex flex-col">
+    <div className="font-mono text-xs md:text-sm p-4 md:p-6 bg-black/90 rounded-lg border border-zinc-800 shadow-2xl h-80 md:h-100 overflow-hidden flex flex-col">
       <div className="flex items-center gap-2 mb-4 border-b border-zinc-800 pb-2">
         <Terminal className="w-4 h-4 text-emerald-500" />
         <span className="text-zinc-500">obiwork-core — python3 volume_farmer.py</span>
@@ -82,7 +80,7 @@ const TerminalSimulation = () => {
 
 export default function ProofSection() {
   return (
-    <section className="relative py-24 bg-zinc-950 border-t border-zinc-900">
+    <section id="proof" className="relative py-16 md:py-24 bg-zinc-950 border-t border-zinc-900">
       <div className="container px-4 md:px-6 mx-auto">
         
         {/* Header */}
@@ -100,10 +98,10 @@ export default function ProofSection() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {[
-            { label: "LIQUIDITY PROVIDED", value: "$1,376,499+", icon: BarChart3, color: "text-emerald-400" },
-            { label: "PLATFORM SYNC", value: "< 45ms", icon: Zap, color: "text-yellow-400" },
+            { label: "LIQUIDITY PROVIDED", value: "$2,272,666+", icon: BarChart3, color: "text-emerald-400" },
+            { label: "SEASON 4 RANK", value: "GOLD (2,628 pts)", icon: Trophy, color: "text-yellow-400" },
             { label: "SYSTEM UPTIME", value: "99.9%", icon: Activity, color: "text-blue-400" },
-            { label: "SEASON 4 VOLUME", value: "423.77M units", icon: Medal, color: "text-emerald-400" },
+            { label: "CURRENT LEVEL", value: "LEVEL 14", icon: Medal, color: "text-emerald-400" },
           ].map((stat, i) => (
             <motion.div
               key={i}
@@ -130,6 +128,15 @@ export default function ProofSection() {
         <div className="mb-20">
           <h3 className="text-xs font-mono text-zinc-500 mb-6 text-center uppercase tracking-[0.2em]">Official Platform Verification</h3>
           
+          {/* HASH PROOF */}
+          <div className="flex justify-center mb-8">
+             <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/50 border border-zinc-800 rounded font-mono text-[10px] text-zinc-500 max-w-full overflow-hidden">
+                <Lock className="w-3 h-3 text-emerald-500 shrink-0" />
+                <span className="hidden sm:inline text-zinc-600">LATEST PROOF:</span>
+                <span className="text-emerald-500/80 truncate">37b2ff414d5eceaaac6d408f1e32faac89fe446df4fa3ee07565e8464d43afc0</span>
+             </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* CARD 1: RANK */}
             <motion.div 
@@ -158,15 +165,15 @@ export default function ProofSection() {
               <div className="text-xs font-mono text-emerald-500 mb-4 flex items-center gap-2 bg-emerald-950/30 px-3 py-1 rounded-full border border-emerald-900/50">
                   <ShieldCheck className="w-3 h-3" /> VERIFIED CONTRIBUTOR
               </div>
-              <div className="text-3xl font-bold text-white font-mono mb-1 tracking-tight">$1,500,000+</div>
+              <div className="text-3xl font-bold text-white font-mono mb-1 tracking-tight">$2,272,000+</div>
               <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-6">LIFETIME CONTRIBUTION</div>
               
               <div className="w-full bg-zinc-950 h-3 rounded-full mb-2 overflow-hidden border border-zinc-800">
-                  <div className="bg-emerald-500 h-full w-[92%] shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                  <div className="bg-emerald-500 h-full w-[94%] shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
               </div>
               <div className="flex justify-between w-full text-[10px] font-mono text-zinc-500 px-1">
-                  <span>Growth</span>
-                  <span className="text-emerald-500/70">Target: Sustained</span>
+                  <span>Level 14</span>
+                  <span className="text-emerald-500/70">Target: Level 15 (Plat)</span>
               </div>
             </motion.div>
 

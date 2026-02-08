@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 export type Language = 'pt' | 'en';
 
@@ -12,15 +12,16 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('pt');
-
-  // Optional: Persist to localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem('obiwork_lang') as Language;
-    if (saved && (saved === 'pt' || saved === 'en')) {
-      setLanguage(saved);
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") {
+      return "pt";
     }
-  }, []);
+    const saved = window.localStorage.getItem("obiwork_lang");
+    if (saved === "pt" || saved === "en") {
+      return saved;
+    }
+    return "pt";
+  });
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);

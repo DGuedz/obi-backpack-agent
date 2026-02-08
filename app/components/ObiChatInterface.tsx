@@ -1,15 +1,21 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Shield, Terminal, Loader2, Search } from "lucide-react";
+import { Send, Bot, Loader2, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+type AnalysisData = {
+  risk_score?: number;
+  created_tokens_count?: number;
+  risks?: { name?: string }[];
+};
 
 interface Message {
   id: string;
   role: "assistant" | "user";
   content: string;
   type?: "text" | "analysis" | "alert";
-  data?: any;
+  data?: AnalysisData;
 }
 
 export default function ObiChatInterface() {
@@ -24,7 +30,7 @@ export default function ObiChatInterface() {
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [formStep, setFormStep] = useState<number | null>(null);
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<Record<string, string>>({});
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const WHITELIST_QUESTIONS = [
@@ -143,7 +149,7 @@ export default function ObiChatInterface() {
       };
 
       setMessages(prev => [...prev, botMsg]);
-    } catch (error) {
+    } catch {
       setMessages(prev => [...prev, {
         id: (Date.now() + 1).toString(),
         role: "assistant",
@@ -194,25 +200,30 @@ export default function ObiChatInterface() {
                         : "bg-emerald-950/20 text-emerald-100 border border-emerald-900/30"
                 }`}>
                     {msg.type === "analysis" && msg.data ? (
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-2 text-emerald-400 border-b border-emerald-900/30 pb-2 mb-2">
+                        (() => {
+                          const riskScore = msg.data?.risk_score ?? 0;
+                          return (
+                            <div className="space-y-2">
+                              <div className="flex items-center gap-2 text-emerald-400 border-b border-emerald-900/30 pb-2 mb-2">
                                 <Search className="w-4 h-4" />
                                 <span className="font-bold">WALLET ANALYSIS REPORT</span>
-                            </div>
-                            <div className="grid grid-cols-2 gap-2 text-xs">
+                              </div>
+                              <div className="grid grid-cols-2 gap-2 text-xs">
                                 <div className="text-zinc-400">Reputation:</div>
-                                <div className={`${msg.data.risk_score > 50 ? "text-red-400" : "text-emerald-400"} font-bold`}>
-                                    {msg.data.risk_score > 50 ? "HIGH RISK" : "SAFE"}
+                                <div className={`${riskScore > 50 ? "text-red-400" : "text-emerald-400"} font-bold`}>
+                                  {riskScore > 50 ? "HIGH RISK" : "SAFE"}
                                 </div>
                                 <div className="text-zinc-400">Created Tokens:</div>
-                                <div>{msg.data.created_tokens_count || "0"}</div>
-                            </div>
-                            {msg.data.risks && msg.data.risks.length > 0 && (
+                                <div>{msg.data?.created_tokens_count || "0"}</div>
+                              </div>
+                              {msg.data?.risks && msg.data.risks.length > 0 && (
                                 <div className="mt-2 p-2 bg-red-950/30 rounded border border-red-900/30 text-xs text-red-300">
-                                    WARNING: {msg.data.risks[0].name || "Detected Anomalies"}
+                                  WARNING: {msg.data.risks[0]?.name || "Detected Anomalies"}
                                 </div>
-                            )}
-                        </div>
+                              )}
+                            </div>
+                          );
+                        })()
                     ) : (
                         <div className="whitespace-pre-wrap">{msg.content}</div>
                     )}
