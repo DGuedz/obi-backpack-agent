@@ -63,8 +63,8 @@ class ArbitrageLab:
         """
         Continuous Monitoring Loop (Sentinel)
         """
-        print(f"VSC_STREAM_START|SESSION_{self.session_id}|ARBITRAGE_LAB")
-        print("TIMESTAMP|ASSET|SPOT_PRICE|PERP_PRICE|BASIS_PCT|SPREAD_USD|SIGNAL")
+        print(f"VSC_STREAM_START|SESSION_{self.session_id}|ARBITRAGE_LAB", flush=True)
+        print("TIMESTAMP|ASSET|SPOT_PRICE|PERP_PRICE|BASIS_PCT|SPREAD_USD|SIGNAL", flush=True)
         
         while True:
             try:
@@ -87,18 +87,18 @@ class ArbitrageLab:
                             f"{timestamp}|{data['symbol']}|{data['spot']:.2f}|"
                             f"{data['perp']:.2f}|{basis:.4f}%|${data['diff']:.4f}|{signal}"
                         )
-                        print(log_line)
+                        print(log_line, flush=True)
                         
                     time.sleep(1) # Rate limit protection
                 
-                print("---") # Visual separator for human observers (ignored by parser)
+                print("---", flush=True) # Visual separator for human observers (ignored by parser)
                 time.sleep(5) # Scan interval
                 
             except KeyboardInterrupt:
-                print("VSC_STREAM_END|USER_ABORT")
+                print("VSC_STREAM_END|USER_ABORT", flush=True)
                 break
             except Exception as e:
-                print(f"ERROR|{str(e)}")
+                print(f"ERROR|{str(e)}", flush=True)
                 time.sleep(5)
 
 if __name__ == "__main__":

@@ -56,8 +56,8 @@ def scan_file(file_path):
     return issues
 
 def run_audit(root_dir):
-    print("🛡️  OBI SECURITY AUDIT - INITIATING...")
-    print(f"📂 Scanning Root: {root_dir}")
+    print("[INFO] OBI SECURITY AUDIT - INITIATING...")
+    print(f"[INFO] Scanning Root: {root_dir}")
     print("=" * 60)
     
     found_issues = False
@@ -80,7 +80,7 @@ def run_audit(root_dir):
             # 2. Content Scan
             issues = scan_file(file_path)
             if issues:
-                print(f"\n🚨 POTENTIAL LEAK IN: {file_path}")
+                print(f"\n[ALERT] POTENTIAL LEAK IN: {file_path}")
                 for line_num, content in issues:
                     # Redact content for display
                     redacted = content[:20] + "..." if len(content) > 20 else content
@@ -89,10 +89,10 @@ def run_audit(root_dir):
 
     print("=" * 60)
     if found_issues:
-        print("❌ ISSUES FOUND. IMMEDIATE REVIEW REQUIRED.")
+        print("[FAIL] ISSUES FOUND. IMMEDIATE REVIEW REQUIRED.")
         sys.exit(1)
     else:
-        print("✅ NO OBVIOUS HARDCODED CREDENTIALS FOUND.")
+        print("[PASS] NO OBVIOUS HARDCODED CREDENTIALS FOUND.")
         sys.exit(0)
 
 if __name__ == "__main__":

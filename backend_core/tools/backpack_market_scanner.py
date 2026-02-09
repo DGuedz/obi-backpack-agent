@@ -7,19 +7,19 @@ import pandas as pd
 from datetime import datetime
 from dotenv import load_dotenv
 
-# Carregar variaveis de ambiente
-# Tenta carregar do arquivo .env na raiz do projeto
+# Load environment variables
+# Tries to load from .env in project root
 env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '.env')
 load_dotenv(env_path)
 
 API_KEY = os.getenv("BACKPACK_API_KEY")
 API_SECRET = os.getenv("BACKPACK_API_SECRET")
 
-# Tentar importar pynacl (mais compativel que ed25519)
+# Try to import pynacl (more compatible than ed25519)
 try:
     from nacl.signing import SigningKey
 except ImportError:
-    print("Erro: Biblioteca 'pynacl' necessaria. Instale com: pip install pynacl")
+    print("Error: 'pynacl' library required. Install with: pip install pynacl")
     exit(1)
 
 class BackpackClient:
@@ -39,7 +39,7 @@ class BackpackClient:
             message += f"&{param_str}"
         message += f"&timestamp={timestamp}&window={window}"
         
-        # Usando PyNaCl
+        # Using PyNaCl
         signing_key = SigningKey(self.api_secret)
         signed = signing_key.sign(message.encode('utf-8'))
         return base64.b64encode(signed.signature).decode('utf-8')
@@ -62,14 +62,14 @@ class BackpackClient:
             r = requests.get(url)
             return r.json()
         except Exception as e:
-            print(f"Erro ao buscar tickers: {e}")
+            print(f"Error fetching tickers: {e}")
             return []
 
     def get_balance(self):
-        # Este endpoint requer assinatura. 
-        # Como a implementação da assinatura Ed25519 exata pode ser chata sem libs especificas,
-        # vamos focar primeiro nos dados publicos se a assinatura falhar, 
-        # mas tentar implementar a assinatura correta.
+        # This endpoint requires signature.
+        # Since exact Ed25519 implementation can be tricky without specific libs,
+        # we focus on public data first if signature fails,
+        # but try to implement correct signature.
         
         # Doc: https://docs.backpack.exchange/#tag/Capital/operation/get_balances
         # Instruction: balanceQuery
@@ -82,22 +82,22 @@ class BackpackClient:
             if r.status_code == 200:
                 return r.json()
             else:
-                print(f"Erro Balance ({r.status_code}): {r.text}")
+                print(f"Balance Error ({r.status_code}): {r.text}")
                 return {}
         except Exception as e:
-            print(f"Erro ao buscar saldo: {e}")
+            print(f"Error fetching balance: {e}")
             return {}
 
 def analyze_market():
-    print("--- INICIANDO SCAN DE MERCADO BACKPACK ---")
+    print("--- STARTING BACKPACK MARKET SCAN ---")
     
     if not API_KEY or not API_SECRET:
-        print("AVISO: Chaves de API não encontradas. Apenas dados públicos serão mostrados.")
+        print("WARNING: API Keys not found. Only public data will be shown.")
         client = BackpackClient("", "") # Dummy
     else:
         client = BackpackClient(API_KEY, API_SECRET)
 
-    # 1. Buscar Saldo
+    # 1. Fetch Balance
     saldo_usdc = 0
     if API_KEY:
         print("Buscando saldo...")

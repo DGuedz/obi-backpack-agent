@@ -4,7 +4,7 @@ import base64
 import requests
 import sys
 
-# Caminho especifico solicitado
+# Specific path requested
 target_env = "/Users/doublegreen/backpacktrading/backpack-arkham-agent/.env"
 
 def load_env_manually(filepath):
@@ -25,7 +25,7 @@ def load_env_manually(filepath):
                         value = value[1:-1]
                     keys[key.strip()] = value
     except Exception as e:
-        print(f"Erro ao ler arquivo: {e}")
+        print(f"Error reading file: {e}")
     return keys
 
 env_vars = load_env_manually(target_env)
@@ -35,20 +35,20 @@ API_SECRET = env_vars.get("BACKPACK_API_SECRET")
 try:
     from nacl.signing import SigningKey
 except ImportError:
-    print("Erro: Biblioteca 'pynacl' necessaria.")
+    print("Error: 'pynacl' library required.")
     exit(1)
 
 def verify():
-    print(f"Verificando chaves de: {target_env}")
+    print(f"Verifying keys from: {target_env}")
     
     if not API_KEY or not API_SECRET:
-        print("[ERRO] Chaves não encontradas no arquivo.")
+        print("[ERROR] Keys not found in file.")
         return
 
     print(f"API KEY: {API_KEY[:4]}***REDACTED***")
     print(f"API SECRET: {API_SECRET[:4]}***REDACTED***")
     
-    # Testar Autenticação (Balance Query)
+    # Test Authentication (Balance Query)
     base_url = "https://api.backpack.exchange"
     instruction = "balanceQuery"
     timestamp = int(time.time() * 1000)
@@ -62,7 +62,7 @@ def verify():
         signed = signing_key.sign(message.encode('utf-8'))
         signature = base64.b64encode(signed.signature).decode('utf-8')
     except Exception as e:
-        print(f"[ERRO] Falha ao assinar (Secret pode estar inválido): {e}")
+        print(f"[ERROR] Signing failed (Secret might be invalid): {e}")
         return
 
     headers = {
@@ -76,22 +76,22 @@ def verify():
     try:
         r = requests.get(f"{base_url}/api/v1/capital", headers=headers)
         if r.status_code == 200:
-            print("\n[SUCESSO] Chaves válidas!")
+            print("\n[SUCCESS] Keys valid!")
             data = r.json()
             usdc = data.get('USDC', {}).get('available', '0')
-            print(f"SALDO USDC: {usdc}")
+            print(f"USDC BALANCE: {usdc}")
             
-            # Listar qualquer coisa que tenha saldo
-            print("Ativos com saldo:")
+            # List anything with balance
+            print("Assets with balance:")
             for asset, details in data.items():
                 avail = float(details.get('available', 0))
                 if avail > 0:
                     print(f" - {asset}: {avail}")
         else:
-            print(f"\n[FALHA] HTTP {r.status_code}: {r.text}")
+            print(f"\n[FAILURE] HTTP {r.status_code}: {r.text}")
             
     except Exception as e:
-        print(f"[ERRO] Falha na requisição: {e}")
+        print(f"[ERROR] Request failed: {e}")
 
 if __name__ == "__main__":
     verify()

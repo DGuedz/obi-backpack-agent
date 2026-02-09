@@ -29,44 +29,44 @@ Institutional Desk. This is AA’s Elite. You sit where normally no one is invit
 - Early Access to Alpha
 - Dedicated Infrastructure
 
-## 3. Protocolo de Integridade (The Judge)
-- **Lei da Ficha Limpa (SBT)**: Acesso restrito via Zero-Knowledge Compliance.
-- **Lei da Taxa de Sucesso**: Alinhamento total. 97% Você / 3% Tesouraria.
-- **Código Ético**: Knowledge for Good. Sem Exit Liquidity nas costas da comunidade.
+## 3. Integrity Protocol (The Judge)
+- **Clean Slate Law (SBT)**: Restricted access via Zero-Knowledge Compliance.
+- **Success Fee Law**: Total alignment. 97% You / 3% Treasury.
+- **Ethical Code**: Knowledge for Good. No Exit Liquidity at the expense of the community.
 
 ---
 
-## Produção
+## Production
 
 https://obi-backpack-agent.vercel.app/
 
-## Foco no Hackathon
+## Hackathon Focus
 
-- **Multi-Strategy Execution**: Agente capaz de operar em múltiplas modalidades (Scalp, Day Trade, Swing, Position, Arb).
-- **Yield Farming Automation**: OBI atua como um "Volume Farmer" autônomo, gerando atividade on-chain e off-chain para maximizar pontos e recompensas em Perp DEXs (Backpack, e futuramente Jupiter, Drift, Zeta).
-- **On-Chain Validation**: Todas as execuções geram recibos criptográficos auditáveis (Solana Signer).
-- **Prova de Volume**: Métricas visíveis e comprovadas em laboratório.
-- **Relatório de Auditoria**: [SCALP_LAB_REPORT.md](./SCALP_LAB_REPORT.md) - Documento técnico com telemetria, latência (<350ms) e PnL.
+- **Multi-Strategy Execution**: Agent capable of operating in multiple modalities (Scalp, Day Trade, Swing, Position, Arb).
+- **Yield Farming Automation**: OBI acts as an autonomous "Volume Farmer", generating on-chain and off-chain activity to maximize points and rewards on Perp DEXs (Backpack, and in the future Jupiter, Drift, Zeta).
+- **On-Chain Validation**: All executions generate auditable cryptographic receipts (Solana Signer).
+- **Proof of Volume**: Visible metrics proven in the laboratory.
+- **Audit Report**: [SCALP_LAB_REPORT.md](./SCALP_LAB_REPORT.md) - Technical document with telemetry, latency (<350ms), and PnL.
 
 ## Ecosystem Utility (Solana DeFi)
 
-O OBI não é apenas um bot de trading; é uma **infraestrutura de liquidez portátil** para o ecossistema Solana.
+OBI is not just a trading bot; it is a **portable liquidity infrastructure** for the Solana ecosystem.
 
-*   **Farm Perp DEX**: Projetado para "farmar" sistematicamente programas de incentivo (Points/Airdrops) em protocolos como Backpack, Drift e Jupiter Perps.
-*   **Liquidez como Serviço**: Projetos DeFi podem integrar o OBI para garantir liquidez 24/7 em seus mercados, pagando taxas de performance via Smart Contracts.
-*   **Integração Total**: Uso de AgentWallet para interagir nativamente com qualquer instrução on-chain da Solana.
+*   **Farm Perp DEX**: Designed to systematically "farm" incentive programs (Points/Airdrops) on protocols like Backpack, Drift, and Jupiter Perps.
+*   **Liquidity as a Service**: DeFi projects can integrate OBI to ensure 24/7 liquidity in their markets, paying performance fees via Smart Contracts.
+*   **Total Integration**: Uses AgentWallet to interact natively with any on-chain Solana instruction.
 
 ## Core Capabilities (Labs)
 
-A infraestrutura de execução ("Backend Core") inclui laboratórios dedicados para validação de estratégias:
+The execution infrastructure ("Backend Core") includes dedicated laboratories for strategy validation:
 
-1. **Scalp Lab**: High Frequency Trading, Market Making e Spread Capture.
-2. **Day Trade Lab**: Tendências intradiárias (EMA Crossover).
-3. **Swing Trade Lab**: Momentum de médio prazo (MACD).
-4. **Position Lab**: Alocação de longo prazo (Golden Cross/HODL).
-5. **Arbitrage Lab**: Monitoramento de Basis Spot-Perp.
+1.  **Scalp Lab**: High Frequency Trading, Market Making, and Spread Capture.
+2.  **Day Trade Lab**: Intraday trends (EMA Crossover).
+3.  **Swing Trade Lab**: Medium-term momentum (MACD).
+4.  **Position Lab**: Long-term allocation (Golden Cross/HODL).
+5.  **Arbitrage Lab**: Spot-Perp Basis Monitoring.
 
-## Rotas principais
+## Main Routes
 
 - /
 - /dashboard
@@ -84,15 +84,15 @@ A infraestrutura de execução ("Backend Core") inclui laboratórios dedicados p
 - /api/mentorship/events
 - /api/payments/cielo
 
-## Rodar localmente
+## Run Locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abra http://localhost:3000 no navegador.
+Open http://localhost:3000 in your browser.
 
 ## Deploy
 
-Deploy recomendado via Vercel com Node 20.x.
+Recommended deploy via Vercel with Node 20.x.
