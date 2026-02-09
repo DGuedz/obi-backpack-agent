@@ -216,7 +216,7 @@ class AgentLoop:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='OBI WORK Agent Executor')
-    parser.add_argument('--vsc', type=str, default='vsc_instructions.txt', help='Path to VSC instruction file')
+    parser.add_argument('--vsc', type=str, default='VSC_INFRA_RULES.txt', help='Path to VSC instruction file')
     parser.add_argument('--mode', type=str, default='standard', choices=['standard', 'safe', 'aggressive'], help='Execution mode')
     parser.add_argument('--max-workers', type=int, default=1, help='Max thread workers')
     parser.add_argument('--timeout', type=int, default=30, help='Cycle timeout in seconds')

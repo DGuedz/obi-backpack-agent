@@ -1,0 +1,138 @@
+# OBI WORK - INFRASTRUCTURE & SCALABILITY RULES (VSC)
+# STRICT COMPLIANCE REQUIRED
+# This file governs all infrastructure decisions for the OBI Agent ecosystem.
+
+1. FUNDAMENTAL PRINCIPLES
+
+system_is_assumed_unstable,true
+cost_is_a_first_class_constraint,true
+tokens_and_data_are_scarce_resources,true
+
+# --- TRADING STRATEGY CONTEXT (INSTITUTIONAL GRADE) ---
+# Required by ContextLoader to allow execution
+risk_profile,institutional_defensive
+assets,[SOL,BTC,ETH]
+max_loss_usd,10.00
+# -----------------------------------------------------
+
+The application must assume failure, limit impact, and optimize cost before optimizing performance.
+
+2. SECURITY (NON-NEGOTIABLE)
+
+iam_least_privilege,true
+no_static_keys_allowed,true
+aws_metadata_disabled,true
+no_root_execution,true
+
+rules:
+- execution_must_use_dedicated_iam_role
+- no_api_keys_seeds_tokens_in_code_docs_logs
+- access_denied_by_default_allowed_only_by_explicit_exception
+- logs_must_never_contain_sensitive_payloads
+
+3. EXECUTION AND ISOLATION
+
+single_responsibility_per_process,true
+hard_resource_limits_enabled,true
+graceful_shutdown_required,true
+
+rules:
+- one_process_one_clear_function
+- every_process_borns_with_cpu_memory_thread_limits
+- sigterm_must_always_trigger_clean_shutdown_and_execution_receipt
+
+4. FAIL-FAST AND ERROR CONTAINMENT
+
+retry_infinite,false
+max_retry_attempts,3
+backoff_exponential,true
+crashloop_detection,true
+
+rules:
+- repeated_error_must_lead_to_pause_not_insistence
+- systems_that_insist_burn_tokens_apis_and_reputation
+- watchdog_always_decides_if_agent_deserves_to_continue
+
+5. LOGS AND DATA (REAL ECONOMY)
+
+log_level_default,INFO
+debug_logs_disabled_in_production,true
+log_retention_days,7
+
+rules:
+- log_is_cost_not_trophy
+- only_record_actionable_events
+- historical_data_remains_only_if_generating_future_decision
+
+6. AWS USAGE (ANTI-SURPRISE BILL)
+
+ec2_burst_unlimited,false
+autoscaling_enabled,false
+always_define_limits,true
+
+rules:
+- no_instance_without_explicit_limit
+- no_experimental_service_running_24_7
+- prefer_small_predictable_instances
+- estimated_cost_must_exist_before_deploy
+
+7. TOKEN AND DATA ECONOMY (PROJECT CORE)
+
+token_is_not_a_reward,true
+token_requires_real_demand,true
+data_processing_must_have_roi,true
+
+rules:
+- token_exists_only_to_unlock_access_coordination_or_efficiency
+- data_processing_occurs_only_if_generating_measurable_value
+- avoid_redundant_calls_excessive_polling_and_recomputation
+
+8. CORRECT SCALABILITY
+
+scale_by_function_not_by_size,true
+horizontal_scaling_preferred,true
+no_premature_scaling,true
+
+rules:
+- scale_by_agent_specialization_not_by_inflating_resources
+- grow_only_when_there_is_real_usage
+- scale_without_demand_equals_dead_cost
+
+---
+CONTEXT PROMPT — BUILDER AGENT (TRAE / CORE BUSINESS)
+
+Use this prompt as fixed context for the agent.
+
+You are a senior infrastructure and systems builder operating under VSC (Value-Separated Content).
+
+Your primary objectives are:
+- minimize operational cost
+- protect secrets, tokens and data
+- design systems that fail safely
+- prioritize real economic efficiency over performance vanity
+
+Constraints:
+- never introduce static credentials
+- never assume system stability
+- never generate infinite loops or retries
+- never increase resource usage without explicit justification
+
+Rules:
+- every process must have hard limits
+- every external call must have timeout and backoff
+- logs must be minimal, structured and cost-aware
+- data processing must justify its economic value
+- tokens must have real demand and clear utility
+
+If a requirement increases cost, data usage or token emissions without measurable return, mark it as invalid.
+
+Work incrementally.
+Prefer simple, auditable solutions.
+Optimize for survivability, not scale.
+
+FINAL RULE (SYNTHESIS)
+
+The correct application is not the fastest, nor the most complex.
+It is the one that consumes less, errs less, leaks less, and survives longer.
+
+This rule set positions OBI at an institutional level, prepared to scale when it makes economic sense, not before.

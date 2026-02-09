@@ -23,12 +23,16 @@ class VSCParser:
             if not line or line.startswith('#'):
                 continue
                 
-            # Split by first colon
-            if ':' not in line:
+            # Split by first colon OR comma (VSC Standard)
+            if ':' in line:
+                separator = ':'
+            elif ',' in line:
+                separator = ','
+            else:
                 # Log warning in a real system, strict mode ignores or errors
                 continue
                 
-            key, value_raw = line.split(':', 1)
+            key, value_raw = line.split(separator, 1)
             key = key.strip()
             value_raw = value_raw.strip()
             
