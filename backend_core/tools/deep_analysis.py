@@ -25,7 +25,7 @@ async def deep_analysis():
     targets = ["BTC_USDC_PERP", "ETH_USDC_PERP", "SOL_USDC_PERP", "HYPE_USDC_PERP"]
     
     print("\n DEEP TECHNICAL ANALYSIS (Chart Patterns & Confluence)")
-    print("Analisando Padrões Gráficos, RSI, Bollinger Bands e Sentimento...")
+    print("Analyzing Chart Patterns, RSI, Bollinger Bands and Sentiment...")
     print("-" * 110)
     print(f"{'SYMBOL':<15} | {'PRICE':<10} | {'TREND':<8} | {'RSI':<5} | {'BB POSITION':<15} | {'PREDICTION':<15} | {'ENTRY SUGGESTION'}")
     print("-" * 110)
@@ -46,21 +46,21 @@ async def deep_analysis():
             current_price = df.iloc[-1]['close']
             ema_50 = df['close'].ewm(span=50, adjust=False).mean().iloc[-1]
             
-            # Indicadores
+            # Indicators
             rsi = oracle.get_rsi(df)
             upper_bb, mid_bb, lower_bb = oracle.get_bollinger_bands(df)
             
-            # Análise de Tendência
+            # Trend Analysis
             trend = "BULL" if current_price > ema_50 else "BEAR"
             
-            # Análise de Bollinger
+            # Bollinger Analysis
             bb_status = "NEUTRAL"
             if current_price >= upper_bb: bb_status = "OVERBOUGHT (Upper)"
             elif current_price <= lower_bb: bb_status = "OVERSOLD (Lower)"
             elif current_price > mid_bb: bb_status = "ABOVE MID"
             else: bb_status = "BELOW MID"
             
-            # Padrões de Candle (Simples)
+            # Candle Patterns (Simple)
             last_candle = df.iloc[-1]
             body = abs(last_candle['close'] - last_candle['open'])
             wick_upper = last_candle['high'] - max(last_candle['close'], last_candle['open'])
@@ -72,7 +72,7 @@ async def deep_analysis():
             elif wick_upper > 2 * body and wick_lower < body:
                 pattern = "SHOOTING STAR (Drop?)"
                 
-            # Previsão & Sugestão
+            # Prediction & Suggestion
             prediction = "SIDEWAYS"
             entry_suggestion = "WAIT"
             
@@ -81,8 +81,8 @@ async def deep_analysis():
                 elif rsi > 70: prediction = "OVEREXTENDED"
                 else: prediction = "CONTINUATION"
                 
-                # Sugestão de Entrada (Long)
-                # Tentar pegar no toque da EMA50 ou Lower BB
+                # Entry Suggestion (Long)
+                # Try to catch on EMA50 or Lower BB touch
                 target_buy = max(ema_50, lower_bb)
                 if current_price > target_buy:
                     entry_suggestion = f"LIMIT BUY @ {target_buy:.4f}"
@@ -94,8 +94,8 @@ async def deep_analysis():
                 elif rsi < 30: prediction = "OVERSOLD BOUNCE"
                 else: prediction = "DUMP CONTINUATION"
                 
-                # Sugestão de Entrada (Short)
-                # Tentar pegar no repique da EMA50 ou Upper BB
+                # Entry Suggestion (Short)
+                # Try to catch on EMA50 or Upper BB bounce
                 target_sell = min(ema_50, upper_bb)
                 if current_price < target_sell:
                     entry_suggestion = f"LIMIT SELL @ {target_sell:.4f}"

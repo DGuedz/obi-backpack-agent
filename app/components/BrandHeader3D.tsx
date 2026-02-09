@@ -2,27 +2,17 @@
 
 import { motion } from "framer-motion";
 import ObiWorkLogo from "./ObiWorkLogo";
-import { useLanguage } from "../context/LanguageContext";
 
 export default function BrandHeader3D() {
-  const { language } = useLanguage();
   
-  const SLOGANS = {
-    pt: [
-      "traders automatizados",
-      "elite snipers",
-      "obi work",
-      "comunidade"
-    ],
-    en: [
-      "automated market traders",
-      "elite snipers",
-      "obi work",
-      "community"
-    ]
-  };
+  const SLOGANS = [
+    "automated market traders",
+    "elite snipers",
+    "obi work",
+    "community"
+  ];
 
-  const currentSlogans = SLOGANS[language];
+  const currentSlogans = SLOGANS;
   // Duplicate for infinite scroll
   const displaySlogans = [...currentSlogans, ...currentSlogans];
 

@@ -5,7 +5,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Search, ShoppingCart, Zap, ArrowLeft, Shield, Cpu, Globe, Lock, Activity, Layers, Server } from "lucide-react";
 import Link from "next/link";
 import BrandHeader3D from "../components/BrandHeader3D";
-import { useLanguage } from "../context/LanguageContext";
 
 type SectionContent = {
   role: string;
@@ -14,69 +13,7 @@ type SectionContent = {
   features: string[];
 };
 
-type MarketplaceContent = {
-  nav_back: string;
-  search_placeholder: string;
-  title: string;
-  subtitle_1: string;
-  sbt_highlight: string;
-  subtitle_2: string;
-  limited_spots: string;
-  season_pass: string;
-  mint_action: string;
-  explore_action: string;
-  sections: {
-    scout: SectionContent;
-    commander: SectionContent;
-    architect: SectionContent;
-  };
-};
-
-const CONTENT: Record<"pt" | "en", MarketplaceContent> = {
-  pt: {
-    nav_back: "VOLTAR AO TERMINAL",
-    search_placeholder: "Buscar acesso...",
-    title: "BLACKLIST ACCESS",
-    subtitle_1: "Solicite seu acesso exclusivo ao ecossistema OBI WORK. Cada Tier é representado por um",
-    sbt_highlight: "Soulbound Token (SBT)",
-    subtitle_2: "intransferível.",
-    limited_spots: "⚠️ Apenas 15 vagas para Early Adopters nesta fase.",
-    season_pass: "/ Reveal @ Launch",
-    mint_action: "APLICAR",
-    explore_action: "EXPLORAR DADOS",
-    sections: {
-      scout: {
-        role: "O Soldado",
-        desc_1: "Entrada e Validação. O **PARTNER SCOUT** é para quem quer parar de perder dinheiro e começar a operar com disciplina.",
-        desc_2: "Sua missão é simples: **Sobreviver, Validar e Acumular.**",
-        features: [
-          "Acesso ao Script Básico (CLI)",
-          "Estratégia Phoenix V2 (RSI + Bollinger)",
-          "Limite de Par Único (Foco Total)"
-        ]
-      },
-      commander: {
-        role: "O Capitão",
-        desc_1: "Renda Passiva e Volume Constante. O **LIQUIDITY PROVIDER** libera o poder do Weaver Grid e Delta Neutral.",
-        desc_2: "Ideal para quem busca **Yield Farming** sem exposição direcional ao mercado.",
-        features: [
-          "Weaver Grid V2 (Grade Infinita)",
-          "Delta Neutral Bot (Spot + Short)",
-          "Multi-Par (Até 3 Ativos)"
-        ]
-      },
-      architect: {
-        role: "O General",
-        desc_1: "Vantagem Competitiva (Edge). O **INSTITUTIONAL PARTNER** oferece acesso total à infraestrutura e dados OBI.",
-        desc_2: "Para quem opera grande e precisa de **Latência Zero e Informação Privilegiada.**",
-        features: [
-          "Market Proxy Oracle (Dados OBI)",
-          "Flash Scalper HFT (Alta Frequência)",
-          "Iron Dome VPS (Blindagem Total)"
-        ]
-      }
-    }
-  },
+const CONTENT = {
   en: {
     nav_back: "BACK TO TERMINAL",
     search_placeholder: "Search access...",
@@ -111,8 +48,8 @@ const CONTENT: Record<"pt" | "en", MarketplaceContent> = {
       },
       architect: {
         role: "The General",
-        desc_1: "Competitive Advantage (Edge). The **INSTITUTIONAL PARTNER** offers full access to infrastructure and OBI data.",
-        desc_2: "For those trading big who need **Zero Latency and Privileged Information.**",
+        desc_1: "Competitive Edge. The **INSTITUTIONAL PARTNER** offers full access to OBI infrastructure and data.",
+        desc_2: "For those operating large size and needing **Zero Latency and Privileged Information.**",
         features: [
           "Market Proxy Oracle (OBI Data)",
           "Flash Scalper HFT (High Frequency)",
@@ -123,12 +60,14 @@ const CONTENT: Record<"pt" | "en", MarketplaceContent> = {
   }
 };
 
+const t = CONTENT['en'];
+
 // --- Data Structure for Tiers (Dynamic) ---
-const getTiers = (lang: 'pt' | 'en') => [
+const getTiers = () => [
   {
     id: "scout",
     name: "PARTNER SCOUT",
-    role: CONTENT[lang].sections.scout.role,
+    role: t.sections.scout.role,
     price: "DYNAMIC PEG",
     sbt: "OBI-SCOUT",
     color: "emerald",
@@ -137,18 +76,16 @@ const getTiers = (lang: 'pt' | 'en') => [
     text: "text-emerald-400",
     bg: "bg-emerald-500",
     features: [
-      { icon: Zap, label: lang === 'pt' ? "Acesso CLI & Sentinel" : "CLI Access & Sentinel" },
+      { icon: Zap, label: "CLI Access & Sentinel" },
       { icon: Activity, label: "Phoenix V2 Strategy" },
-      { icon: Shield, label: lang === 'pt' ? "Limite Par Único" : "Single Pair Limit" }
+      { icon: Shield, label: "Single Pair Limit" }
     ],
-    description: lang === 'pt' 
-      ? "Entrada e Validação. Para quem quer parar de perder dinheiro e começar a operar como um soldado disciplinado."
-      : "Entry and Validation. For those who want to stop losing money and start trading with discipline."
+    description: "Entry and Validation. For those who want to stop losing money and start trading with discipline."
   },
   {
     id: "commander",
     name: "LIQUIDITY PROVIDER",
-    role: CONTENT[lang].sections.commander.role,
+    role: t.sections.commander.role,
     price: "DYNAMIC PEG",
     sbt: "OBI-CMDR",
     color: "blue",
@@ -159,16 +96,14 @@ const getTiers = (lang: 'pt' | 'en') => [
     features: [
       { icon: Layers, label: "Delta Neutral (Yield)" },
       { icon: Activity, label: "Weaver Grid V2" },
-      { icon: Cpu, label: lang === 'pt' ? "Multi-Par (3x)" : "Multi-Pair (3x)" }
+      { icon: Cpu, label: "Multi-Pair (3x)" }
     ],
-    description: lang === 'pt'
-      ? "Renda Passiva e Volume Constante. Use o Weaver Grid e Delta Neutral para farmar 24/7 sem risco direcional."
-      : "Passive Income and Constant Volume. Use Weaver Grid and Delta Neutral to farm 24/7 without directional risk."
+    description: "Passive Income and Constant Volume. Use Weaver Grid and Delta Neutral to farm 24/7 without directional risk."
   },
   {
     id: "architect",
     name: "INSTITUTIONAL PARTNER",
-    role: CONTENT[lang].sections.architect.role,
+    role: t.sections.architect.role,
     price: "DYNAMIC PEG",
     sbt: "OBI-ARCH",
     color: "yellow",
@@ -181,14 +116,12 @@ const getTiers = (lang: 'pt' | 'en') => [
       { icon: Zap, label: "Flash Scalper HFT" },
       { icon: Server, label: "Iron Dome VPS" }
     ],
-    description: lang === 'pt'
-      ? "Vantagem Competitiva (Edge). Acesso total à infraestrutura, OBI Oracle e execução prioritária."
-      : "Competitive Advantage (Edge). Full access to infrastructure, OBI Oracle, and priority execution."
+    description: "Competitive Edge. Full access to infrastructure, OBI Oracle, and priority execution."
   }
 ];
 
 // --- 3D Card Component ---
-function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang: 'pt' | 'en' }) {
+function TierCard3D({ tier }: { tier: ReturnType<typeof getTiers>[0] }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -250,7 +183,7 @@ function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang
           <div className="transform translate-z-30 mt-auto">
             <Link href={`/marketplace/${tier.id}`}>
               <button className={`w-full py-3 ${tier.bg} text-black font-bold text-sm rounded uppercase tracking-wider hover:opacity-90 transition-opacity shadow-lg shadow-${tier.color}-500/20`}>
-                {CONTENT[lang].mint_action} FOR BLACKLIST
+                {t.mint_action} FOR BLACKLIST
               </button>
             </Link>
           </div>
@@ -265,9 +198,7 @@ function TierCard3D({ tier, lang }: { tier: ReturnType<typeof getTiers>[0], lang
 
 export default function MarketplacePage() {
   const [search, setSearch] = useState("");
-  const { language } = useLanguage();
-  const t = CONTENT[language];
-  const TIERS = getTiers(language);
+  const TIERS = getTiers();
 
   return (
     <div className="min-h-screen bg-black text-white font-mono selection:bg-emerald-500/30">
@@ -316,7 +247,7 @@ export default function MarketplacePage() {
         {/* 3D Tier Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
            {TIERS.map((tier) => (
-             <TierCard3D key={tier.id} tier={tier} lang={language} />
+             <TierCard3D key={tier.id} tier={tier} />
            ))}
         </div>
 
@@ -332,19 +263,11 @@ export default function MarketplacePage() {
               </div>
               <h3 className="text-4xl font-bold text-white">PARTNER SCOUT: {t.sections.scout.role}</h3>
               <p className="text-zinc-400 text-lg leading-relaxed">
-                {language === 'pt' ? 
-                  <>
-                    Entrada e Validação. O **PARTNER SCOUT** é para quem quer parar de perder dinheiro e começar a operar com disciplina.
-                    <br/><br/>
-                    Sua missão é simples: **Sobreviver, Validar e Acumular.**
-                  </>
-                  :
                   <>
                     Entry and Validation. The **PARTNER SCOUT** is for those who want to stop losing money and start trading with discipline.
                     <br/><br/>
                     Your mission is simple: **Survive, Validate, and Accumulate.**
                   </>
-                }
               </p>
               <ul className="space-y-4">
                 {t.sections.scout.features.map((feat, i) => (
@@ -402,19 +325,11 @@ export default function MarketplacePage() {
               </div>
               <h3 className="text-4xl font-bold text-white">LIQUIDITY PROVIDER: {t.sections.commander.role}</h3>
               <p className="text-zinc-400 text-lg leading-relaxed">
-                {language === 'pt' ?
-                  <>
-                    Renda Passiva e Volume Constante. O **LIQUIDITY PROVIDER** libera o poder do Weaver Grid e Delta Neutral.
-                    <br/><br/>
-                    Ideal para quem busca **Yield Farming** sem exposição direcional ao mercado.
-                  </>
-                  :
                   <>
                     Passive Income and Constant Volume. The **LIQUIDITY PROVIDER** unleashes the power of Weaver Grid and Delta Neutral.
                     <br/><br/>
                     Ideal for those seeking **Yield Farming** without directional market exposure.
                   </>
-                }
               </p>
               <ul className="space-y-4">
                 {t.sections.commander.features.map((feat, i) => (
@@ -443,19 +358,11 @@ export default function MarketplacePage() {
               </div>
               <h3 className="text-4xl font-bold text-white">INSTITUTIONAL PARTNER: {t.sections.architect.role}</h3>
               <p className="text-zinc-400 text-lg leading-relaxed">
-                {language === 'pt' ?
-                  <>
-                    Vantagem Competitiva (Edge). O **INSTITUTIONAL PARTNER** oferece acesso total à infraestrutura e dados OBI.
-                    <br/><br/>
-                    Para quem opera grande e precisa de **Latência Zero e Informação Privilegiada.**
-                  </>
-                  :
                   <>
                     Competitive Advantage (Edge). The **INSTITUTIONAL PARTNER** offers full access to infrastructure and OBI data.
                     <br/><br/>
                     For those trading big who need **Zero Latency and Privileged Information.**
                   </>
-                }
               </p>
               <ul className="space-y-4">
                 {t.sections.architect.features.map((feat, i) => (

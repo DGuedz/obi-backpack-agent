@@ -3,10 +3,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calculator, Percent, BarChart3, Info } from 'lucide-react'
-import { useLanguage } from '../context/LanguageContext'
 
 export default function AirdropCalculator() {
-  const { language } = useLanguage()
   // Input States
   const [userPoints, setUserPoints] = useState<string>("1000")
   const [fdvBillions, setFdvBillions] = useState(0.7)
@@ -30,54 +28,28 @@ export default function AirdropCalculator() {
   const valuePerPoint = totalSeasonPoints > 0 ? totalAirdropValue / (totalSeasonPoints * 1_000_000) : 0
   const estimatedUserValue = numericPoints * valuePerPoint
 
-  const CONTENT = {
-    pt: {
-      epoch_badge: "ÉPOCA DE LIQUIDEZ 4",
-      title_projected: "RENDIMENTO",
-      title_yield: "PROJETADO",
-      epoch_status: "Status da Época 4",
-      window_active: "Janela de alocação ativa",
-      your_score: "Sua Pontuação de Volume",
-      fdv_label: "FDV (Valor Total Diluído)",
-      billion: "Bilhões",
-      allocation_label: "% Alocação",
-      supply: "Suprimento",
-      conservative: "Conservador (10%)",
-      optimistic: "Otimista (50%)",
-      point_val: "1 ponto ≈",
-      proj_alloc: "ALOCAÇÃO PROJETADA",
-      est_value: "VALOR ESTIMADO DA PARCERIA",
-      score: "PONTOS",
-      fdv: "FDV",
-      alloc: "ALOCAÇÃO",
-      analysis: "Análise por",
-      partner_intel: "Inteligência Parceira"
-    },
-    en: {
-      epoch_badge: "LIQUIDITY EPOCH 4",
-      title_projected: "PROJECTED",
-      title_yield: "YIELD",
-      epoch_status: "Epoch 4 Status",
-      window_active: "Allocation window active",
-      your_score: "Your Volume Score",
-      fdv_label: "FDV (Fully Diluted Valuation)",
-      billion: "Billion",
-      allocation_label: "% Allocation",
-      supply: "Supply",
-      conservative: "Conservative (10%)",
-      optimistic: "Optimistic (50%)",
-      point_val: "1 point ≈",
-      proj_alloc: "PROJECTED ALLOCATION",
-      est_value: "ESTIMATED PARTNERSHIP VALUE",
-      score: "SCORE",
-      fdv: "FDV",
-      alloc: "ALLOCATION",
-      analysis: "Analysis by",
-      partner_intel: "Partner Intelligence"
-    }
+  const t = {
+    epoch_badge: "LIQUIDITY EPOCH 4",
+    title_projected: "PROJECTED",
+    title_yield: "YIELD",
+    epoch_status: "Epoch 4 Status",
+    window_active: "Allocation window active",
+    your_score: "Your Volume Score",
+    fdv_label: "FDV (Fully Diluted Valuation)",
+    billion: "Billion",
+    allocation_label: "% Allocation",
+    supply: "Supply",
+    conservative: "Conservative (10%)",
+    optimistic: "Optimistic (50%)",
+    point_val: "1 point ≈",
+    proj_alloc: "PROJECTED ALLOCATION",
+    est_value: "ESTIMATED PARTNERSHIP VALUE",
+    score: "SCORE",
+    fdv: "FDV",
+    alloc: "ALLOCATION",
+    analysis: "Analysis by",
+    partner_intel: "Partner Intelligence"
   }
-
-  const t = CONTENT[language]
 
   return (
     <section className="py-16 md:py-20 bg-zinc-950 relative overflow-hidden">

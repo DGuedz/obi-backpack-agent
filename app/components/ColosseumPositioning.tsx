@@ -2,75 +2,39 @@
 
 import Link from "next/link";
 import { Target as TargetIcon } from "lucide-react";
-import { useLanguage } from "../context/LanguageContext";
 
 export default function ColosseumPositioning() {
-  const { language } = useLanguage();
 
-  const TRANSLATIONS = {
-    pt: {
-      badge: "COLOSSEUM S4 CANDIDATE",
-      title_prefix: "OBI AGENT",
-      title_suffix: "PROVA DE EXECUÇÃO",
-      desc_line1: "Agente autônomo que valida, simula e liquida ações on-chain.",
-      desc_line2: "Operação humana limitada a deploy e monitoramento.",
-      features: [
-        { title: "AgentWallet", desc: "Assinatura segura isolada" },
-        { title: "Heartbeat Sync", desc: "Status endpoints em tempo real" },
-        { title: "On-Chain Settle", desc: "Execução atômica na Solana" },
-      ],
-      problem: {
-        title: "O PROBLEMA",
-        desc: "Falta de prova verificável de contribuição em liquidez e sinais frágeis de execução real em agentes atuais.",
-        items: [
-          "Emoção humana impactando em perdas",
-          "Baixo Farm em Pepr Dex",
-          "Execução off-chain sem auditabilidade"
-        ]
-      },
-      solution: {
-        title: "A SOLUÇÃO",
-        desc: "Painel com métricas reais, provas e relatórios que validam o fluxo do agente do pré-flight à liquidação.",
-        items: [
-          "Validação pré-execução (State Check)",
-          "AgentWallet (Key Isolation)",
-          "Logs verificáveis on-chain"
-        ]
-      }
+  const t = {
+    badge: "COLOSSEUM S4 CANDIDATE",
+    title_prefix: "OBI AGENT",
+    title_suffix: "PROOF OF EXECUTION",
+    desc_line1: "Autonomous agent that validates, simulates, and settles on-chain actions.",
+    desc_line2: "Human operation limited to deploy and monitoring.",
+    features: [
+      { title: "AgentWallet", desc: "Secure isolated signing" },
+      { title: "Heartbeat Sync", desc: "Real-time status endpoints" },
+      { title: "On-Chain Settle", desc: "Atomic execution on Solana" },
+    ],
+    problem: {
+      title: "THE PROBLEM",
+      desc: "Lack of verifiable proof of liquidity contribution and fragile signals of real execution in current agents.",
+      items: [
+        "Human emotion impacting losses",
+        "Low Farm in Perp Dex",
+        "Off-chain execution without auditability"
+      ]
     },
-    en: {
-      badge: "COLOSSEUM S4 CANDIDATE",
-      title_prefix: "OBI AGENT",
-      title_suffix: "PROOF OF EXECUTION",
-      desc_line1: "Autonomous agent that validates, simulates, and settles on-chain actions.",
-      desc_line2: "Human operation limited to deploy and monitoring.",
-      features: [
-        { title: "AgentWallet", desc: "Secure isolated signing" },
-        { title: "Heartbeat Sync", desc: "Real-time status endpoints" },
-        { title: "On-Chain Settle", desc: "Atomic execution on Solana" },
-      ],
-      problem: {
-        title: "THE PROBLEM",
-        desc: "Lack of verifiable proof of liquidity contribution and fragile signals of real execution in current agents.",
-        items: [
-          "Human emotion impacting losses",
-          "Low Farm in Perp Dex",
-          "Off-chain execution without auditability"
-        ]
-      },
-      solution: {
-        title: "THE SOLUTION",
-        desc: "Dashboard with real metrics, proofs, and reports validating the agent flow from pre-flight to settlement.",
-        items: [
-          "Pre-execution validation (State Check)",
-          "AgentWallet (Key Isolation)",
-          "Verifiable on-chain logs"
-        ]
-      }
+    solution: {
+      title: "THE SOLUTION",
+      desc: "Dashboard with real metrics, proofs, and reports validating the agent flow from pre-flight to settlement.",
+      items: [
+        "Pre-execution validation (State Check)",
+        "AgentWallet (Key Isolation)",
+        "Verifiable on-chain logs"
+      ]
     }
   };
-
-  const t = TRANSLATIONS[language];
 
   return (
     <section className="relative z-10 py-16 md:py-24 bg-zinc-950 border-t border-zinc-800">

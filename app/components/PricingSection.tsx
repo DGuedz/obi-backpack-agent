@@ -5,7 +5,6 @@ import { Check, AlertTriangle, Cpu, Shield, Layers, Lock, UserPlus } from "lucid
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useLanguage } from "../context/LanguageContext";
 
 type TierColor = "emerald" | "blue" | "yellow";
 
@@ -54,95 +53,50 @@ const THEMES: Record<TierColor, Theme> = {
 };
 
 export default function PricingSection() {
-  const { language } = useLanguage();
   const searchParams = useSearchParams();
   const refCode = searchParams.get("ref");
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
 
-  const CONTENT = {
-    pt: {
-      title: "SEASON 4 BLACKLIST",
-      subtitle_1: "Acesso restrito à ",
-      subtitle_2: "Guilda de Mineração de Liquidez",
-      subtitle_3: ". Vagas limitadas para Early Adopters.",
-      desc: "Valores revelados apenas no lançamento. Garanta sua posição na lista de prioridade. ",
-      desc_highlight: "Apenas 15 vagas iniciais.",
-      harvester_notice: "O HARVESTER: Todos os tiers incluem uma obrigação contratual inteligente de 3% de Taxa de Sucesso. Acesso sujeito a aprovação.",
-      mint_button: "APLICAR PARA BLACKLIST",
-      price_label: "Contribuição Inicial",
-      network_label: "Rede: Solana Native",
-      badge_1: "RESTRICTED",
-      badge_2: "BLACKLIST",
-      tiers: [
-        { 
-          id: "scout", 
-          name: "PARTNER SCOUT", 
-          role: "The Soldier",
-          price: "REVEAL @ LAUNCH", 
-          weight: "1.0x", 
-          features: ["Acesso via CLI", "Estratégia Phoenix V2", "Limite Par Único", "3% Taxa de Sucesso"]
-        },
-        { 
-          id: "commander", 
-          name: "LIQUIDITY PROVIDER", 
-          role: "The Captain",
-          price: "REVEAL @ LAUNCH", 
-          weight: "1.5x", 
-          features: ["Weaver Grid V2", "Bot Delta Neutro", "Multi-Par (3x)", "3% Taxa de Sucesso"]
-        },
-        { 
-          id: "architect", 
-          name: "INSTITUTIONAL PARTNER", 
-          role: "The General",
-          price: "REVEAL @ LAUNCH", 
-          weight: "2.0x", 
-          features: ["Oráculo Market Proxy", "Flash Scalper HFT", "VPS Iron Dome", "RPC Prioritário"]
-        },
-      ]
-    },
-    en: {
-      title: "SEASON 4 BLACKLIST",
-      subtitle_1: "Restricted access to the ",
-      subtitle_2: "Liquidity Mining Guild",
-      subtitle_3: ". Limited spots for Early Adopters.",
-      desc: "Pricing revealed at launch. Secure your position on the priority list. ",
-      desc_highlight: "Only 15 initial spots.",
-      harvester_notice: "THE HARVESTER: All tiers include a smart contract obligation of 3% Success Fee. Access subject to approval.",
-      mint_button: "APPLY FOR BLACKLIST",
-      price_label: "Initial Contribution",
-      network_label: "Network: Solana Native",
-      badge_1: "RESTRICTED",
-      badge_2: "BLACKLIST",
-      tiers: [
-        { 
-          id: "scout", 
-          name: "PARTNER SCOUT", 
-          role: "The Soldier",
-          price: "REVEAL @ LAUNCH", 
-          weight: "1.0x", 
-          features: ["CLI Access", "Phoenix V2 Strategy", "Single Pair Limit", "3% Success Fee"]
-        },
-        { 
-          id: "commander", 
-          name: "LIQUIDITY PROVIDER", 
-          role: "The Captain",
-          price: "REVEAL @ LAUNCH", 
-          weight: "1.5x", 
-          features: ["Weaver Grid V2", "Delta Neutral Bot", "Multi-Pair (3x)", "3% Success Fee"]
-        },
-        { 
-          id: "architect", 
-          name: "INSTITUTIONAL PARTNER", 
-          role: "The General",
-          price: "REVEAL @ LAUNCH", 
-          weight: "2.0x", 
-          features: ["Market Proxy Oracle", "Flash Scalper HFT", "Iron Dome VPS", "Priority RPC"]
-        },
-      ]
-    }
+  const t = {
+    title: "SEASON 4 BLACKLIST",
+    subtitle_1: "Restricted access to the ",
+    subtitle_2: "Liquidity Mining Guild",
+    subtitle_3: ". Limited spots for Early Adopters.",
+    desc: "Values revealed only at launch. Secure your position on the priority list. ",
+    desc_highlight: "Only 15 initial spots.",
+    harvester_notice: "THE HARVESTER: All tiers include a smart contractual obligation of 3% Success Fee. Access subject to approval.",
+    mint_button: "APPLY FOR BLACKLIST",
+    price_label: "Initial Contribution",
+    network_label: "Network: Solana Native",
+    badge_1: "RESTRICTED",
+    badge_2: "BLACKLIST",
+    tiers: [
+      { 
+        id: "scout", 
+        name: "PARTNER SCOUT", 
+        role: "The Soldier",
+        price: "REVEAL @ LAUNCH", 
+        weight: "1.0x", 
+        features: ["CLI Access", "Phoenix V2 Strategy", "Single Pair Limit", "3% Success Fee"]
+      },
+      { 
+        id: "commander", 
+        name: "LIQUIDITY PROVIDER", 
+        role: "The Captain",
+        price: "REVEAL @ LAUNCH", 
+        weight: "1.5x", 
+        features: ["Weaver Grid V2", "Delta Neutral Bot", "Multi-Pair (3x)", "3% Success Fee"]
+      },
+      { 
+        id: "architect", 
+        name: "INSTITUTIONAL PARTNER", 
+        role: "The General",
+        price: "REVEAL @ LAUNCH", 
+        weight: "2.0x", 
+        features: ["Market Proxy Oracle", "Flash Scalper HFT", "Iron Dome VPS", "Priority RPC"]
+      },
+    ]
   };
-
-  const t = CONTENT[language];
   
   // Map icons and colors to tiers
   const TIER_META = [

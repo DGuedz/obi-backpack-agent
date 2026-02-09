@@ -10,7 +10,7 @@ const CLONE_MODELS = [
     id: "scout",
     name: "OBI SCOUT",
     codename: "THE GATEKEEPER",
-    desc: "Unidade tática leve. Focada em sobrevivência e proteção de capital.",
+    desc: "Light tactical unit. Focused on survival and capital protection.",
     icon: Shield,
     color: "text-emerald-500",
     border: "border-emerald-500/30",
@@ -21,7 +21,7 @@ const CLONE_MODELS = [
     id: "commander",
     name: "OBI COMMANDER",
     codename: "THE FARMER",
-    desc: "Unidade de campo pesado. Especialista em colheita de yield e volume.",
+    desc: "Heavy field unit. Specialist in yield harvesting and volume.",
     icon: Layers,
     color: "text-blue-500",
     border: "border-blue-500/30",
@@ -32,7 +32,7 @@ const CLONE_MODELS = [
     id: "architect",
     name: "OBI ARCHITECT",
     codename: "THE GOD MODE",
-    desc: "Unidade de comando estratégico. Visão total e infraestrutura dedicada.",
+    desc: "Strategic command unit. Total vision and dedicated infrastructure.",
     icon: Cpu,
     color: "text-yellow-500",
     border: "border-yellow-500/30",
@@ -70,9 +70,9 @@ export default function ClonesPage() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">CHOOSE YOUR <span className="text-emerald-500">WEAPON</span></h1>
           <p className="text-zinc-400 max-w-2xl mx-auto">
-            Cada Clone é uma licença de software autônoma, calibrada para um perfil operacional específico.
+            Each Clone is an autonomous software license, calibrated for a specific operational profile.
             <br/>
-            <span className="text-zinc-500">Selecione o modelo para iniciar a sequência de aquisição.</span>
+            <span className="text-zinc-500">Select the model to initiate the acquisition sequence.</span>
           </p>
         </div>
 
@@ -127,8 +127,8 @@ export default function ClonesPage() {
              PROTOCOL WARNING
            </h4>
            <p className="text-xs text-zinc-400">
-             A utilização de Clones não autorizados (piratas) resultará em banimento imediato da rede OBI.
-             Sempre verifique o hash do seu SBT após a emissão.
+             Using unauthorized (pirated) Clones will result in immediate ban from the OBI network.
+             Always verify your SBT hash after issuance.
            </p>
         </div>
 

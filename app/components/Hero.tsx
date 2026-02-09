@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motio
 import { Terminal, Shield, ChevronRight, Target } from "lucide-react"; 
  import Link from "next/link"; 
 import { useState, useEffect } from "react"; 
-import { useLanguage } from "../context/LanguageContext";
 import ObiWorkLogo from "./ObiWorkLogo"; 
 import SniperScope from "./SniperScope"; 
 
@@ -51,37 +50,23 @@ const ChartBackground = () => (
 );
 
 export default function Hero() { 
-   const { language } = useLanguage();
    // Mouse Interaction State 
    const [isFiring, setIsFiring] = useState(false); 
    const [isUnlocked, setIsUnlocked] = useState(false); // Default: Locked 
    const [isHit, setIsHit] = useState(false); // Visual feedback for shot impact
    const [textIndex, setTextIndex] = useState(0); 
 
-   const TRANSLATIONS = {
-     pt: {
-      phrases: [
-        "AUTONOMOUS", 
-        "SOLANA-NATIVE", 
-        "ON-CHAIN EXECUTION", 
-        "OBI AGENT", 
-        "BACKPACK S4" 
-      ],
-       clickToShoot: "< CLIQUE / TOQUE PARA DESBLOQUEAR ALPHA />"
-     },
-     en: {
-      phrases: [
-        "AUTONOMOUS", 
-        "SOLANA-NATIVE", 
-        "ON-CHAIN EXECUTION", 
-        "OBI AGENT", 
-        "BACKPACK S4" 
-      ],
-       clickToShoot: "< CLICK / TAP TO UNLOCK ALPHA />"
-     }
+   const t = {
+    phrases: [
+      "AUTONOMOUS", 
+      "SOLANA-NATIVE", 
+      "ON-CHAIN EXECUTION", 
+      "OBI AGENT", 
+      "BACKPACK S4" 
+    ],
+     clickToShoot: "< CLICK / TAP TO UNLOCK ALPHA />"
    };
 
-   const t = TRANSLATIONS[language];
    const PHRASES = t.phrases;
  
    useEffect(() => { 

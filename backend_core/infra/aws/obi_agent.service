@@ -1,0 +1,39 @@
+[Unit]
+Description=OBI WORK Agent (Institutional Grade Execution)
+After=network.target
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+# User Security
+User=obi_agent
+Group=obi_agent
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+
+# Environment
+Environment="AWS_MAX_ATTEMPTS=3"
+Environment="AWS_RETRY_MODE=adaptive"
+Environment="AWS_EC2_METADATA_DISABLED=true"
+Environment="PYTHONUNBUFFERED=1"
+
+# Execution
+WorkingDirectory=/opt/obi_work_core
+ExecStart=/usr/bin/python3 agent_guard.py --mode safe --max-workers 2 --timeout 30
+Restart=on-failure
+RestartSec=5s
+
+# Resource Limits (Hardening)
+MemoryMax=600M
+CPUQuota=50%
+LimitNOFILE=4096
+LimitNPROC=512
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=obi-agent
+
+[Install]
+WantedBy=multi-user.target

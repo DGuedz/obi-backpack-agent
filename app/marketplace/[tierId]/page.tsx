@@ -6,7 +6,6 @@ import { ArrowLeft, Check, Shield, Layers, Cpu, Server, Lock, UserPlus } from "l
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useLanguage, type Language } from "../../context/LanguageContext";
 
 // --- Dictionary ---
 type TierId = "scout" | "commander" | "architect";
@@ -19,31 +18,6 @@ type TierContent = {
   desc: string;
   benefits: string[];
   specs: TierSpec[];
-};
-
-type PageContent = {
-  back: string;
-  secure_connection: string;
-  access_denied: string;
-  return: string;
-  soulbound: string;
-  core_benefits: string;
-  total_investment: string;
-  season_pass: string;
-  available: string;
-  verifying: string;
-  minting: string;
-  success: string;
-  join: string;
-  dashboard: string;
-  harvester: string;
-  tech_specs: string;
-  spots_warning: string;
-  sections: {
-    scout: TierContent;
-    commander: TierContent;
-    architect: TierContent;
-  };
 };
 
 type TierData = {
@@ -63,159 +37,85 @@ type TierData = {
   technical_specs: TierSpec[];
 };
 
-const CONTENT: Record<Language, PageContent> = {
-  pt: {
-    back: "VOLTAR AO MARKETPLACE",
-    secure_connection: "CONEXÃO SEGURA",
-    access_denied: "ACESSO NEGADO",
-    return: "Voltar ao Marketplace",
-    soulbound: "SOULBOUND TOKEN:",
-    core_benefits: "BENEFÍCIOS PRINCIPAIS",
-    total_investment: "Contribuição Inicial",
-    season_pass: "Passe de Temporada",
-    available: "Apenas Whitelist",
-    verifying: "VERIFICANDO VAGAS...",
-    minting: "INICIANDO APLICAÇÃO...",
-    success: "REDIRECIONANDO",
-    join: "APLICAR PARA BLACKLIST",
-    dashboard: "ACESSAR TERMINAL",
-    harvester: "Inclui contrato de 3% de Taxa de Sucesso (The Harvester).",
-    spots_warning: "Vagas limitadas. Confirmação manual necessária.",
-    tech_specs: "ESPECIFICAÇÕES TÉCNICAS",
-    sections: {
-      scout: {
-        role: "O Soldado",
-        tagline: "Sobreviva. Acumule. Execute.",
-        desc: "O PARTNER SCOUT é a sua porta de entrada. Você recebe acesso ao CLI (Command Line Interface) para operar com a mesma infraestrutura dos profissionais, mas com proteções ativas (Sentinel) que impedem erros fatais.",
-        benefits: [
-          "Acesso Vitalício ao CLI",
-          "Estratégia Phoenix V2 (RSI + Bollinger)",
-          "Proteção Sentinel (Stop-Loss Inteligente)",
-          "Fee Saver Logic (Maker-Only)",
-          "Comunidade Discord (Scout Access)"
-        ],
-        specs: [
-          { label: "Velocidade Execução", value: "Padrão (API)" },
-          { label: "Max Threads", value: "1 Instância" },
-          { label: "Motor de Risco", value: "Modo Conservador" }
-        ]
-      },
-      commander: {
-        role: "O Capitão",
-        tagline: "Escalabilidade. Yield. Volume.",
-        desc: "Para quem joga o jogo do volume. O LIQUIDITY PROVIDER libera o poder das Subcontas e estratégias de Delta Neutral, permitindo que você farme Airdrops e taxas de Funding sem se expor à volatilidade do preço.",
-        benefits: [
-          "Tudo do Tier Scout",
-          "Módulo Delta Neutral (Yield Harvester)",
-          "Weaver Grid V2 (Volatility Harvesting)",
-          "Gestão de Subcontas (Multi-Strategy)",
-          "Prioridade na Fila de Execução"
-        ],
-        specs: [
-          { label: "Velocidade Execução", value: "Alta (Async)" },
-          { label: "Max Threads", value: "5 Instâncias" },
-          { label: "Motor de Risco", value: "Hedging Dinâmico" }
-        ]
-      },
-      architect: {
-        role: "O General",
-        tagline: "Visão Total. Domínio Absoluto.",
-        desc: "O ápice da cadeia alimentar. O INSTITUTIONAL PARTNER oferece acesso direto aos dados de Order Book Imbalance (OBI) e consultoria dedicada para transformar sua infraestrutura em um bunker financeiro.",
-        benefits: [
-          "Tudo do Tier Commander",
-          "Market Proxy Oracle (Acesso Dados OBI)",
-          "Websockets Dedicados (HFT)",
-          "Iron Dome Setup (VPS Blindada)",
-          "Consultoria 1-on-1 com Core Team"
-        ],
-        specs: [
-          { label: "Velocidade Execução", value: "Ultra-Baixa Latência" },
-          { label: "Max Threads", value: "Ilimitado" },
-          { label: "Motor de Risco", value: "Customizável" }
-        ]
-      }
-    }
-  },
-  en: {
-    back: "BACK TO MARKETPLACE",
-    secure_connection: "SECURE CONNECTION",
-    access_denied: "ACCESS DENIED",
-    return: "Return to Marketplace",
-    soulbound: "SOULBOUND TOKEN:",
-    core_benefits: "CORE BENEFITS",
-    total_investment: "Initial Contribution",
-    season_pass: "Season Pass",
-    available: "Whitelist Only",
-    verifying: "CHECKING SPOTS...",
-    minting: "STARTING APPLICATION...",
-    success: "REDIRECTING",
-    join: "APPLY FOR BLACKLIST",
-    dashboard: "ACCESS TERMINAL",
-    harvester: "Includes 3% Success Fee Contract (The Harvester).",
-    spots_warning: "Limited spots. Manual approval required.",
-    tech_specs: "TECHNICAL SPECIFICATIONS",
-    sections: {
-      scout: {
-        role: "The Soldier",
-        tagline: "Survive. Accumulate. Execute.",
-        desc: "The PARTNER SCOUT is your entry point. You get access to the CLI (Command Line Interface) to trade with the same infrastructure as professionals, but with active protections (Sentinel) that prevent fatal errors.",
-        benefits: [
-          "Lifetime CLI Access",
-          "Phoenix V2 Strategy (RSI + Bollinger)",
-          "Sentinel Protection (Smart Stop-Loss)",
-          "Fee Saver Logic (Maker-Only)",
-          "Discord Community (Scout Access)"
-        ],
-        specs: [
-          { label: "Execution Speed", value: "Standard (API)" },
-          { label: "Max Threads", value: "1 Instance" },
-          { label: "Risk Engine", value: "Conservative Mode" }
-        ]
-      },
-      commander: {
-        role: "The Captain",
-        tagline: "Scalability. Yield. Volume.",
-        desc: "For those playing the volume game. The LIQUIDITY PROVIDER unleashes the power of Subaccounts and Delta Neutral strategies, allowing you to farm Airdrops and Funding fees without price volatility exposure.",
-        benefits: [
-          "Everything in Scout Tier",
-          "Delta Neutral Module (Yield Harvester)",
-          "Weaver Grid V2 (Volatility Harvesting)",
-          "Subaccount Management (Multi-Strategy)",
-          "Execution Queue Priority"
-        ],
-        specs: [
-          { label: "Execution Speed", value: "High (Async)" },
-          { label: "Max Threads", value: "5 Instances" },
-          { label: "Risk Engine", value: "Dynamic Hedging" }
-        ]
-      },
-      architect: {
-        role: "The General",
-        tagline: "Total Vision. Absolute Dominion.",
-        desc: "The apex of the food chain. The INSTITUTIONAL PARTNER offers direct access to Order Book Imbalance (OBI) data and dedicated consultancy to transform your infrastructure into a financial bunker.",
-        benefits: [
-          "Everything in Commander Tier",
-          "Market Proxy Oracle (OBI Data Access)",
-          "Dedicated Websockets (HFT)",
-          "Iron Dome Setup (Armored VPS)",
-          "1-on-1 Consultancy with Core Team"
-        ],
-        specs: [
-          { label: "Execution Speed", value: "Ultra-Low Latency" },
-          { label: "Max Threads", value: "Unlimited" },
-          { label: "Risk Engine", value: "Customizable" }
-        ]
-      }
+const CONTENT = {
+  back: "BACK TO MARKETPLACE",
+  secure_connection: "SECURE CONNECTION",
+  access_denied: "ACCESS DENIED",
+  return: "Return to Marketplace",
+  soulbound: "SOULBOUND TOKEN:",
+  core_benefits: "CORE BENEFITS",
+  total_investment: "Initial Contribution",
+  season_pass: "Season Pass",
+  available: "Whitelist Only",
+  verifying: "CHECKING SPOTS...",
+  minting: "STARTING APPLICATION...",
+  success: "REDIRECTING",
+  join: "APPLY FOR BLACKLIST",
+  dashboard: "ACCESS TERMINAL",
+  harvester: "Includes 3% Success Fee Contract (The Harvester).",
+  spots_warning: "Limited spots. Manual approval required.",
+  tech_specs: "TECHNICAL SPECIFICATIONS",
+  sections: {
+    scout: {
+      role: "The Soldier",
+      tagline: "Survive. Accumulate. Execute.",
+      desc: "The PARTNER SCOUT is your entry point. You get access to the CLI (Command Line Interface) to trade with the same infrastructure as professionals, but with active protections (Sentinel) that prevent fatal errors.",
+      benefits: [
+        "Lifetime CLI Access",
+        "Phoenix V2 Strategy (RSI + Bollinger)",
+        "Sentinel Protection (Smart Stop-Loss)",
+        "Fee Saver Logic (Maker-Only)",
+        "Discord Community (Scout Access)"
+      ],
+      specs: [
+        { label: "Execution Speed", value: "Standard (API)" },
+        { label: "Max Threads", value: "1 Instance" },
+        { label: "Risk Engine", value: "Conservative Mode" }
+      ]
+    },
+    commander: {
+      role: "The Captain",
+      tagline: "Scalability. Yield. Volume.",
+      desc: "For those playing the volume game. The LIQUIDITY PROVIDER unleashes the power of Subaccounts and Delta Neutral strategies, allowing you to farm Airdrops and Funding fees without price volatility exposure.",
+      benefits: [
+        "Everything in Scout Tier",
+        "Delta Neutral Module (Yield Harvester)",
+        "Weaver Grid V2 (Volatility Harvesting)",
+        "Subaccount Management (Multi-Strategy)",
+        "Execution Queue Priority"
+      ],
+      specs: [
+        { label: "Execution Speed", value: "High (Async)" },
+        { label: "Max Threads", value: "5 Instances" },
+        { label: "Risk Engine", value: "Dynamic Hedging" }
+      ]
+    },
+    architect: {
+      role: "The General",
+      tagline: "Total Vision. Absolute Dominion.",
+      desc: "The apex of the food chain. The INSTITUTIONAL PARTNER offers direct access to Order Book Imbalance (OBI) data and dedicated consultancy to transform your infrastructure into a financial bunker.",
+      benefits: [
+        "Everything in Commander Tier",
+        "Market Proxy Oracle (OBI Data Access)",
+        "Dedicated Websockets (HFT)",
+        "Iron Dome Setup (Armored VPS)",
+        "1-on-1 Consultancy with Core Team"
+      ],
+      specs: [
+        { label: "Execution Speed", value: "Ultra-Low Latency" },
+        { label: "Max Threads", value: "Unlimited" },
+        { label: "Risk Engine", value: "Customizable" }
+      ]
     }
   }
 };
 
 // --- Data Generator ---
-const getTiersData = (lang: Language): Record<TierId, TierData> => ({
+const getTiersData = (): Record<TierId, TierData> => ({
   scout: {
     id: "scout",
     name: "PARTNER SCOUT",
-    role: CONTENT[lang].sections.scout.role,
+    role: CONTENT.sections.scout.role,
     price: 29.99,
     sbt: "OBI-SCOUT",
     color: "emerald",
@@ -223,15 +123,15 @@ const getTiersData = (lang: Language): Record<TierId, TierData> => ({
     border: "border-emerald-500",
     bg_gradient: "from-emerald-900/20 to-black",
     icon: Shield,
-    tagline: CONTENT[lang].sections.scout.tagline,
-    description: CONTENT[lang].sections.scout.desc,
-    benefits: CONTENT[lang].sections.scout.benefits,
-    technical_specs: CONTENT[lang].sections.scout.specs
+    tagline: CONTENT.sections.scout.tagline,
+    description: CONTENT.sections.scout.desc,
+    benefits: CONTENT.sections.scout.benefits,
+    technical_specs: CONTENT.sections.scout.specs
   },
   commander: {
     id: "commander",
     name: "LIQUIDITY PROVIDER",
-    role: CONTENT[lang].sections.commander.role,
+    role: CONTENT.sections.commander.role,
     price: 49.90,
     sbt: "OBI-CMDR",
     color: "blue",
@@ -239,15 +139,15 @@ const getTiersData = (lang: Language): Record<TierId, TierData> => ({
     border: "border-blue-500",
     bg_gradient: "from-blue-900/20 to-black",
     icon: Layers,
-    tagline: CONTENT[lang].sections.commander.tagline,
-    description: CONTENT[lang].sections.commander.desc,
-    benefits: CONTENT[lang].sections.commander.benefits,
-    technical_specs: CONTENT[lang].sections.commander.specs
+    tagline: CONTENT.sections.commander.tagline,
+    description: CONTENT.sections.commander.desc,
+    benefits: CONTENT.sections.commander.benefits,
+    technical_specs: CONTENT.sections.commander.specs
   },
   architect: {
     id: "architect",
     name: "INSTITUTIONAL PARTNER",
-    role: CONTENT[lang].sections.architect.role,
+    role: CONTENT.sections.architect.role,
     price: 99.00,
     sbt: "OBI-ARCH",
     color: "yellow",
@@ -255,10 +155,10 @@ const getTiersData = (lang: Language): Record<TierId, TierData> => ({
     border: "border-yellow-500",
     bg_gradient: "from-yellow-900/20 to-black",
     icon: Cpu,
-    tagline: CONTENT[lang].sections.architect.tagline,
-    description: CONTENT[lang].sections.architect.desc,
-    benefits: CONTENT[lang].sections.architect.benefits,
-    technical_specs: CONTENT[lang].sections.architect.specs
+    tagline: CONTENT.sections.architect.tagline,
+    description: CONTENT.sections.architect.desc,
+    benefits: CONTENT.sections.architect.benefits,
+    technical_specs: CONTENT.sections.architect.specs
   }
 });
 
@@ -277,9 +177,8 @@ export default function TierDetailPage() {
     cardCvc: "",
     cardBrand: "Visa"
   });
-  const { language } = useLanguage();
-  const t = CONTENT[language];
-  const tiersData = getTiersData(language);
+  const t = CONTENT;
+  const tiersData = getTiersData();
   const isValidTier = tierId === "scout" || tierId === "commander" || tierId === "architect";
   const tier = isValidTier ? tiersData[tierId as TierId] : undefined;
 
@@ -294,12 +193,12 @@ export default function TierDetailPage() {
   const handlePayment = async () => {
     setPaymentError(null);
     if (!tier) {
-      setPaymentError(language === "pt" ? "Plano inválido." : "Invalid tier.");
+      setPaymentError("Invalid tier.");
       setStatus("payment");
       return;
     }
     if (!paymentForm.walletAddress || !paymentForm.cardNumber || !paymentForm.cardHolder || !paymentForm.cardExpiry || !paymentForm.cardCvc) {
-      setPaymentError(language === "pt" ? "Preencha todos os campos obrigatórios." : "Fill in all required fields.");
+      setPaymentError("Fill in all required fields.");
       return;
     }
     setStatus("processing");
@@ -325,14 +224,14 @@ export default function TierDetailPage() {
       const data = await res.json();
       const paymentId = data?.Payment?.PaymentId;
       if (!res.ok || !paymentId) {
-        setPaymentError(language === "pt" ? "Falha no pagamento. Tente novamente." : "Payment failed. Try again.");
+        setPaymentError("Payment failed. Try again.");
         setStatus("payment");
         return;
       }
       setPaymentRef(paymentId);
       setStatus("success");
     } catch {
-      setPaymentError(language === "pt" ? "Falha no pagamento. Tente novamente." : "Payment failed. Try again.");
+      setPaymentError("Payment failed. Try again.");
       setStatus("payment");
     }
   };

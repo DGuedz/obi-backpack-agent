@@ -49,7 +49,7 @@ export default function ApplyPage() {
       });
       const data = await res.json();
       if (!res.ok || !data?.ok) {
-        setSubmitError("Falha ao enviar aplicação. Tente novamente.");
+        setSubmitError("Failed to submit application. Please try again.");
         setIsSubmitting(false);
         return;
       }
@@ -60,7 +60,7 @@ export default function ApplyPage() {
       setIsSubmitting(false);
       setIsSuccess(true);
     } catch {
-      setSubmitError("Falha ao enviar aplicação. Tente novamente.");
+      setSubmitError("Failed to submit application. Please try again.");
       setIsSubmitting(false);
     }
   };

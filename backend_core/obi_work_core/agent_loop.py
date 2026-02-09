@@ -1,6 +1,11 @@
 import time
 import sys
 import os
+import argparse
+import logging
+import signal
+import resource
+from datetime import datetime
 
 # Adjust path to include parent directory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -14,28 +19,45 @@ from obi_work_core.backpack_client import BackpackClient
 from obi_work_core.market_analyzer import MarketAnalyzer
 from obi_work_core.solana_signer import SolanaSigner
 
+# Configure Logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - [OBI-CORE] - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger(__name__)
+
 class AgentLoop:
     """
-    OBI WORK CORE - Main Execution Loop
+    OBI WORK CORE - Main Execution Loop (Institutional Grade)
     Orchestrates Identity, Context, Risk, Execution, and On-Chain Audit.
+    Includes Safety mechanisms: Resource Limits, Signal Handling, and Backoff.
     """
     
-    def __init__(self, vsc_file: str):
-        print("Initializing OBI WORK Agent Loop...")
+    def __init__(self, vsc_file: str, mode: str = 'standard', timeout: int = 30):
+        logger.info(f"Initializing OBI WORK Agent Loop (Mode: {mode.upper()})...")
+        self.mode = mode
+        self.timeout = timeout
+        self.running = True
+        self.last_tick = time.time()
         
+        # Setup Signal Handlers
+        signal.signal(signal.SIGINT, self._shutdown_handler)
+        signal.signal(signal.SIGTERM, self._shutdown_handler)
+
         # 1. Identity
         self.identity = AgentIdentity()
-        print(f"Identity Established: {self.identity.session_id}")
+        logger.info(f"Identity Established: {self.identity.session_id}")
         
         # 2. Context Load
         self.loader = ExecutionContextLoader(vsc_file)
         self.context = self.loader.load()
-        print(f"Context Loaded: {self.context['risk_profile']}")
+        logger.info(f"Context Loaded: {self.context.get('risk_profile', 'UNKNOWN')}")
         
         # 3. Intent Translation
         self.translator = IntentTranslator(self.context)
         self.strategy_config = self.translator.translate()
-        print(f"Strategy Configured: {self.strategy_config}")
+        logger.info(f"Strategy Configured: {self.strategy_config}")
         
         # 4. Infrastructure
         self.client = BackpackClient()
@@ -45,37 +67,76 @@ class AgentLoop:
         self.risk_engine = RiskDesignEngine(self.context)
         
         # Fetch real balance or fallback
-        # In production, fetch 'USDC' balance
-        current_balance = 1000.0 # Default fallback
+        current_balance = 1000.0 
         try:
-            # Simple check, assuming 1000 if fails for now to avoid blocking logic without keys
-            # In real scenario, use self.client.get_balance()
+            # self.client.get_balance() would go here
             pass 
-        except:
-            pass
+        except Exception as e:
+            logger.warning(f"Balance fetch failed: {e}. Using fallback.")
             
         self.constraints = self.risk_engine.generate_constraints(current_balance=current_balance)
         self.gatekeeper = RiskGatekeeper(self.constraints)
-        print(f"Risk Constraints Applied: {self.constraints}")
+        logger.info(f"Risk Constraints Applied: {self.constraints}")
         
+    def _shutdown_handler(self, signum, frame):
+        logger.info(f"Signal {signum} received. Initiating Graceful Shutdown...")
+        self.running = False
+
     def run(self):
-        print("\n--- ENTERING EXECUTION LOOP (Ctrl+C to Stop) ---")
-        try:
-            while True:
+        logger.info("--- ENTERING EXECUTION LOOP ---")
+        consecutive_errors = 0
+        
+        while self.running:
+            try:
+                loop_start = time.time()
+                
+                # Watchdog Check (Internal)
+                if loop_start - self.last_tick > self.timeout:
+                    logger.warning("Lag detected in execution cycle.")
+                
                 self._cycle()
-                time.sleep(0.5) # 0.5s Loop (HFT Optimization)
-        except KeyboardInterrupt:
-            print("\n--- SHUTDOWN SEQUENCE INITIATED ---")
-            print("Generating Final Audit Receipt...")
-            print(self.identity.get_identity_receipt())
-            print("Done.")
+                
+                # Reset error counter on success
+                consecutive_errors = 0
+                self.last_tick = time.time()
+                
+                # Rate Limit / HFT Pacing
+                time.sleep(0.5) 
+                
+            except KeyboardInterrupt:
+                self._shutdown_handler(signal.SIGINT, None)
+            except Exception as e:
+                consecutive_errors += 1
+                logger.error(f"Cycle Error: {e}")
+                
+                # Backoff Logic
+                backoff_time = min(2 ** consecutive_errors, 60)
+                logger.info(f"Backing off for {backoff_time}s...")
+                time.sleep(backoff_time)
+                
+                if consecutive_errors > 5:
+                    logger.critical("Too many consecutive errors. Aborting.")
+                    self.running = False
+
+        self._finalize()
+
+    def _finalize(self):
+        logger.info("--- SHUTDOWN SEQUENCE ---")
+        logger.info("Generating Final Audit Receipt...")
+        try:
+            receipt = self.identity.get_identity_receipt()
+            logger.info(f"Receipt Generated: {receipt.get('signature', 'UNSIGNED')[:10]}...")
+        except Exception as e:
+            logger.error(f"Failed to generate receipt: {e}")
+        logger.info("Agent Stopped Safely.")
 
     def _cycle(self):
         """Single Execution Cycle"""
         # A. Integrity Check
         if not self.identity.validate_integrity():
-            print("CRITICAL: INTEGRITY FAILURE. ABORTING.")
-            sys.exit(1)
+            logger.critical("INTEGRITY FAILURE. ABORTING.")
+            self.running = False
+            return
             
         # B. Market Scan & Execution per Asset
         assets = self.context.get('assets', [])
@@ -84,49 +145,101 @@ class AgentLoop:
             self._process_asset(symbol)
             
     def _process_asset(self, symbol: str):
-        # 1. Fetch Data (Candles + Ticker for Best Bid/Ask)
-        candles = self.client.get_candles(symbol, self.strategy_config.timeframe, limit=50)
-        ticker = self.client.get_ticker(symbol)
-        
-        if not candles or not ticker:
-            print(f"X", end="", flush=True)
-            return
+        # 1. Fetch Data
+        try:
+            candles = self.client.get_candles(symbol, self.strategy_config.timeframe, limit=50)
+            ticker = self.client.get_ticker(symbol)
+            
+            if not candles or not ticker:
+                return
 
-        # 2. Analyze
-        rsi = MarketAnalyzer.calculate_rsi(candles)
-        
-        # Use Ticker Best Bid/Ask if available, fallback to lastPrice
-        best_bid = float(ticker.get('bestBid', ticker.get('lastPrice')))
-        best_ask = float(ticker.get('bestAsk', ticker.get('lastPrice')))
-        
-        market_data = {
-            "symbol": symbol,
-            "best_bid": best_bid,
-            "best_ask": best_ask,
-            "rsi": rsi
-        }
-        
-        # 3. Evaluate
-        signal = self._evaluate_signal(market_data)
-        
-        if signal:
-            print(f"\n[{symbol}] Signal Detected: {signal['side']} @ RSI {rsi:.1f}")
+            # 2. Analyze
+            rsi = MarketAnalyzer.calculate_rsi(candles)
             
-            # 4. Risk Gatekeeper Check
-            allowed, reason = self.gatekeeper.check_order(
-                symbol=signal['symbol'],
-                side=signal['side'],
-                size_usd=signal['size'],
-                leverage=signal['leverage']
-            )
+            market_data = {
+                "symbol": symbol,
+                "best_bid": float(ticker.get('bestBid', 0)),
+                "best_ask": float(ticker.get('bestAsk', 0)),
+                "rsi": rsi
+            }
             
-            if allowed:
-                self._execute(signal)
-            else:
-                print(f" GATEKEEPER VETO: {reason}")
-        else:
-            # Heartbeat (Quiet)
-            pass
+            # 3. Evaluate
+            signal = self._evaluate_signal(market_data)
+            
+            if signal:
+                logger.info(f"[{symbol}] Signal Detected: {signal['side']} @ RSI {rsi:.1f}")
+                
+                # 4. Risk Gatekeeper Check
+                allowed, reason = self.gatekeeper.check_order(
+                    symbol=signal['symbol'],
+                    side=signal['side'],
+                    size_usd=signal['size'],
+                    leverage=signal['leverage']
+                )
+                
+                if allowed:
+                    self._execute(signal)
+                else:
+                    logger.warning(f"GATEKEEPER VETO: {reason}")
+
+        except Exception as e:
+            logger.debug(f"Asset processing error ({symbol}): {e}")
+            raise e # Re-raise to trigger backoff in main loop
+
+    def _evaluate_signal(self, data: dict):
+        """Simple RSI Strategy"""
+        rsi = data['rsi']
+        if rsi < 30:
+            return {
+                "symbol": data['symbol'],
+                "side": "Buy",
+                "size": 10.0, # Example fixed size
+                "leverage": 1,
+                "price": data['best_ask']
+            }
+        elif rsi > 70:
+            return {
+                "symbol": data['symbol'],
+                "side": "Sell",
+                "size": 10.0,
+                "leverage": 1,
+                "price": data['best_bid']
+            }
+        return None
+
+    def _execute(self, signal: dict):
+        """Execute Order via Backpack Client"""
+        logger.info(f"EXECUTING: {signal['side']} {signal['symbol']} ${signal['size']}")
+        # In real production, this calls self.client.execute_order(...)
+        # For now, we simulate execution log
+        self.solana_signer.sign_audit_receipt(signal)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='OBI WORK Agent Executor')
+    parser.add_argument('--vsc', type=str, default='vsc_instructions.txt', help='Path to VSC instruction file')
+    parser.add_argument('--mode', type=str, default='standard', choices=['standard', 'safe', 'aggressive'], help='Execution mode')
+    parser.add_argument('--max-workers', type=int, default=1, help='Max thread workers')
+    parser.add_argument('--timeout', type=int, default=30, help='Cycle timeout in seconds')
+    parser.add_argument('--memory-limit', type=int, default=512, help='Memory limit in MB')
+    parser.add_argument('--cpu-limit', type=int, default=1, help='CPU Core affinity (not strict limit in python)')
+    parser.add_argument('--log-level', type=str, default='INFO', help='Logging level')
+
+    args = parser.parse_args()
+    
+    # Set Logging Level
+    logger.setLevel(getattr(logging, args.log_level.upper()))
+    
+    # Set Resource Limits (Unix only)
+    try:
+        # Limit Memory (Soft and Hard limit)
+        mem_limit_bytes = args.memory_limit * 1024 * 1024
+        resource.setrlimit(resource.RLIMIT_AS, (mem_limit_bytes, mem_limit_bytes))
+        logger.info(f"Memory Limit set to {args.memory_limit}MB")
+    except Exception as e:
+        logger.warning(f"Could not set resource limits: {e}")
+
+    agent = AgentLoop(vsc_file=args.vsc, mode=args.mode, timeout=args.timeout)
+    agent.run()
             
     def _evaluate_signal(self, data: dict):
         """Simple evaluator based on translated config."""

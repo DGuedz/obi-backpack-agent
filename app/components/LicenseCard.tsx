@@ -54,7 +54,7 @@ export default function LicenseCard({ tierId, title, price, features }: LicenseC
           {step === 'success' || cardPaid ? (
             <div className="w-full py-3 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 rounded-lg font-mono font-bold text-center flex items-center justify-center gap-2">
               <CheckCircle className="w-5 h-5" />
-              LICENÇA ATIVA
+              LICENSE ACTIVE
             </div>
           ) : (
             <div className="space-y-2">

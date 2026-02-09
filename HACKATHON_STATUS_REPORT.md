@@ -1,51 +1,51 @@
-# Relatório de Status - Colosseum Hackathon (Solana)
-**Data:** 2026-02-08
-**Agente:** OBI Work Pair Programmer
+# Status Report - Colosseum Hackathon (Solana)
+**Date:** 2026-02-08
+**Agent:** OBI Work Pair Programmer
 
-## 1. Visão Geral
-O projeto **OBI Work** está posicionado como um **"Agent-native Trading Desk"**, focando em transparência e auditabilidade on-chain para bots de trading de alta frequência (HFT).
+## 1. Overview
+The **OBI Work** project is positioned as an **"Agent-native Trading Desk"**, focusing on transparency and on-chain auditability for high-frequency trading (HFT) bots.
 
-**Pontos Fortes Identificados:**
-- **Narrativa Sólida:** Foco em transformar "bots caixa-preta" em agentes auditáveis.
-- **Backpack Integration:** Já funcional (embora com desafios de saldo atuais).
-- **Prova de Volume:** Script `proof_of_volume.py` existente para gerar hashes de auditoria.
-- **Arquitetura Híbrida:** Next.js (Frontend) + Python (Core Logic) + Solana (Audit/Licensing).
+**Identified Strengths:**
+- **Solid Narrative:** Focus on transforming "black-box bots" into auditable agents.
+- **Backpack Integration:** Already functional (though with current balance challenges).
+- **Proof of Volume:** `proof_of_volume.py` script existing to generate audit hashes.
+- **Hybrid Architecture:** Next.js (Frontend) + Python (Core Logic) + Solana (Audit/Licensing).
 
-## 2. Status dos Componentes Chave
+## 2. Key Component Status
 
 ### A. Smart Contracts (Solana/Anchor)
-- **Localização:** `backend_core/obi_solana_core/programs/obi_pass/src/lib.rs`
-- **Estado:** **Básico Funcional**.
-    - O contrato `obi_pass` já define a estrutura para inicializar e "mintar" licenças.
-    - Usa **Token Extensions (Token 2022)**, o que é um diferencial positivo para o Hackathon.
-- **Gap:** A lógica de pagamento (`system_program::transfer`) está marcada como `TODO`. O contrato emite o token, mas ainda não cobra o SOL/USDC do usuário.
+- **Location:** `backend_core/obi_solana_core/programs/obi_pass/src/lib.rs`
+- **State:** **Basic Functional**.
+    - The `obi_pass` contract already defines the structure to initialize and "mint" licenses.
+    - Uses **Token Extensions (Token 2022)**, which is a positive differentiator for the Hackathon.
+- **Gap:** The payment logic (`system_program::transfer`) is marked as `TODO`. The contract emits the token but does not yet charge the user SOL/USDC.
 
 ### B. Frontend (dApp)
-- **Localização:** `app/` (Next.js App Router)
-- **Estado:** **Visualmente Rico**.
-    - Páginas de Dashboard, Subscription e Marketplace estruturadas.
-    - Uso de componentes modernos (Lucide React, Tailwind).
-- **Gap:** A integração com a Wallet é feita via **Cookies** (`obi_access_wallet`), o que é frágil e centralizado.
-    - **Recomendação:** Migrar para `solana-wallet-adapter` para que o usuário assine a transação de compra da licença diretamente no navegador.
+- **Location:** `app/` (Next.js App Router)
+- **State:** **Visually Rich**.
+    - Dashboard, Subscription, and Marketplace pages structured.
+    - Use of modern components (Lucide React, Tailwind).
+- **Gap:** Wallet integration is done via **Cookies** (`obi_access_wallet`), which is fragile and centralized.
+    - **Recommendation:** Migrate to `solana-wallet-adapter` so the user signs the license purchase transaction directly in the browser.
 
 ### C. Agent Core (Python)
-- **Localização:** `backend_core/`
-- **Estado:** **Robusto**.
-    - Múltiplos agentes especializados (Sniper, Sentinel, Harvester).
-    - Lógica de conexão com Backpack centralizada.
-- **Gap:** A "Prova de Volume" precisa ser mais visual. O Hackathon valoriza demonstrações gráficas.
+- **Location:** `backend_core/`
+- **State:** **Robust**.
+    - Multiple specialized agents (Sniper, Sentinel, Harvester).
+    - Centralized Backpack connection logic.
+- **Gap:** "Proof of Volume" needs to be more visual. The Hackathon values graphical demonstrations.
 
-## 3. Checklist Prioritário (Reta Final)
+## 3. Priority Checklist (Final Stretch)
 
-### 🚨 Crítico (Must Have)
-1.  [ ] **Contrato de Pagamento:** Implementar a transferência de SOL/USDC no contrato `obi_pass` antes do mint.
-2.  [ ] **Wallet Adapter no Frontend:** Substituir a verificação de cookie por uma conexão real com Phantom/Backpack Wallet no `app/dashboard/subscription/page.tsx`.
-3.  [ ] **Deploy na Devnet:** Publicar o contrato na Solana Devnet e testar o fluxo ponta a ponta (Connect -> Pay -> Mint -> Access).
+### 🚨 Critical (Must Have)
+1.  [ ] **Payment Contract:** Implement SOL/USDC transfer in the `obi_pass` contract before minting.
+2.  [ ] **Wallet Adapter in Frontend:** Replace cookie verification with real Phantom/Backpack Wallet connection in `app/dashboard/subscription/page.tsx`.
+3.  [ ] **Devnet Deploy:** Publish the contract to Solana Devnet and test the end-to-end flow (Connect -> Pay -> Mint -> Access).
 
-### 🌟 Diferencial (Should Have)
-1.  [x] **Visual Proof:** Uma página no Dashboard que consulta a blockchain e exibe "Última Auditoria: Hash X, Assinado por Y" com um link para o Solscan.
-    - *Status:* Implementado em `/dashboard/proof`.
-2.  [ ] **Vídeo Demo:** Gravar o agente operando no terminal e, simultaneamente, a transação de auditoria aparecendo no explorer.
+### 🌟 Differentiator (Should Have)
+1.  [x] **Visual Proof:** A Dashboard page querying the blockchain and displaying "Latest Audit: Hash X, Signed by Y" with a link to Solscan.
+    - *Status:* Implemented in `/dashboard/proof`.
+2.  [ ] **Demo Video:** Record the agent operating in the terminal and, simultaneously, the audit transaction appearing in the explorer.
 
-## 4. Próximo Passo Sugerido
-Focar imediatamente no **Smart Contract de Pagamento**. É o coração do modelo de negócios "On-Chain" que valida a categoria do Hackathon.
+## 4. Suggested Next Step
+Focus immediately on the **Payment Smart Contract**. It is the heart of the "On-Chain" business model that validates the Hackathon category.

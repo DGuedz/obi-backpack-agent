@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Activity, BarChart3, Lock, Medal, Trophy, CheckCircle2, Award, ShieldCheck, Terminal } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useLanguage } from "../context/LanguageContext";
 
 const terminalLogs = [
   { text: "> INITIALIZING LIQUIDITY CORE v1.0...", color: "text-zinc-300", delay: 100 },
@@ -80,66 +79,34 @@ const TerminalSimulation = () => {
 };
 
 export default function ProofSection() {
-  const { language } = useLanguage();
 
-  const TRANSLATIONS = {
-    pt: {
-      title: "PROVA DE VOLUME. REAL.",
-      desc_line1: "On-chain proof social com métricas reais da Backpack.",
-      desc_line2: "Logs e relatórios fazem parte do pipeline de validação do agente.",
-      stats: {
-        liquidity: "LIQUIDEZ PROVIDA",
-        rank: "RANK TEMPORADA 4",
-        uptime: "UPTIME DO SISTEMA",
-        level: "NÍVEL ATUAL"
-      },
-      verification_title: "VERIFICAÇÃO OFICIAL DA PLATAFORMA",
-      latest_proof: "ÚLTIMA PROVA:",
-      card_rank: {
-        title: "CONSISTENTE",
-        subtitle: "Nível de Engajamento",
-        status: "STATUS: VERIFICADO"
-      },
-      card_volume: {
-        label: "VERIFIED CONTRIBUTOR",
-        subtitle: "CONTRIBUIÇÃO TOTAL",
-        target: "Alvo: Nível 15 (Plat)"
-      },
-      card_badges: {
-        title: "Conquistas",
-        items: ["Top Contribuidor", "Liquidez Consistente", "Holder Longo Prazo", "Participante Ativo"]
-      }
+  const t = {
+    title: "PROOF OF VOLUME. REAL.",
+    desc_line1: "On-chain social proof with real metrics from Backpack.",
+    desc_line2: "Logs and reports are part of the agent validation pipeline.",
+    stats: {
+      liquidity: "LIQUIDITY PROVIDED",
+      rank: "SEASON 4 RANK",
+      uptime: "SYSTEM UPTIME",
+      level: "CURRENT LEVEL"
     },
-    en: {
-      title: "PROOF OF VOLUME. REAL.",
-      desc_line1: "On-chain social proof with real metrics from Backpack.",
-      desc_line2: "Logs and reports are part of the agent validation pipeline.",
-      stats: {
-        liquidity: "LIQUIDITY PROVIDED",
-        rank: "SEASON 4 RANK",
-        uptime: "SYSTEM UPTIME",
-        level: "CURRENT LEVEL"
-      },
-      verification_title: "OFFICIAL PLATFORM VERIFICATION",
-      latest_proof: "LATEST PROOF:",
-      card_rank: {
-        title: "CONSISTENT",
-        subtitle: "Engagement Level",
-        status: "STATUS: VERIFIED"
-      },
-      card_volume: {
-        label: "VERIFIED CONTRIBUTOR",
-        subtitle: "LIFETIME CONTRIBUTION",
-        target: "Target: Level 15 (Plat)"
-      },
-      card_badges: {
-        title: "Milestones",
-        items: ["Top Contributor", "Consistent Liquidity", "Long-Term Holder", "Active Participant"]
-      }
+    verification_title: "OFFICIAL PLATFORM VERIFICATION",
+    latest_proof: "LATEST PROOF:",
+    card_rank: {
+      title: "CONSISTENT",
+      subtitle: "Engagement Level",
+      status: "STATUS: VERIFIED"
+    },
+    card_volume: {
+      label: "VERIFIED CONTRIBUTOR",
+      subtitle: "LIFETIME CONTRIBUTION",
+      target: "Target: Level 15 (Plat)"
+    },
+    card_badges: {
+      title: "Milestones",
+      items: ["Top Contributor", "Consistent Liquidity", "Long-Term Holder", "Active Participant"]
     }
   };
-
-  const t = TRANSLATIONS[language];
 
   return (
     <section id="proof" className="relative py-16 md:py-24 bg-zinc-950 border-t border-zinc-900">

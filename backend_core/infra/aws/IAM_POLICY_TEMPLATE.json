@@ -1,0 +1,41 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowLogWriting",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:/aws/obi-agent/*"
+        },
+        {
+            "Sid": "AllowS3ReadConfig",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": "arn:aws:s3:::obi-work-config/vsc_instructions.txt"
+        },
+        {
+            "Sid": "AllowKMSDecrypt",
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Resource": "arn:aws:kms:us-east-1:123456789012:key/your-key-id"
+        },
+        {
+            "Sid": "DenyAllElse",
+            "Effect": "Deny",
+            "NotAction": [
+                "logs:*",
+                "s3:GetObject",
+                "kms:Decrypt"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
