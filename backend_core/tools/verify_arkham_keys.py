@@ -45,8 +45,8 @@ def verify():
         print("[ERRO] Chaves não encontradas no arquivo.")
         return
 
-    print(f"API KEY: {API_KEY[:10]}...")
-    print(f"API SECRET: {API_SECRET[:10]}...")
+    print(f"API KEY: {API_KEY[:4]}***REDACTED***")
+    print(f"API SECRET: {API_SECRET[:4]}***REDACTED***")
     
     # Testar Autenticação (Balance Query)
     base_url = "https://api.backpack.exchange"

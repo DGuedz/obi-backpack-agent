@@ -42,7 +42,8 @@ class ScalpLab:
         # 1. ANALYSIS & ENTRY
         print("1. Scanning Order Book (Best Bid)...")
         ticker = self.client.get_ticker(self.symbol)
-        best_bid = float(ticker.get('bestBid', 0))
+        # Fix: Round price to 2 decimals to match Tick Size constraints
+        best_bid = round(float(ticker.get('bestBid', 0)), 2)
         if best_bid == 0:
             print("CRITICAL: Failed to get Best Bid. Aborting.")
             return 0.0

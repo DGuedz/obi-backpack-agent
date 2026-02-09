@@ -1,7 +1,12 @@
 {
   "name": "OBI WORK: Agentic Liquidity Infrastructure",
-  "description": "Autonomous AI agent infrastructure providing 24/7 liquidity and multi-strategy execution (Scalp, Day, Swing, Position, Arb) on Backpack Exchange. Designed to act as a 'Yield Farming Agent' for Perp DEXs across the Solana ecosystem, automating volume generation and point farming strategies.",
+  "tagline": "The Sovereign Wealth Agent. Validated on Mainnet.",
+  "description": "Double Green (Solo Team). OBI is a sovereign hedge fund operating on Backpack Exchange. Unlike passive tools, OBI is an active capital allocator running high-frequency strategies (Scalp/Arb/Yield) with <400ms latency. We bridge the gap between 'Agentic AI' and 'Real Yield' by enforcing a 'Proof of Profit' protocol: every trade is cryptographically signed (Ed25519) and verified on-chain. This is not a simulation. This is OBI.",
   "repoLink": "https://github.com/DGuedz/obi-backpack-agent",
-  "solanaIntegration": "Uses Solana Signer (Ed25519) to publish cryptographic receipts of every trading operation directly on-chain. Integrates AgentWallet for secure key management. Positioned as a plug-and-play volume farmer for any Solana Perp DEX (Backpack, Jupiter, Drift, Zeta).",
-  "tags": ["trading", "ai", "defi"]
+  "technicalDemoLink": "https://obi-backpack-agent.vercel.app/",
+  "videoUrl": "",
+  "twitterUrl": "https://x.com/doublegreen",
+  "websiteUrl": "https://obi.money",
+  "tags": ["ai", "trading", "defi"],
+  "technologies": ["python", "solana", "backpack-api", "vsc-paradigm"]
 }

@@ -29,8 +29,8 @@ def debug_keys():
         print("[ERRO] BACKPACK_API_SECRET não encontrada no ambiente.")
         return
 
-    print(f"API KEY (Prefix): {API_KEY[:10]}...")
-    print(f"API SECRET (Prefix): {API_SECRET[:10]}...")
+    print(f"API KEY (Prefix): {API_KEY[:4]}***REDACTED***")
+    print(f"API SECRET (Prefix): {API_SECRET[:4]}***REDACTED***")
     
     # Testar Autenticação (Balance Query)
     base_url = "https://api.backpack.exchange"

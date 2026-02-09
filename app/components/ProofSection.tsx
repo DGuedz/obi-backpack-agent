@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Activity, BarChart3, Lock, Medal, Trophy, CheckCircle2, Award, ShieldCheck, Terminal } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useLanguage } from "../context/LanguageContext";
 
 const terminalLogs = [
   { text: "> INITIALIZING LIQUIDITY CORE v1.0...", color: "text-zinc-300", delay: 100 },
@@ -79,6 +80,67 @@ const TerminalSimulation = () => {
 };
 
 export default function ProofSection() {
+  const { language } = useLanguage();
+
+  const TRANSLATIONS = {
+    pt: {
+      title: "PROVA DE VOLUME. REAL.",
+      desc_line1: "On-chain proof social com métricas reais da Backpack.",
+      desc_line2: "Logs e relatórios fazem parte do pipeline de validação do agente.",
+      stats: {
+        liquidity: "LIQUIDEZ PROVIDA",
+        rank: "RANK TEMPORADA 4",
+        uptime: "UPTIME DO SISTEMA",
+        level: "NÍVEL ATUAL"
+      },
+      verification_title: "VERIFICAÇÃO OFICIAL DA PLATAFORMA",
+      latest_proof: "ÚLTIMA PROVA:",
+      card_rank: {
+        title: "CONSISTENTE",
+        subtitle: "Nível de Engajamento",
+        status: "STATUS: VERIFICADO"
+      },
+      card_volume: {
+        label: "VERIFIED CONTRIBUTOR",
+        subtitle: "CONTRIBUIÇÃO TOTAL",
+        target: "Alvo: Nível 15 (Plat)"
+      },
+      card_badges: {
+        title: "Conquistas",
+        items: ["Top Contribuidor", "Liquidez Consistente", "Holder Longo Prazo", "Participante Ativo"]
+      }
+    },
+    en: {
+      title: "PROOF OF VOLUME. REAL.",
+      desc_line1: "On-chain social proof with real metrics from Backpack.",
+      desc_line2: "Logs and reports are part of the agent validation pipeline.",
+      stats: {
+        liquidity: "LIQUIDITY PROVIDED",
+        rank: "SEASON 4 RANK",
+        uptime: "SYSTEM UPTIME",
+        level: "CURRENT LEVEL"
+      },
+      verification_title: "OFFICIAL PLATFORM VERIFICATION",
+      latest_proof: "LATEST PROOF:",
+      card_rank: {
+        title: "CONSISTENT",
+        subtitle: "Engagement Level",
+        status: "STATUS: VERIFIED"
+      },
+      card_volume: {
+        label: "VERIFIED CONTRIBUTOR",
+        subtitle: "LIFETIME CONTRIBUTION",
+        target: "Target: Level 15 (Plat)"
+      },
+      card_badges: {
+        title: "Milestones",
+        items: ["Top Contributor", "Consistent Liquidity", "Long-Term Holder", "Active Participant"]
+      }
+    }
+  };
+
+  const t = TRANSLATIONS[language];
+
   return (
     <section id="proof" className="relative py-16 md:py-24 bg-zinc-950 border-t border-zinc-900">
       <div className="container px-4 md:px-6 mx-auto">
@@ -86,22 +148,22 @@ export default function ProofSection() {
         {/* Header */}
         <div className="mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold font-mono tracking-tighter mb-4 text-white">
-            PROOF OF VOLUME. <span className="text-emerald-500">REAL.</span>
+            {t.title.split('.')[0]}. <span className="text-emerald-500">REAL.</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto font-mono">
-            On-chain proof social com métricas reais da Backpack.
+            {t.desc_line1}
             <br />
-            Logs e relatórios fazem parte do pipeline de validação do agente.
+            {t.desc_line2}
           </p>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {[
-            { label: "LIQUIDITY PROVIDED", value: "$2,272,666+", icon: BarChart3, color: "text-emerald-400" },
-            { label: "SEASON 4 RANK", value: "GOLD (2,628 pts)", icon: Trophy, color: "text-yellow-400" },
-            { label: "SYSTEM UPTIME", value: "99.9%", icon: Activity, color: "text-blue-400" },
-            { label: "CURRENT LEVEL", value: "LEVEL 14", icon: Medal, color: "text-emerald-400" },
+            { label: t.stats.liquidity, value: "$2,272,666+", icon: BarChart3, color: "text-emerald-400" },
+            { label: t.stats.rank, value: "GOLD (2,628 pts)", icon: Trophy, color: "text-yellow-400" },
+            { label: t.stats.uptime, value: "99.9%", icon: Activity, color: "text-blue-400" },
+            { label: t.stats.level, value: "LEVEL 14", icon: Medal, color: "text-emerald-400" },
           ].map((stat, i) => (
             <motion.div
               key={i}
@@ -126,13 +188,13 @@ export default function ProofSection() {
 
         {/* OFFICIAL BACKPACK VALIDATION */}
         <div className="mb-20">
-          <h3 className="text-xs font-mono text-zinc-500 mb-6 text-center uppercase tracking-[0.2em]">Official Platform Verification</h3>
+          <h3 className="text-xs font-mono text-zinc-500 mb-6 text-center uppercase tracking-[0.2em]">{t.verification_title}</h3>
           
           {/* HASH PROOF */}
           <div className="flex justify-center mb-8">
              <div className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/50 border border-zinc-800 rounded font-mono text-[10px] text-zinc-500 max-w-full overflow-hidden">
                 <Lock className="w-3 h-3 text-emerald-500 shrink-0" />
-                <span className="hidden sm:inline text-zinc-600">LATEST PROOF:</span>
+                <span className="hidden sm:inline text-zinc-600">{t.latest_proof}</span>
                 <span className="text-emerald-500/80 truncate">37b2ff414d5eceaaac6d408f1e32faac89fe446df4fa3ee07565e8464d43afc0</span>
              </div>
           </div>
@@ -148,9 +210,9 @@ export default function ProofSection() {
               <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mb-4 border border-yellow-700 shadow-lg shadow-black/50">
                 <Medal className="w-8 h-8 text-yellow-400" /> {/* Gold */}
               </div>
-              <div className="text-4xl font-bold text-white font-mono mb-1">CONSISTENT</div>
-              <div className="text-zinc-400 font-mono text-xs uppercase tracking-wider mb-3">Engagement Level</div>
-              <div className="px-3 py-1 bg-yellow-950/20 rounded text-xs text-yellow-400 font-mono border border-yellow-900/50">STATUS: VERIFIED</div>
+              <div className="text-4xl font-bold text-white font-mono mb-1">{t.card_rank.title}</div>
+              <div className="text-zinc-400 font-mono text-xs uppercase tracking-wider mb-3">{t.card_rank.subtitle}</div>
+              <div className="px-3 py-1 bg-yellow-950/20 rounded text-xs text-yellow-400 font-mono border border-yellow-900/50">{t.card_rank.status}</div>
             </motion.div>
 
             {/* CARD 2: VOLUME REPUTATION */}
@@ -163,17 +225,17 @@ export default function ProofSection() {
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-emerald-600 to-emerald-400"></div>
               <div className="text-xs font-mono text-emerald-500 mb-4 flex items-center gap-2 bg-emerald-950/30 px-3 py-1 rounded-full border border-emerald-900/50">
-                  <ShieldCheck className="w-3 h-3" /> VERIFIED CONTRIBUTOR
+                  <ShieldCheck className="w-3 h-3" /> {t.card_volume.label}
               </div>
               <div className="text-3xl font-bold text-white font-mono mb-1 tracking-tight">$2,272,000+</div>
-              <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-6">LIFETIME CONTRIBUTION</div>
+              <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest mb-6">{t.card_volume.subtitle}</div>
               
               <div className="w-full bg-zinc-950 h-3 rounded-full mb-2 overflow-hidden border border-zinc-800">
                   <div className="bg-emerald-500 h-full w-[94%] shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
               </div>
               <div className="flex justify-between w-full text-[10px] font-mono text-zinc-500 px-1">
                   <span>Level 14</span>
-                  <span className="text-emerald-500/70">Target: Level 15 (Plat)</span>
+                  <span className="text-emerald-500/70">{t.card_volume.target}</span>
               </div>
             </motion.div>
 
@@ -186,14 +248,14 @@ export default function ProofSection() {
               className="bg-zinc-900/80 border border-zinc-800 p-6 rounded-xl"
             >
               <div className="text-xs font-mono text-zinc-500 mb-4 uppercase tracking-wider flex items-center gap-2 justify-center md:justify-start">
-                <Trophy className="w-4 h-4 text-yellow-500" /> Milestones
+                <Trophy className="w-4 h-4 text-yellow-500" /> {t.card_badges.title}
               </div>
               <div className="space-y-3">
                   {[
-                    { name: "Top Contributor", color: "text-yellow-400", icon: Award, bg: "bg-yellow-950/20", border: "border-yellow-900/30" },
-                    { name: "Consistent Liquidity", color: "text-emerald-400", icon: Award, bg: "bg-emerald-950/20", border: "border-emerald-900/30" },
-                    { name: "Long-Term Holder", color: "text-blue-400", icon: CheckCircle2, bg: "bg-blue-950/20", border: "border-blue-900/30" },
-                    { name: "Active Participant", color: "text-orange-400", icon: Activity, bg: "bg-orange-950/20", border: "border-orange-900/30" },
+                    { name: t.card_badges.items[0], color: "text-yellow-400", icon: Award, bg: "bg-yellow-950/20", border: "border-yellow-900/30" },
+                    { name: t.card_badges.items[1], color: "text-emerald-400", icon: Award, bg: "bg-emerald-950/20", border: "border-emerald-900/30" },
+                    { name: t.card_badges.items[2], color: "text-blue-400", icon: CheckCircle2, bg: "bg-blue-950/20", border: "border-blue-900/30" },
+                    { name: t.card_badges.items[3], color: "text-orange-400", icon: Activity, bg: "bg-orange-950/20", border: "border-orange-900/30" },
                   ].map((badge, idx) => (
                     <div key={idx} className={`flex items-center gap-3 p-2 rounded border ${badge.bg} ${badge.border} hover:opacity-80 transition-opacity`}>
                         <badge.icon className={`w-4 h-4 ${badge.color}`} />
@@ -203,96 +265,9 @@ export default function ProofSection() {
               </div>
             </motion.div>
           </div>
-        </div>
-
-        {/* The "Difference" - Terminal Comparison */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          
-          {/* Left: The Pain (Retail) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="p-8 rounded-lg border border-red-900/20 bg-red-950/5 relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
-              <Activity className="w-24 h-24 text-red-500" />
-            </div>
-            <h3 className="text-xl font-bold text-red-400 font-mono mb-4">USO TRANSACTIONAL</h3>
-            <ul className="space-y-3 font-mono text-sm text-zinc-400">
-              <li className="flex items-start gap-2">
-                <span className="text-red-500">×</span>
-                <span>Emoção humana impactando em perdas</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500">×</span>
-                <span>Execução manual e reativa</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500">×</span>
-                <span>Baixo farm em PEPR DEX</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500">×</span>
-                <span>Sem prova verificável de contribuição em liquidez</span>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Right: The Solution (OBI Engineer) */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="p-8 rounded-lg border border-emerald-900/20 bg-emerald-950/5 relative overflow-hidden group"
-          >
-             <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
-              <Lock className="w-24 h-24 text-emerald-500" />
-            </div>
-            <h3 className="text-xl font-bold text-emerald-400 font-mono mb-4">OBI AGENT</h3>
-            <ul className="space-y-3 font-mono text-sm text-zinc-300">
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500"></span>
-                <span><strong>Prova Real:</strong> métricas e logs no pipeline de validação.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500"></span>
-                <span><strong>Relatórios:</strong> evidências verificáveis para o hackathon.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500"></span>
-                <span><strong>Reputação:</strong> transparência e auditabilidade contínuas.</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-emerald-500"></span>
-                <span><strong>Impacto:</strong> confiança com prova social real.</span>
-              </li>
-            </ul>
-          </motion.div>
 
         </div>
-        <div className="mt-16">
-          <h3 className="text-xs font-mono text-zinc-500 mb-4 text-center uppercase tracking-[0.2em]">Critérios do Hackathon</h3>
-          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              "Impacto com métricas reais de liquidez",
-              "Inovação aplicada ao agente e reputação",
-              "Execução técnica com pipeline verificável",
-              "Clareza na narrativa e evidências",
-            ].map((item) => (
-              <div key={item} className="p-4 border border-zinc-800 bg-zinc-900/40 rounded text-sm font-mono text-zinc-300">
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-12 flex justify-center">
-          <Link href="/dashboard">
-            <button className="px-8 py-4 bg-emerald-500 text-black font-bold font-mono rounded hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.6)]">
-              Ver evidências
-            </button>
-          </Link>
-        </div>
+
       </div>
     </section>
   );
